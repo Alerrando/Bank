@@ -1,4 +1,5 @@
 import { LucidePiggyBank } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -9,8 +10,8 @@ export function Header() {
   return (
     <header className="w-full h-auto bg-white fixed top-0 border-b border-b-[#00938c] z-10">
       <div className="w-11/12 h-full flex items-center justify-between mx-auto">
-        <Link href="/" className="h-16 w-16 cursor-pointer">
-          <LucidePiggyBank className="w-full h-full" />
+        <Link href="/" className="h-16 w-40 cursor-pointer relative">
+          <Image src="/logo.png" alt="logo in site" className="object-cover" fill={true} />
         </Link>
 
         <div className="w-auto h-full flex flex-row items-center justify-center gap-4 py-2">

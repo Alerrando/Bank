@@ -11,8 +11,6 @@ export default function Access(){
   const searchParams= useSearchParams();
   const access = searchParams.get('page') === "login" || searchParams.get('page') === null;
 
-  console.log(access);
-
   return (
     <>
       <Header />
