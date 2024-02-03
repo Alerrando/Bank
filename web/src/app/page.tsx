@@ -6,16 +6,14 @@ import { StateContext } from '@/context';
 import { useStore } from 'zustand';
 
 export default function Home() {
-  const store = useContext(StateContext)
-  const { user } = useStore(store)
+  const store = useContext(StateContext);
+  const { user } = useStore(store);
   const peoples = [
     '/people(1).jpg',
     '/people(2).jpg',
     '/people(3).jpg',
     '/people(4).jpg',
   ];
-
-  console.log(user);
 
   return (
     <>
