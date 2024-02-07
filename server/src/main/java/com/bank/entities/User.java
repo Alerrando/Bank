@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.Objects;
 
 @Table(name = "user")
 @Entity
@@ -43,6 +44,19 @@ public class User {
         this.cep = cep;
         this.address_number = address_number;
         this.total_value = total_value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(date_of_birth, user.date_of_birth) && Objects.equals(password, user.password) && Objects.equals(cpf, user.cpf) && Objects.equals(cep, user.cep) && Objects.equals(address_number, user.address_number) && Objects.equals(total_value, user.total_value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, date_of_birth, password, cpf, cep, address_number, total_value);
     }
 
     public boolean validateCPF() {
@@ -94,6 +108,8 @@ public class User {
         } catch (InputMismatchException erro) {
             return (false);
         }
+
+
     }
 
 }
