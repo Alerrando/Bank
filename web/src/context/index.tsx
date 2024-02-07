@@ -1,4 +1,5 @@
 "use client";
+import { useSearchParams } from 'next/navigation';
 import { createContext, useRef } from 'react';
 import { createStore } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -23,8 +24,13 @@ const ValuesDefault: UserProps = {
 
 export type ContextProps = {
   user: UserProps;
-  setUser: () => void;
+  setUser: (user: UserProps) => void;
 };
+
+const valuesContextDefault: ContextProps = {
+  user: ValuesDefault,
+  setUser: (user: UserProps) => {},
+}
 
 const useProviderStore = () => createStore(
   persist<ContextProps>((set) => ({
@@ -36,13 +42,22 @@ const useProviderStore = () => createStore(
   })
 );
 
-export const StateContext = createContext<ContextProps>();
+export const StateContext = createContext<ContextProps>(valuesContextDefault);
 
 export function StateProvider({ children }: { children: React.ReactNode }){
-  const store = useRef(useProviderStore()).current;
+  const { getState } = useRef(useProviderStore()).current;
+
   return (
-    <StateContext.Provider value={store}>
+    <StateContext.Provider value={getState()}>
       {children}
     </StateContext.Provider>
   );
 };
+
+export function redirectPage(redirect: string){
+  const searchParams = useSearchParams();
+
+  const params = new URLSearchParams(searchParams.toString())
+  params.set("page", redirect);
+  return params.toString();
+}

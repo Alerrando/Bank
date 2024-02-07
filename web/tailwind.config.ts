@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss"
-
+import { fontFamily } from "tailwindcss/defaultTheme";
+ 
 const config = {
   darkMode: ["class"],
   content: [
@@ -24,6 +25,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        princ: "#00938c",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -72,10 +74,10 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      gridTemplateColumns: {
-        "login": "45% 55%",
-        "inputs-register": "repeat(auto-fit, minmax(50%, 1fr))"
-      }
+
+      fontFamily: {
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
