@@ -78,6 +78,12 @@ const config = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      gridTemplateColumns: {
+        "inputs-register": "repeat(auto-fit, minmax(50%, 1fr))"
+      },
+      gridTemplateRows: {
+        "login": "45% 55%",
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

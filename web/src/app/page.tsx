@@ -2,15 +2,16 @@
 import Image from 'next/image';
 import { Header } from '@/components/Header';
 import { useContext } from 'react';
-import { StateContext, redirectPage } from '@/context';
+import { StateContext } from '@/context';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { ArrowRightIcon } from 'lucide-react';
 
 export default function Home() {
   const navigate = useRouter();
   const { user } = useContext(StateContext);
+  const searchParams = useSearchParams();
 
   return (
     <>
@@ -50,7 +51,7 @@ export default function Home() {
 
           <div className="w-full h-full flex flex-row items-center justify-start gap-4 py-2">
               <Button
-                className={twMerge("flex gap-2 items-center hover:bg-princ border-zinc-300 hover:border-princ hover:text-white group", "px-8 py-3 text-lg text-black")}
+                className={twMerge("flex gap-2 items-center hover:bg-princ border-zinc-300 hover:border-princ hover:text-white group", "px-8 py-4 text-lg text-black")}
                 variant="primary"
                 onClick={() => navigate.push(`access?${redirectPage("login")}`)}
               >
@@ -59,7 +60,7 @@ export default function Home() {
               </Button>
             
             <Button 
-              className={twMerge("flex gap-2 items-center bg-princ border-princ text-white hover:bg-transparent hover:text-princ group", "px-8 py-3 text-lg")}
+              className={twMerge("flex gap-2 items-center bg-princ border-princ text-white hover:bg-transparent hover:text-princ group", "px-8 py-4 text-lg")}
               variant="primary"
               onClick={() => navigate.push(`access?${redirectPage("register")}`)}
             >
@@ -77,4 +78,10 @@ export default function Home() {
       </main>
     </>
   );
+
+  function redirectPage(redirect: string){
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("page", redirect);
+    return params.toString();
+  }
 }
