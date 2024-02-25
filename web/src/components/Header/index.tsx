@@ -2,6 +2,7 @@ import { LucidePiggyBank } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Button } from '../ui/button';
 
 export function Header() {
   const navigate = useRouter();
@@ -15,19 +16,21 @@ export function Header() {
         </Link>
 
         <div className="w-auto h-full flex flex-row items-center justify-center gap-4 py-2">
-          <button
-            className="hover:bg-[#00938c] border border-transparent hover:border-[#00938c] hover:text-white px-4 py-1 rounded-lg cursor-pointer transition-all"
+          <Button
+            className="shadow-lg px-4 py-1"
             onClick={() => navigate.push(`access?${redirectPage("login")}`)}
+            variant="primary"
           >
             Login
-          </button>
+          </Button>
 
-          <button 
-            className="bg-[#00938c] border border-[#00938c] px-2 py-1 rounded-lg text-white hover:bg-transparent hover:text-[#00938c] transition-all"
+          <Button 
+            className="bg-[#00938c] border-[#00938c] px-2 py-1 text-white hover:bg-transparent hover:text-[#00938c]"
             onClick={() => navigate.push(`access?${redirectPage("register")}`)}
+            variant="primary"
             >
             Registrar-se
-          </button>
+          </Button>
         </div>
       </div>
     </header>

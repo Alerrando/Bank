@@ -36,12 +36,12 @@ export default function Home() {
 
           <div className="w-full h-auto flex items-center justify-end absolute top-[80%] md:top-[72%]">
             {peoples.map((people: string, index: number) => (
-              <div className="w-8 md:w-12 h-8 md:h-12 rounded-full relative" key={index}>
+              <div className="w-8 md:w-12 h-8 md:h-12 rounded-full relative" key={index} style={{ right: `${index * 16}px` }}
+              >
                 <Image
                   src={people}
                   alt=""
                   className={`rounded-full object-cover absolute inset-y-0`}
-                  style={{ right: `${index * 16}px` }}
                   fill={true}
                 />
               </div>
