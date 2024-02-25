@@ -55,8 +55,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
   } = useForm<SchemaType>({
     resolver: zodResolver(schema),
   });
-  const store = useContext(StateContext);
-  const { user } = useStore(store);
+  const { setUser } = useContext(StateContext);
   const navigate = useRouter();
 
   const inputs: InputsProps[] = [
@@ -228,22 +227,17 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
   function toastMessageLogin(
     message: { status: boolean; message: [] } | AxiosError
   ) {
-    const toastMessage: { status: string; message: [] } = {
-      message: !(message instanceof AxiosError)
-        ? 'Cadastro Realizado com sucesso!'
-        : message.response?.message,
-      status: !(message instanceof AxiosError) ? 'success' : 'error',
+    const toastMessage: { status: "success" | "error"; message: string } = {
+      message: !(response instanceof AxiosError)
+        ? 'Cadastro realizado com sucesso!'
+        : response.response?.message as string,
+      status: !(response instanceof AxiosError) ? 'success' : 'error',
     };
 
-    /* toast[toastMessage.status](toastMessage.message, {
+    toast[toastMessage.status](toastMessage.message, {
       position: 'bottom-left',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    }); */
+      icon: toastMessage.status == "success" ? <CheckCheck size={16} /> : <X  size={16} />,
+      onAutoClose: () => {}
+    });
   }
 }

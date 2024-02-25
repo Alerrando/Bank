@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss"
 import { fontFamily } from "tailwindcss/defaultTheme";
-
+ 
 const config = {
   darkMode: ["class"],
   content: [
@@ -25,6 +25,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        princ: "#00938c",
         primary: {
           DEFAULT: "#00938C",
         },
@@ -76,8 +77,10 @@ const config = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       gridTemplateColumns: {
-        "login": "45% 55%",
         "inputs-register": "repeat(auto-fit, minmax(50%, 1fr))"
+      },
+      gridTemplateRows: {
+        "login": "45% 55%",
       }
     },
   },

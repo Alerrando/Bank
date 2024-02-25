@@ -2,11 +2,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { login } from '../../../api';
-import { StateContext, UserProps, useNotionContext } from '../../../context';
+import { StateContext } from '../../../context';
 import { AxiosError } from 'axios';
-import { useStore } from 'zustand';
-import { useContext } from 'react';
+import { Key, useContext } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { CheckCheck, X } from 'lucide-react';
 
 const schema = z.object({
   email: z
@@ -29,7 +30,7 @@ export type InputsProps = {
   nameSpan: string;
   classNameGrid: string;
   placeholder: string;
-  name: string;
+  name: keyof SchemaType;
   type: string;
   mask?: string;
 };
@@ -42,8 +43,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   } = useForm<SchemaType>({
     resolver: zodResolver(schema),
   });
-  const store = useContext(StateContext);
-  const { user } = useStore(store);
+  const { setUser } = useContext(StateContext);
   const navigate = useRouter();
 
   const inputs: InputsProps[] = [
@@ -97,7 +97,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
             <div className={`w-full flex ${input.classNameGrid} justify-start`}>
               {errors[input.name] && (
                 <span className="text-red-600">
-                  {errors[input.name].message}
+                  {errors[input.name]?.message}
                 </span>
               )}
             </div>
@@ -132,40 +132,29 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
 
     if (aux.status) {
       const { created, ...restUser } = aux.message.user;
-      const user: UserProps = {
-        ...restUser,
-        token: aux.message.token.original.access_token,
-      };
 
-      setUser(user);
+      setUser(restUser);
     }
 
     toastMessageLogin(aux);
 
     setTimeout(() => {
-      navigate('/adm');
+      navigate.push('/adm');
     }, 5000);
   }
 
-  function toastMessageLogin(
-    message: { status: boolean; message: [] } | AxiosError
-  ) {
-    const toastMessage: { status: boolean; message: [] } = {
-      message: !(message instanceof AxiosError)
+  function toastMessageLogin(response: { status: boolean; message: [] } | AxiosError) {
+    const toastMessage: { status: "success" | "error"; message: string } = {
+      message: !(response instanceof AxiosError)
         ? 'Login realizado!'
-        : message.response?.message,
-      status: !(message instanceof AxiosError) ? 'success' : 'error',
+        : response.response?.message as string,
+      status: !(response instanceof AxiosError) ? 'success' : 'error',
     };
 
-    /* toast[toastMessage.status](toastMessage.message, {
+    toast[toastMessage.status](toastMessage.message, {
       position: 'bottom-left',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    }); */
+      icon: toastMessage.status == "success" ? <CheckCheck size={16} /> : <X  size={16} />,
+      onAutoClose: () => {}
+    });
   }
 }

@@ -1,15 +1,15 @@
 "use client";
+import { useSearchParams } from 'next/navigation';
 import { createContext, useRef } from 'react';
 import { createStore } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-type UserProps = {
+export type UserProps = {
   id: string;
   name: string;
   cpf: string;
   email: string;
   total_value: number;
-  token: string;
 };
 
 const ValuesDefault: UserProps = {
@@ -18,13 +18,17 @@ const ValuesDefault: UserProps = {
   cpf: '',
   email: '',
   total_value: 0,
-  token: '',
 };
 
 export type ContextProps = {
   user: UserProps;
-  setUser: () => void;
+  setUser: (user: UserProps) => void;
 };
+
+const valuesContextDefault: ContextProps = {
+  user: ValuesDefault,
+  setUser: (user: UserProps) => {},
+}
 
 const useProviderStore = () => createStore(
   persist<ContextProps>((set) => ({
@@ -36,12 +40,13 @@ const useProviderStore = () => createStore(
   })
 );
 
-export const StateContext = createContext<ContextProps>();
+export const StateContext = createContext<ContextProps>(valuesContextDefault);
 
 export function StateProvider({ children }: { children: React.ReactNode }){
-  const store = useRef(useProviderStore()).current;
+  const { getState } = useRef(useProviderStore()).current;
+
   return (
-    <StateContext.Provider value={store}>
+    <StateContext.Provider value={getState()}>
       {children}
     </StateContext.Provider>
   );

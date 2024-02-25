@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FormLogin } from "./FormLogin";
 import { FormRegister } from "./FormRegister";
 import "./access.css"
+import { Toaster } from "@/components/ui/sonner";
 
 export default function Access(){
   const searchParams= useSearchParams();
@@ -16,7 +17,7 @@ export default function Access(){
       <Header />
 
       <main
-        className={`w-screen h-[calc(100vh-_64px)] grid grid-cols-login mt-[64px] 
+        className={`w-screen h-[calc(100vh-_64px)] grid grid-rows-login mt-[64px] 
                 ${access
                     ? 'md:grid-cols-inputs-register'
                     : 'md:grid-cols-[60%_40%]'
@@ -30,7 +31,7 @@ export default function Access(){
           <Image
             src={access ? '/aside-login.svg' : '/aside-register.svg'}
             alt=""
-            className="w-10/12 h-full mx-auto"
+            className="w-full md:w-10/12 h-full mx-auto"
             fill={true}
           />
         </aside>
@@ -43,6 +44,8 @@ export default function Access(){
           )}
         </div>
       </main>
+
+      <Toaster />
     </>
   );
 
