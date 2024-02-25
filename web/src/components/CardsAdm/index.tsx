@@ -1,6 +1,17 @@
+import { IconNode } from "lucide-react";
 import "./CardsAdm.css";
 
-export function CardsAdm({ numberMoney, iconCard, textBodyCard, colorPrinc = "#fff", arrowIndication, porcentMonth, colorInfosMonth }){
+export type CardsAdmProps = {
+    numberMoney: number; 
+    iconCard: IconNode;
+    textBodyCard: string;
+    colorPrinc: string;
+    arrowIndication?: IconNode;
+    porcentMonth: string,
+    colorInfosMonth: string;
+}
+
+export function CardsAdm({ numberMoney, iconCard, textBodyCard, colorPrinc = "#fff", arrowIndication, porcentMonth, colorInfosMonth }: CardsAdmProps){
     return(
         <div className={`w-[26%] h-3/4 max-h-52 flex flex-col items-start gap-5 p-4 rounded-lg shadow-lg`} style={{ background: colorPrinc }}>
             <header className="flex items-center justify-between">

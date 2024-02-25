@@ -10,6 +10,7 @@ import { createUser } from '../../../api';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useStore } from 'zustand';
+import { CheckCheck, X } from 'lucide-react';
 
 const schema = z.object({
   name: z

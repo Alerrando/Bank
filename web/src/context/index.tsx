@@ -3,14 +3,8 @@ import { useSearchParams } from 'next/navigation';
 import { createContext, useRef } from 'react';
 import { createStore } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { UserProps } from './types';
 
-export type UserProps = {
-  id: string;
-  name: string;
-  cpf: string;
-  email: string;
-  total_value: number;
-};
 
 const ValuesDefault: UserProps = {
   id: '',
