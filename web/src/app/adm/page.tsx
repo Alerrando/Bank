@@ -80,8 +80,8 @@ export default function Adm(){
                     </div>
                 </section>
 
-                <section className="max-w-[30%] grid gap-8 shadow-lg mx-6 pt-2 pb-4">
-                    <header className="w-full flex items-center justify-between  px-3">
+                <section className="h-full max-h-[50%] max-w-[30%] flex flex-col gap-8 border border-zinc-100 shadow-lg mx-6 pt-2 pb-4 rounded-lg">
+                    <header className="w-full h-min flex items-center justify-between px-3">
                         <span className="after:block after:absolute after:w-full after:h-[2px] after:bg-primary relative">All</span>
                         <span>Deposits</span>
                         <span>Transfers</span>
@@ -100,20 +100,20 @@ export default function Adm(){
                         <tbody className="py-2">
                             <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
                                 <td className="pl-3 py-1"><HandCoins size={34} /></td>
-                                <td className="font-semibold text-princ text-sm py-1">DEP0001</td>
-                                <td className="font-semibold text-zinc-400 text-sm py-1">51858773830</td>
-                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1">
-                                    <span className="font-semibold text-princ text-sm py-2">R$ 55,00</span>
+                                <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
+                                <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
+                                    <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
                                     <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
                                 </td>
                             </tr>
 
                             <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
                                 <td className="pl-3 py-1"><ArrowLeftRight size={34} /></td>
-                                <td className="font-semibold text-princ text-sm py-1">TRANSFER001</td>
-                                <td className="font-semibold text-zinc-400 text-sm py-1">51858773830</td>
-                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1">
-                                    <span className="font-semibold text-princ text-sm py-2">R$ 55,00</span>
+                                <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
+                                <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
+                                    <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
                                     <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
                                 </td>
                             </tr>

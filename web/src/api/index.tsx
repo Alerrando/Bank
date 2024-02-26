@@ -1,6 +1,5 @@
+import { SchemaTypeRegister } from '@/app/access/FormRegister';
 import axios from 'axios';
-import { UserRegister } from '../context';
-
 const url = 'http://localhost:80/users';
 
 export async function getAllUsers() {
@@ -14,7 +13,7 @@ export async function getAllUsers() {
   return aux;
 }
 
-export async function createUser(register: UserRegister) {
+export async function createUser(register: SchemaTypeRegister) {
   const aux = await axios
     .post(url, register)
     .then((res) => res.data)

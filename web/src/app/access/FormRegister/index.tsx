@@ -42,7 +42,7 @@ const schema = z.object({
     .max(255, 'O nome deve ter no máximo 255 caracteres'),
 });
 
-export type SchemaType = z.infer<typeof schema>;
+export type SchemaTypeRegister = z.infer<typeof schema>;
 
 type FormRegisterProps = {
   handleTogglePages: (accessNow: string) => void;
@@ -53,7 +53,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SchemaType>({
+  } = useForm<SchemaTypeRegister>({
     resolver: zodResolver(schema),
   });
   const { setUser } = useContext(StateContext);
@@ -197,7 +197,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
     </>
   );
 
-  async function submit(e: SchemaType) {
+  async function submit(e: SchemaTypeRegister) {
     const { date_of_birth, ...rest } = e;
     const newDateOfBirth = new Date(date_of_birth);
     const register: UserRegister = {
