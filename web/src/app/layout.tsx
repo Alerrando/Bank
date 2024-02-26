@@ -1,12 +1,10 @@
-// layout.tsx
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google"
 import "./globals.css";
 import { StateProvider } from "../context";
 import { cn } from "@/lib/utils";
 
-export const fontSans = Inter({
+const fontSans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 })

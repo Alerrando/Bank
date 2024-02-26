@@ -30,7 +30,7 @@ const useProviderStore = () => createStore(
     setUser: (user: UserProps) => set({ user }),
   }), {
     name: 'user',
-    getStorage: () => localStorage,
+    skipHydration: true,
   })
 );
 

@@ -1,8 +1,11 @@
-import { Bell, Settings } from "lucide-react";
+"use client";
+
+import { ArrowLeftRight, Bell, HandCoins, Settings } from "lucide-react";
 import AdmAside from "./AdmAside";
 import { CardsAdm, CardsAdmProps } from "@/components/CardsAdm";
 import Image from "next/image";
 import { CardWalletProps } from "@/context/types";
+import { useEffect } from "react";
 
 export default function Adm(){
     const cardsWallet: CardWalletProps[] = [
@@ -10,41 +13,32 @@ export default function Adm(){
             name: "Main Wallet",
             limit: "$45.500,12",
             numberCard: "444 221 224 ***",
-            gradient: {
-                start: "rgba(133,85,193,1)",
-                end: "rgba(180,105,255,1)"
-            }
+            gradient: "bg-gradient-to-r from-[#B469FF] from-0% via-[#8555C1] via-100%",
         },
         {
             name: "Main Wallet",
             limit: "$45.500,12",
             numberCard: "444 221 224 ***",
-            gradient: {
-                start: "rgba(248,104,147,1)",
-                end: "rgba(218,28,199,1)"
-            }
+            gradient: "bg-gradient-to-r from-[#F86893] from-0% via-[#DA1CC7] via-100%",            
         },
         {
             name: "XYZ Wallet",
             limit: "$250,5",
             numberCard: "444 221 224 ***",
-            gradient: {
-                start: "rgba(141,210,52,1)",
-                end: "rgba(46,175,74,1)"
-            }
+            gradient: "bg-gradient-to-r from-[#8DD234] from-0% via-[#2EAF4A] via-100%",
         },
 
         {
             name: "XYZ Wallet",
             limit: "$250,5",
             numberCard: "444 221 224 ***",
-            gradient: {
-                start: "rgba(108,149,255,1)",
-                end: "rgba(61,105,219,1)"
-            }
+            gradient: "bg-gradient-to-r from-[#6C95FF] from-0% via-[#3D69DB] via-100%",
         },
-       
     ]
+
+    useEffect(() => {
+        setTimeout(() => {}, 3000);
+    }, []);
 
     return(
         <>
@@ -63,9 +57,9 @@ export default function Adm(){
                     <h2 className="text-lg font-semibold">My Cards</h2>
 
                     <div className="w-full flex items-center gap-3">
-                    {cardsWallet.map((card: CardWalletProps, index: Key) => (
+                        {cardsWallet.map((card: CardWalletProps, index: Key) => (
                             <>
-                                <div className={`w-[30%] h-52 flex flex-col items-start justify-between text-white bg-gradient-to-r from-[${card.gradient.start}] from-0% via-[${card.gradient.end}] via-100% rounded-lg relative p-8`}>
+                                <div className={`w-[30%] h-52 flex flex-col items-start justify-between text-white ${card.gradient} rounded-lg relative p-8`}>
                                     <div className="grid gap-2">
                                         <span className="font-bold opacity-60">{card.name}</span>
                                         <h3 className="text-3xl font-semibold">{card.limit}</h3>
@@ -79,11 +73,52 @@ export default function Adm(){
                                             <div className="w-6 h-6 bg-[#F2F2F2] opacity-30 rounded-full order-2"></div>
                                         </div>
                                     </div>
-                                    <Image src="/waveElements.png" className="w-full h-full opacity-60" alt="" fill={true} />
+                                    <Image src="/waveElements.png" className="w-full h-full opacity-80" alt="" fill={true} />
                                 </div>
                             </>
                         ))}
                     </div>
+                </section>
+
+                <section className="max-w-[30%] grid gap-8 shadow-lg mx-6 pt-2 pb-4">
+                    <header className="w-full flex items-center justify-between  px-3">
+                        <span className="after:block after:absolute after:w-full after:h-[2px] after:bg-primary relative">All</span>
+                        <span>Deposits</span>
+                        <span>Transfers</span>
+                    </header>
+
+                    <table className="w-full">
+                        <thead className="bg-princ text-white">
+                            <tr>
+                                <th className="px-3 text-start">Icon</th>
+                                <th className="px-3">Cod</th>
+                                <th className="px-3">Cpf</th>
+                                <th className="px-3">Infos</th>
+                            </tr>
+                        </thead>
+
+                        <tbody className="py-2">
+                            <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
+                                <td className="pl-3 py-1"><HandCoins size={34} /></td>
+                                <td className="font-semibold text-princ text-sm py-1">DEP0001</td>
+                                <td className="font-semibold text-zinc-400 text-sm py-1">51858773830</td>
+                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1">
+                                    <span className="font-semibold text-princ text-sm py-2">R$ 55,00</span>
+                                    <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
+                                </td>
+                            </tr>
+
+                            <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
+                                <td className="pl-3 py-1"><ArrowLeftRight size={34} /></td>
+                                <td className="font-semibold text-princ text-sm py-1">TRANSFER001</td>
+                                <td className="font-semibold text-zinc-400 text-sm py-1">51858773830</td>
+                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1">
+                                    <span className="font-semibold text-princ text-sm py-2">R$ 55,00</span>
+                                    <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </section>
             </main>
         </>

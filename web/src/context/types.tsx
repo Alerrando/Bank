@@ -10,8 +10,5 @@ export type CardWalletProps = {
   name: string;
   limit: string;
   numberCard: string;
-  gradient: {
-    start: string;
-    end: string;
-  }
+  gradient: string;
 }
