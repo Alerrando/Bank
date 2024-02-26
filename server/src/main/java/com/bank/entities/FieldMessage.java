@@ -1,13 +1,13 @@
 package com.bank.entities;
 
-public class FieldError {
+public class FieldMessage {
     private String fieldName;
     private String defaultMessage;
 
-    public FieldError(){
+    public FieldMessage(){
     }
 
-    public FieldError(String fieldName, String defaultMessage){
+    public FieldMessage(String fieldName, String defaultMessage){
         this.fieldName = fieldName;
         this.defaultMessage = defaultMessage;
     }
