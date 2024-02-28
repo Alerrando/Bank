@@ -1,5 +1,6 @@
 package com.bank.services;
 
+import com.bank.dto.UserDTO;
 import com.bank.entities.Addresses;
 import com.bank.entities.User;
 import com.bank.repositories.UserRepository;
@@ -45,5 +46,14 @@ public class UserService{
         userRepository.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado!");
+    }
+
+    public ResponseEntity<String> login(UserDTO user){
+        Optional<User> userSearch = userRepository.findByEmail(user.getEmail());
+        if(!userSearch.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Login não encontrado");
+        }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Usuário logado!");
     }
 }
