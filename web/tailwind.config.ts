@@ -53,6 +53,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        modal: "rgba(0, 0, 0, 0.5)"
       },
       borderRadius: {
         lg: "var(--radius)",
