@@ -226,13 +226,13 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
   }
 
   function toastMessageLogin(
-    message: { status: boolean; message: [] } | AxiosError
+    message: { status: boolean; message: [] } | any
   ) {
     const toastMessage: { status: "success" | "error"; message: string } = {
-      message: !(response instanceof AxiosError)
+      message: !(response instanceof any)
         ? 'Cadastro realizado com sucesso!'
         : response.response?.message as string,
-      status: !(response instanceof AxiosError) ? 'success' : 'error',
+      status: !(response instanceof any) ? 'success' : 'error',
     };
 
     toast[toastMessage.status](toastMessage.message, {

@@ -9,14 +9,14 @@ export default function AdmAside() {
     const navigate = useRouter();
 
     return (
-        <aside className={twMerge("hidden md:w-[11%] h-screen bg-[#222831] py-3 absolute inset-0", 
-                    `${access && 'w-full bg-modal h-screen fixed inset-0 z-10 py-0'}`)}
+        <aside className={twMerge("w-[11%] h-screen bg-[#222831] py-3 absolute inset-0", 
+                    `${access ? 'sm:w-full sm:bg-modal sm:h-screen sm:fixed sm:inset-0 sm:z-10 sm:py-0' : "hidden md:block"}`)}
             >
-            <div className={twMerge("w-full h-auto flex flex-col gap-7", `${access && "w-[30%] h-full bg-zinc-700 py-2 gap-12"}`)}>
-                <div className={twMerge("w-full h-12 flex items-center justify-start relative px-2", `${access && "justify-end"}`)}>
-                    <Image className={twMerge("w-full h-full object-cover left-[-6px!important]", `${access && "left-[-13%!important]"}`)} src="/logo.png" alt="logo" fill={true} />
+            <div className={twMerge("w-full h-auto flex flex-col gap-7", `${access && "sm:w-[65%] sm:h-full sm:bg-zinc-700 sm:py-2 sm:gap-12"}`)}>
+                <div className={twMerge("w-full h-12 flex items-center justify-start relative px-2", `${access && "sm:justify-end"}`)}>
+                    <Image className={twMerge("object-cover left-[-6px!important]", `${access && "sm:w-[80%!important]  sm:left-[-9%!important]"}`)} src="/logo.png" alt="logo" fill={true} />
 
-                    {access && <X size={32} className="text-white" onClick={() => navigate.push(`adm?${redirectPage("true")}`)} />}
+                    {access && <X size={32} className="sm:block hidden text-white" onClick={() => navigate.push(`adm?${redirectPage("false")}`)} />}
                 </div>
 
                 <div className="flex flex-col gap-4">

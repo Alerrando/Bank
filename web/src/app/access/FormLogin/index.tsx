@@ -143,12 +143,12 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
     }, 5000);
   }
 
-  function toastMessageLogin(response: { status: boolean; message: [] } | AxiosError) {
+  function toastMessageLogin(response: { status: boolean; message: [] } | any) {
     const toastMessage: { status: "success" | "error"; message: string } = {
-      message: !(response instanceof AxiosError)
+      message: !(response instanceof any)
         ? 'Login realizado!'
         : response.response?.message as string,
-      status: !(response instanceof AxiosError) ? 'success' : 'error',
+      status: !(response instanceof any) ? 'success' : 'error',
     };
 
     toast[toastMessage.status](toastMessage.message, {
