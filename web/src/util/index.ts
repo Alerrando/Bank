@@ -1,5 +1,10 @@
 import { CardWalletProps } from "@/context/types";
 
+export const styleToast = {
+    success: "bg-[#16a34a!important] border border-[#16a34a!important] text-[#fff!important]",
+    error: "bg-[#dc2626!important] border border-[#dc2626!important] text-[#fff!important]",
+};  
+
 export const cardsWallet: CardWalletProps[] = [
     {
         name: "Main Wallet",

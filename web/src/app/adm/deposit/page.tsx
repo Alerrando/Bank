@@ -1,9 +1,17 @@
 "use client";
 
 import { AlignJustify, Bell, Settings } from "lucide-react";
+import { MdPix } from "react-icons/md";
 import AdmAside from "../AdmAside";
 import Image from "next/image";
 import { cardsWallet } from "@/util";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
 
 export default function Deposit(){
     return(
@@ -23,30 +31,20 @@ export default function Deposit(){
                 </header>
 
                 <section className="flex-grow w-full h-full flex flex-col md:flex-row items-start justify-between gap-3 px-3 py-6 md:p-6">
-                    <div className="w-full flex items-center gap-3">
-                        <div className={`w-full md:w-full md:max-w-[50%] h-52 flex flex-col items-start justify-between text-white ${cardsWallet[0].gradient} rounded-lg relative p-8`}>
-                            <div className="grid gap-2">
-                                <span className="font-bold opacity-60">{cardsWallet[0].name}</span>
-                                <h3 className="text-3xl font-semibold">{cardsWallet[0].limit}</h3>
-                            </div>
+                    <div className="w-full h-full flex flex-col items-start gap-3">
+                        <div className="w-full h-full flex flex-col gap-6 shadow-lg border border-zinc-200 rounded-lg px-8">
+                            <header className="w-full flex items-center justify-center py-3 border-b border-b-zinc-600">
+                                <h2 className="text-2xl font-bold">Deposit</h2>
+                            </header>
 
-                            <div className="w-full flex items-center justify-between">
-                                <div className="text-bold text-[#Ffd700] text-lg">{cardsWallet[0].numberCard}</div>
-
-                                <div className="flex relative">
-                                    <div className="w-6 h-6 bg-[#F2F2F2] opacity-30 rounded-full absolute -left-4 order-1"></div>
-                                    <div className="w-6 h-6 bg-[#F2F2F2] opacity-30 rounded-full order-2"></div>
-                                </div>
+                            <div className="w-full flex items-center gap-1 p-2 border border-zinc-200 rounded-lg cursor-default">
+                                <MdPix size={24} className="text-black" />
+                                <span>Pix</span>
                             </div>
-                            <Image src="/waveElements.png" className="w-full h-full opacity-80" alt="" fill={true} />
                         </div>
                     </div>
-
-                    <div className="w-4/5 h-full ml-auto shadow-lg border border-zinc-200 rounded-lg">
-                        <header className="w-full flex items-center justify-center py-3">
-                         <h1 className="text-2xl font-bold">Deposit</h1>
-                        </header>
-                    </div>
+                    
+                    <div className="w-full h-full"></div>
                 </section>
             </main>
 

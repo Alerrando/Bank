@@ -11,6 +11,7 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useStore } from 'zustand';
 import { CheckCheck, X } from 'lucide-react';
+import { ResponseMessage } from '@/context/types';
 
 const schema = z.object({
   name: z
@@ -225,14 +226,15 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
     }, 5000);
   }
 
-  function toastMessageLogin(
-    message: { status: boolean; message: [] } | any
-  ) {
+  function toastMessageLogin( responseHttp: { status: boolean; message: [] } | AxiosError) {
+    let responseMessage: ResponseMessage = {} as ResponseMessage;
+    if(responseHttp instanceof AxiosError)
+      responseMessage =  responseHttp.response?.data;
     const toastMessage: { status: "success" | "error"; message: string } = {
-      message: !(response instanceof any)
+      message: !(responseHttp instanceof AxiosError)
         ? 'Cadastro realizado com sucesso!'
-        : response.response?.message as string,
-      status: !(response instanceof any) ? 'success' : 'error',
+        : responseMessage.message,
+      status: !(responseHttp instanceof AxiosError) ? 'success' : 'error',
     };
 
     toast[toastMessage.status](toastMessage.message, {

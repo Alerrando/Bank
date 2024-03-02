@@ -8,6 +8,8 @@ import { Key, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { CheckCheck, X } from 'lucide-react';
+import { ResponseMessage } from '@/context/types';
+import { styleToast } from '@/util';
 
 const schema = z.object({
   email: z
@@ -135,7 +137,6 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
 
       setUser(restUser);
     }
-
     toastMessageLogin(aux);
 
     setTimeout(() => {
@@ -143,17 +144,23 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
     }, 5000);
   }
 
-  function toastMessageLogin(response: { status: boolean; message: [] } | any) {
+  function toastMessageLogin(responseHttp: { status: boolean; message: [] } | AxiosError) {
+    let responseMessage: ResponseMessage = {} as ResponseMessage;
+    if(responseHttp instanceof AxiosError){
+      responseMessage.message =  responseHttp.response !== undefined ? responseHttp.response?.data : "Erro ao buscar dados!";
+    }
+    
     const toastMessage: { status: "success" | "error"; message: string } = {
-      message: !(response instanceof any)
+      message: !(responseHttp instanceof AxiosError)
         ? 'Login realizado!'
-        : response.response?.message as string,
-      status: !(response instanceof any) ? 'success' : 'error',
+        : responseMessage.message,
+      status: !(responseHttp instanceof AxiosError) ? 'success' : 'error',
     };
 
     toast[toastMessage.status](toastMessage.message, {
       position: 'bottom-left',
       icon: toastMessage.status == "success" ? <CheckCheck size={16} /> : <X  size={16} />,
+      className: styleToast[toastMessage.status],
       onAutoClose: () => {}
     });
   }
