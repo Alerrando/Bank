@@ -53,6 +53,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        modal: "rgba(0, 0, 0, 0.5)"
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -83,6 +84,16 @@ const config = {
         "login": "45% 55%",
       }
     },
+    screens: {
+      "sm": { "max": "639px" },
+      'md': '768px',
+
+      'lg': '1024px',
+
+      'xl': '1280px',
+
+      '2xl': '1536px',
+    }
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config

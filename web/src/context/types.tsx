@@ -12,3 +12,11 @@ export type CardWalletProps = {
   numberCard: string;
   gradient: string;
 }
+
+export type ResponseMessage = {
+  message: string;
+}
+
+export const responseMessageValues = {
+  message: "",
+}
