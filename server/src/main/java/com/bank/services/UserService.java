@@ -50,8 +50,10 @@ public class UserService{
 
     public ResponseEntity<String> login(UserDTO user){
         Optional<User> userSearch = userRepository.findByEmail(user.getEmail());
-        if(!userSearch.isEmpty()){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Login não encontrado");
+        String encryptPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+
+        if(userSearch.isEmpty() || encryptPassword.equals(userSearch.get().getPassword())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Credenciais invalidadas!");
         }
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Usuário logado!");
