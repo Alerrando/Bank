@@ -12,6 +12,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
+import Head from "next/head";
 
 export default function Deposit(){
     return(
@@ -33,7 +34,7 @@ export default function Deposit(){
                 <section className="flex-grow w-full h-full flex flex-col md:flex-row items-start justify-between gap-3 px-3 py-6 md:p-6">
                     <div className="w-full h-full flex flex-col items-start gap-3">
                         <div className="w-full h-full flex flex-col gap-6 shadow-lg border border-zinc-200 rounded-lg px-8">
-                            <header className="w-full flex items-center justify-center py-3 border-b border-b-zinc-600">
+                            <header className="w-full flex items-center justify-center py-3 border-b border-b-[#F2F2F2]">
                                 <h2 className="text-2xl font-bold">Deposit</h2>
                             </header>
 
@@ -47,7 +48,6 @@ export default function Deposit(){
                     <div className="w-full h-full"></div>
                 </section>
             </main>
-
         </>
     )
 }

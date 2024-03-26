@@ -8,6 +8,7 @@ import { CardWalletProps } from "@/context/types";
 import { useEffect } from "react";
 import { cardsWallet } from "@/util";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Adm(){
     const searchParams = useSearchParams();
@@ -58,84 +59,89 @@ export default function Adm(){
                     </div>
                 </section>
 
-                <section className="h-full max-h-[50%] max-w-full md:max-w-[30%] flex flex-col gap-8 border border-zinc-100 shadow-lg mx-3 md:mx-6 pt-2 pb-4 rounded-lg overflow-y-auto">
-                    <header className="w-full h-min flex items-center justify-between px-3">
-                        <span className="after:block after:absolute after:w-full after:h-[2px] after:bg-primary relative">All</span>
-                        <span>Deposits</span>
-                        <span>Transfers</span>
-                    </header>
+                <Tabs defaultValue="all" className="h-full max-h-[50%] w-4/12 flex flex-col gap-2 border shadow-lg mx-3 md:mx-6 pt-2 pb-4 rounded-lg overflow-y-auto">
+                    <TabsList className="w-full h-min flex items-center justify-between px-3 pb-2 bg-transparent border-b border-b-zinc-100">
+                        <TabsTrigger value="all">All</TabsTrigger>
+                        <TabsTrigger value="deposits">Deposits</TabsTrigger>
+                        <TabsTrigger value="transfers">Transfers</TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="all">
+                        <table className="w-full">
+                            <thead className="bg-princ text-white">
+                                <tr>
+                                    <th className="px-3 text-start">Icon</th>
+                                    <th className="px-3">Cod</th>
+                                    <th className="px-3">Cpf</th>
+                                    <th className="px-3">Infos</th>
+                                </tr>
+                            </thead>
 
-                    <table className="w-full">
-                        <thead className="bg-princ text-white">
-                            <tr>
-                                <th className="px-3 text-start">Icon</th>
-                                <th className="px-3">Cod</th>
-                                <th className="px-3">Cpf</th>
-                                <th className="px-3">Infos</th>
-                            </tr>
-                        </thead>
+                            <tbody className="py-2">
+                                <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
+                                    <td className="pl-3 py-1"><HandCoins size={34} /></td>
+                                    <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
+                                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                                    <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
+                                        <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
+                                        <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
+                                    </td>
+                                </tr>
 
-                        <tbody className="py-2">
-                            <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
-                                <td className="pl-3 py-1"><HandCoins size={34} /></td>
-                                <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
-                                <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
-                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
-                                    <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
-                                    <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
-                                </td>
-                            </tr>
+                                <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
+                                    <td className="pl-3 py-1"><ArrowLeftRight size={34} /></td>
+                                    <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
+                                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                                    <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
+                                        <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
+                                        <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
+                                    </td>
+                                </tr>
+                                <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
+                                    <td className="pl-3 py-1"><HandCoins size={34} /></td>
+                                    <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
+                                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                                    <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
+                                        <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
+                                        <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
+                                    </td>
+                                </tr>
 
-                            <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
-                                <td className="pl-3 py-1"><ArrowLeftRight size={34} /></td>
-                                <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
-                                <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
-                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
-                                    <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
-                                    <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
-                                </td>
-                            </tr>
-                            <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
-                                <td className="pl-3 py-1"><HandCoins size={34} /></td>
-                                <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
-                                <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
-                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
-                                    <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
-                                    <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
-                                </td>
-                            </tr>
+                                <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
+                                    <td className="pl-3 py-1"><ArrowLeftRight size={34} /></td>
+                                    <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
+                                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                                    <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
+                                        <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
+                                        <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
+                                    </td>
+                                </tr>
+                                <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
+                                    <td className="pl-3 py-1"><HandCoins size={34} /></td>
+                                    <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
+                                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                                    <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
+                                        <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
+                                        <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
+                                    </td>
+                                </tr>
 
-                            <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
-                                <td className="pl-3 py-1"><ArrowLeftRight size={34} /></td>
-                                <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
-                                <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
-                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
-                                    <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
-                                    <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
-                                </td>
-                            </tr>
-                            <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
-                                <td className="pl-3 py-1"><HandCoins size={34} /></td>
-                                <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
-                                <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
-                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
-                                    <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
-                                    <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
-                                </td>
-                            </tr>
+                                <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
+                                    <td className="pl-3 py-1"><ArrowLeftRight size={34} /></td>
+                                    <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
+                                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                                    <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
+                                        <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
+                                        <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </TabsContent>
 
-                            <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
-                                <td className="pl-3 py-1"><ArrowLeftRight size={34} /></td>
-                                <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
-                                <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
-                                <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
-                                    <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
-                                    <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
+                    <TabsContent value="deposits"></TabsContent>
+                    <TabsContent value="transfers"></TabsContent>
+                </Tabs>
             </main>
         </>
     );
