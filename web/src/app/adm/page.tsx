@@ -2,13 +2,12 @@
 
 import { AlignJustify, ArrowLeftRight, Bell, HandCoins, Settings } from "lucide-react";
 import AdmAside from "./AdmAside";
-import { CardsAdm, CardsAdmProps } from "@/components/CardsAdm";
 import Image from "next/image";
-import { CardWalletProps } from "@/context/types";
-import { useEffect } from "react";
+import { Key, useEffect } from "react";
 import { cardsWallet } from "@/util";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 export default function Adm(){
     const searchParams = useSearchParams();
@@ -22,44 +21,70 @@ export default function Adm(){
     return(
         <>
             <AdmAside />
-            <main className="w-full md:w-[89%] h-screen ml-auto">
-                <header className="flex items-center justify-between py-3 px-2 md:px-6 border-b border-b-primary">
+            <main className="w-full xl:w-[89%] h-screen ml-auto">
+                <header className="flex items-center justify-between py-3 px-2 xl:px-6 border-b border-b-primary">
                     <AlignJustify size={22} onClick={() => navigate.push(`adm?${redirectPage("true")}`)} className={"sm:block hidden hover:fill-black cursor-pointer"} />
 
                     <h1 className="text-2xl font-bold">Welcome Dashboard</h1>
 
                     <div className="flex gap-3">
                         <Bell size={22} className="hover:fill-black cursor-pointer" />
-                        <Settings size={22} className="hidden md:block hover:fill-black cursor-pointer" />
+                        <Settings size={22} className="hidden xl:block hover:fill-black cursor-pointer" />
                     </div>
                 </header>
 
-                <section className="w-full grid gap-3 px-3 py-6 md:p-6">
+                <section className="w-full grid gap-3 px-3 py-6 xl:p-6">
                     <h2 className="text-lg font-semibold">My Cards</h2>
 
-                    <div className="w-full flex items-center gap-3">
-                        {cardsWallet.map((card: CardWalletProps, index: Key) => (
-                            <div className={`w-full md:w-[30%] h-52 flex flex-col items-start justify-between text-white ${card.gradient} rounded-lg relative p-8`} key={index}>
-                                <div className="grid gap-2">
-                                    <span className="font-bold opacity-60">{card.name}</span>
-                                    <h3 className="text-3xl font-semibold">{card.limit}</h3>
-                                </div>
+                    <Carousel opts={{ align: "start" }} className="w-[90%] flex items-center gap-3 mx-auto">
+                        <CarouselContent>
+                            {Array.from({ length: 2 }).map((__, index: number) => (
+                                <>
+                                    <CarouselItem className={`w-full flex items-center gap-4`} key={index}>
+                                        <div className={`w-full h-52 flex flex-col items-start justify-between text-white ${cardsWallet[(index+1)*index].gradient} rounded-lg relative p-8`}>
+                                            <div className="grid gap-2">
+                                                <span className="font-bold opacity-60">{cardsWallet[(index+1)*index].name}</span>
+                                                <h3 className="text-3xl font-semibold">{cardsWallet[(index+1)*index].limit}</h3>
+                                            </div>
 
-                                <div className="w-full flex items-center justify-between">
-                                    <div className="text-bold text-[#Ffd700] text-lg">{card.numberCard}</div>
+                                            <div className="w-full flex items-center justify-between">
+                                                <div className="text-bold text-[#Ffd700] text-lg">{cardsWallet[(index+1)*index].numberCard}</div>
 
-                                    <div className="flex relative">
-                                        <div className="w-6 h-6 bg-[#F2F2F2] opacity-30 rounded-full absolute -left-4 order-1"></div>
-                                        <div className="w-6 h-6 bg-[#F2F2F2] opacity-30 rounded-full order-2"></div>
-                                    </div>
-                                </div>
-                                <Image src="/waveElements.png" className="w-full h-full opacity-80" alt="" fill={true} />
-                            </div>
-                        ))}
-                    </div>
+                                                <div className="flex relative">
+                                                    <div className="w-6 h-6 bg-[#F2F2F2] opacity-30 rounded-full absolute -left-4 order-1"></div>
+                                                    <div className="w-6 h-6 bg-[#F2F2F2] opacity-30 rounded-full order-2"></div>
+                                                </div>
+                                            </div>
+                                            <Image src="/waveElements.png" className="w-full h-full opacity-80" alt="" fill={true} />
+                                        </div>
+
+                                        <div className={`w-full h-52 flex flex-col items-start justify-between text-white ${cardsWallet[index+1].gradient} rounded-lg relative p-8`}>
+                                            <div className="grid gap-2">
+                                                <span className="font-bold opacity-60">{cardsWallet[index+1].name}</span>
+                                                <h3 className="text-3xl font-semibold">{cardsWallet[index+1].limit}</h3>
+                                            </div>
+
+                                            <div className="w-full flex items-center justify-between">
+                                                <div className="text-bold text-[#Ffd700] text-lg">{cardsWallet[index+1].numberCard}</div>
+
+                                                <div className="flex relative">
+                                                    <div className="w-6 h-6 bg-[#F2F2F2] opacity-30 rounded-full absolute -left-4 order-1"></div>
+                                                    <div className="w-6 h-6 bg-[#F2F2F2] opacity-30 rounded-full order-2"></div>
+                                                </div>
+                                            </div>
+                                            <Image src="/waveElements.png" className="w-full h-full opacity-80" alt="" fill={true} />
+                                        </div>
+                                        
+                                    </CarouselItem>
+                                </>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
                 </section>
 
-                <Tabs defaultValue="all" className="h-full max-h-[50%] w-4/12 flex flex-col gap-2 border shadow-lg mx-3 md:mx-6 pt-2 pb-4 rounded-lg overflow-y-auto">
+                <Tabs defaultValue="all" className="h-[45%] w-4/12 flex flex-col gap-2 border shadow-lg mx-3 md:mx-6 pt-2 pb-4 rounded-lg overflow-y-auto">
                     <TabsList className="w-full h-min flex items-center justify-between px-3 pb-2 bg-transparent border-b border-b-zinc-100">
                         <TabsTrigger value="all">All</TabsTrigger>
                         <TabsTrigger value="deposits">Deposits</TabsTrigger>
