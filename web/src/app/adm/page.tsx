@@ -8,11 +8,9 @@ import { cardsWallet } from "@/util";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import HeaderAdm from "@/components/HeaderAdm";
 
 export default function Adm(){
-    const searchParams = useSearchParams();
-    const access = searchParams.get('modal') === "true";
-    const navigate = useRouter();
 
     useEffect(() => {
         setTimeout(() => {}, 3000);
@@ -22,16 +20,7 @@ export default function Adm(){
         <>
             <AdmAside />
             <main className="w-full xl:w-[89%] h-screen ml-auto">
-                <header className="flex items-center justify-between py-3 px-2 xl:px-6 border-b border-b-primary">
-                    <AlignJustify size={22} onClick={() => navigate.push(`adm?${redirectPage("true")}`)} className={"sm:block hidden hover:fill-black cursor-pointer"} />
-
-                    <h1 className="text-2xl font-bold">Welcome Dashboard</h1>
-
-                    <div className="flex gap-3">
-                        <Bell size={22} className="hover:fill-black cursor-pointer" />
-                        <Settings size={22} className="hidden xl:block hover:fill-black cursor-pointer" />
-                    </div>
-                </header>
+                <HeaderAdm />
 
                 <section className="w-full grid gap-3 px-3 py-6 xl:p-6">
                     <h2 className="text-lg font-semibold">My Cards</h2>
@@ -170,10 +159,4 @@ export default function Adm(){
             </main>
         </>
     );
-
-    function redirectPage(redirect: string){
-        const params = new URLSearchParams(searchParams.toString())
-        params.set("modal", redirect);
-        return params.toString();
-    }
 }

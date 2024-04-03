@@ -18,7 +18,7 @@ export default function Home() {
       <Header />
 
       <main className="w-screen h-screen bg-home flex flex-col gap-6 mt-[12%] md:mt-0 md:grid md:grid-cols-2 main-home">
-        <section className="w-4/5 md:w-[85%] h-[100%] md:h-4/5 m-auto flex flex-col items-center gap-6 md:justify-between text-white relative">
+        <section className="w-[92%] md:w-[85%] h-[100%] md:h-4/5 m-auto flex flex-col items-center gap-6 md:justify-between text-white relative">
           <div className=""></div>
 
           <div className="flex flex-col gap-1 md:gap-2 items-center justify-center text-black">
@@ -34,24 +34,24 @@ export default function Home() {
 
           <div className="w-full h-auto flex items-center justify-between text-black">
             <div className="w-[33%] h-auto flex flex-col items-start gap-1">
-              <h2 className="text-xl md:text-2xl font-bold">10+ mil</h2>
-              <h2 className="text-base font-semibold">Usuários Cadastrados</h2>
+              <h2 className="text-lg md:text-2xl font-bold">10+ mil</h2>
+              <h2 className="text-sm font-semibold">Usuários Cadastrados</h2>
             </div>
 
             <div className="w-[33%] h-auto flex flex-col items-start gap-1">
-              <h2 className="text-xl md:text-2xl font-bold">5+ mil</h2>
-              <h2 className="text-base font-semibold">Empresas Cadastradas</h2>
+              <h2 className="text-lg md:text-2xl font-bold">5+ mil</h2>
+              <h2 className="text-sm font-semibold">Empresas Cadastradas</h2>
             </div>
 
             <div className="w-[33%] h-auto flex flex-col items-start gap-1">
-              <h2 className="text-xl md:text-2xl font-bold">20+ mil</h2>
-              <h2 className="text-base font-semibold">Transações Concluidas</h2>
+              <h2 className="text-lg md:text-2xl font-bold">20+ mil</h2>
+              <h2 className="text-sm font-semibold">Transações Concluidas</h2>
             </div>
           </div>
 
           <div className="w-full h-full flex flex-row items-center justify-start gap-4 py-2">
               <Button
-                className={twMerge("flex gap-2 items-center hover:bg-princ border-zinc-300 hover:border-princ hover:text-white group", "px-8 py-4 text-lg text-black")}
+                className={twMerge("flex gap-2 items-center hover:bg-princ border-zinc-300 hover:border-princ hover:text-white group", "px-6 py-4 text-lg text-black")}
                 variant="primary"
                 onClick={() => navigate.push(`access?${redirectPage("login")}`)}
               >
@@ -60,7 +60,7 @@ export default function Home() {
               </Button>
             
             <Button 
-              className={twMerge("flex gap-2 items-center bg-princ border-princ text-white hover:bg-transparent hover:text-princ group", "px-8 py-4 text-lg")}
+              className={twMerge("flex gap-2 items-center bg-princ border-princ text-white hover:bg-transparent hover:text-princ group", "px-6 py-4 text-lg")}
               variant="primary"
               onClick={() => navigate.push(`access?${redirectPage("register")}`)}
             >
