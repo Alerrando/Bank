@@ -1,16 +1,13 @@
 "use client";
-import Image from 'next/image';
-import { Header } from '@/components/Header';
-import { useContext } from 'react';
-import { StateContext } from '@/context';
-import { Button } from '@/components/ui/button';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
-import { ArrowRightIcon } from 'lucide-react';
+import { Header } from "@/components/Header";
+import { Button } from "@/components/ui/button";
+import { ArrowRightIcon } from "lucide-react";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
 export default function Home() {
   const navigate = useRouter();
-  const { user } = useContext(StateContext);
   const searchParams = useSearchParams();
 
   return (
@@ -23,12 +20,11 @@ export default function Home() {
 
           <div className="flex flex-col gap-1 md:gap-2 items-center justify-center text-black">
             <h1 className="text-2xl md:text-6xl font-bold">
-              Um site, tudo <span className="text-[#00938c]">relacionado</span>{' '}
-              a <span className="text-[#00938c]">dinheiro</span>
+              Um site, tudo <span className="text-[#00938c]">relacionado</span> a{" "}
+              <span className="text-[#00938c]">dinheiro</span>
             </h1>
             <p className="font-semibold opacity-60">
-              Desde fácil gerenciamento de dinheiro até vantagens em viagens e
-              investimentos. Abra sua conta rapidamente
+              Desde fácil gerenciamento de dinheiro até vantagens em viagens e investimentos. Abra sua conta rapidamente
             </p>
           </div>
 
@@ -50,26 +46,30 @@ export default function Home() {
           </div>
 
           <div className="w-full h-full flex flex-row items-center justify-start gap-4 py-2">
-              <Button
-                className={twMerge("flex gap-2 items-center hover:bg-princ border-zinc-300 hover:border-princ hover:text-white group", "px-6 py-4 text-lg text-black")}
-                variant="primary"
-                onClick={() => navigate.push(`access?${redirectPage("login")}`)}
-              >
-                Get Started
-                <ArrowRightIcon size={24} className="text-black group-hover:text-white" />
-              </Button>
-            
-            <Button 
-              className={twMerge("flex gap-2 items-center bg-princ border-princ text-white hover:bg-transparent hover:text-princ group", "px-6 py-4 text-lg")}
+            <Button
+              className={twMerge(
+                "flex gap-2 items-center hover:bg-princ border-zinc-300 hover:border-princ hover:text-white group",
+                "px-6 py-4 text-lg text-black",
+              )}
+              variant="primary"
+              onClick={() => navigate.push(`access?${redirectPage("login")}`)}
+            >
+              Get Started
+              <ArrowRightIcon size={24} className="text-black group-hover:text-white" />
+            </Button>
+
+            <Button
+              className={twMerge(
+                "flex gap-2 items-center bg-princ border-princ text-white hover:bg-transparent hover:text-princ group",
+                "px-6 py-4 text-lg",
+              )}
               variant="primary"
               onClick={() => navigate.push(`access?${redirectPage("register")}`)}
             >
               Sign up
               <ArrowRightIcon size={24} className="text-white group-hover:text-princ" />
             </Button>
-
-            
-        </div>
+          </div>
         </section>
 
         <aside className="w-[80%] md:w-full h-2/4 md:h-[60%] flex items-center justify-center mx-auto md:my-auto relative">
@@ -79,8 +79,8 @@ export default function Home() {
     </>
   );
 
-  function redirectPage(redirect: string){
-    const params = new URLSearchParams(searchParams.toString())
+  function redirectPage(redirect: string) {
+    const params = new URLSearchParams(searchParams.toString());
     params.set("page", redirect);
     return params.toString();
   }

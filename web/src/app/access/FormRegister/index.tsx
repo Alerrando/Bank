@@ -1,46 +1,38 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Key, useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import InputMask from 'react-input-mask';
-import { z } from 'zod';
-import { InputsProps } from '../FormLogin';
-import { StateContext, UserProps, UserRegister, useNotionContext } from '../../../context';
-import { format, isValid, parseISO } from 'date-fns';
-import { createUser } from '../../../api';
-import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
-import { useStore } from 'zustand';
-import { CheckCheck, X } from 'lucide-react';
-import { ResponseMessage } from '@/context/types';
+import { Toaster } from "@/components/ui/sonner";
+import { ResponseMessage } from "@/context/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
+import { format, isValid, parseISO } from "date-fns";
+import { CheckCheck, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Key, useContext } from "react";
+import { useForm } from "react-hook-form";
+import InputMask from "react-input-mask";
+import { toast } from "sonner";
+import { z } from "zod";
+import { createUser } from "../../../api";
+import { StateContext, UserProps, UserRegister } from "../../../context";
+import { InputsProps } from "../FormLogin";
 
 const schema = z.object({
   name: z
     .string()
-    .min(3, 'O nome deve ter pelo menos 3 caracteres')
-    .max(255, 'O nome deve ter no máximo 255 caracteres'),
-  email: z
-    .string()
-    .email('Email inválido')
-    .max(255, 'O email deve ter no máximo 255 caracteres'),
-  cpf: z
-    .string()
-    .min(3, 'O cpf deve ter pelo menos 3 caracteres')
-    .max(14, 'O CPF deve ter no máximo 14 caracteres'),
+    .min(3, "O nome deve ter pelo menos 3 caracteres")
+    .max(255, "O nome deve ter no máximo 255 caracteres"),
+  email: z.string().email("Email inválido").max(255, "O email deve ter no máximo 255 caracteres"),
+  cpf: z.string().min(3, "O cpf deve ter pelo menos 3 caracteres").max(14, "O CPF deve ter no máximo 14 caracteres"),
   password: z
     .string()
-    .min(3, 'A cidade deve ter pelo menos 3 caracteres')
-    .max(255, 'A cidade deve ter no máximo 255 caracteres'),
-  cep: z
-    .string()
-    .min(9, 'O cep deve ter pelo menos 3 caracteres')
-    .max(9, 'O CEP deve ter no máximo 9 caracteres'),
-  date_of_birth: z.string().refine((val) => {
+    .min(3, "A cidade deve ter pelo menos 3 caracteres")
+    .max(255, "A cidade deve ter no máximo 255 caracteres"),
+  cep: z.string().min(9, "O cep deve ter pelo menos 3 caracteres").max(9, "O CEP deve ter no máximo 9 caracteres"),
+  dateOfBirth: z.string().refine((val) => {
     return isValid(parseISO(val));
-  }, 'Data de nascimento inválida'),
-  address_number: z
+  }, "Data de nascimento inválida"),
+  addressNumber: z
     .string()
-    .min(1, 'O nome deve ter pelo menos 3 caracteres')
-    .max(255, 'O nome deve ter no máximo 255 caracteres'),
+    .min(1, "O nome deve ter pelo menos 3 caracteres")
+    .max(255, "O nome deve ter no máximo 255 caracteres"),
 });
 
 export type SchemaTypeRegister = z.infer<typeof schema>;
@@ -62,47 +54,47 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
 
   const inputs: InputsProps[] = [
     {
-      nameSpan: 'Nome',
-      classNameGrid: 'items-start',
-      name: 'name',
-      placeholder: 'Digite seu nome',
-      type: 'text',
+      nameSpan: "Nome",
+      classNameGrid: "items-start",
+      name: "name",
+      placeholder: "Digite seu nome",
+      type: "text",
     },
     {
-      nameSpan: 'Email',
-      classNameGrid: 'items-end',
-      name: 'email',
-      placeholder: 'Digite seu email',
-      type: 'email',
+      nameSpan: "Email",
+      classNameGrid: "items-end",
+      name: "email",
+      placeholder: "Digite seu email",
+      type: "email",
     },
     {
-      nameSpan: 'CPF',
-      classNameGrid: 'items-start',
-      name: 'cpf',
-      placeholder: 'Digite seu CPF',
-      mask: '999.999.999-99',
-      type: 'text',
+      nameSpan: "CPF",
+      classNameGrid: "items-start",
+      name: "cpf",
+      placeholder: "Digite seu CPF",
+      mask: "999.999.999-99",
+      type: "text",
     },
     {
-      nameSpan: 'Cep',
-      classNameGrid: 'items-end',
-      name: 'cep',
-      placeholder: 'Digite seu cep',
-      type: 'text',
+      nameSpan: "Cep",
+      classNameGrid: "items-end",
+      name: "cep",
+      placeholder: "Digite seu cep",
+      type: "text",
     },
     {
-      nameSpan: 'Senha',
-      classNameGrid: 'items-start',
-      name: 'password',
-      placeholder: 'Digite sua senha',
-      type: 'password',
+      nameSpan: "Senha",
+      classNameGrid: "items-start",
+      name: "password",
+      placeholder: "Digite sua senha",
+      type: "password",
     },
     {
-      nameSpan: 'Número da sua casa',
-      classNameGrid: 'items-end',
-      name: 'address_number',
-      placeholder: 'Digite o número da sua casa',
-      type: 'type',
+      nameSpan: "Número da sua casa",
+      classNameGrid: "items-end",
+      name: "addressNumber",
+      placeholder: "Digite o número da sua casa",
+      type: "type",
     },
   ];
 
@@ -111,19 +103,11 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
       <div className="grid gap-1 text-center">
         <h1 className="text-3xl font-bold">Registro</h1>
 
-        <span className="font-semibold opacity-60">
-          Faça seu cadastro aqui!
-        </span>
+        <span className="font-semibold opacity-60">Faça seu cadastro aqui!</span>
       </div>
-      <form
-        className="h-full w-full grid grid-cols-inputs-register pt-4"
-        onSubmit={handleSubmit(submit)}
-      >
+      <form className="h-full w-full grid grid-cols-inputs-register pt-4" onSubmit={handleSubmit(submit)}>
         {inputs.map((input: InputsProps, index: Key) => (
-          <div
-            className={`flex flex-col gap-1 ${input.classNameGrid} justify-start text-black`}
-            key={index}
-          >
+          <div className={`flex flex-col gap-1 ${input.classNameGrid} justify-start text-black`} key={index}>
             <div className="w-4/5 text-start">
               <span className="font-bold">{input.nameSpan}</span>
             </div>
@@ -148,11 +132,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
             </div>
 
             <div className={`w-4/5 flex ${input.classNameGrid} justify-start`}>
-              {errors[input.name] && (
-                <span className="text-red-600">
-                  {errors[input.name].message}
-                </span>
-              )}
+              {errors[input.name] && <span className="text-red-600">{errors[input.name].message}</span>}
             </div>
           </div>
         ))}
@@ -166,13 +146,11 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
               type="date"
               placeholder="Digite a data de nascimento"
               className="text-sm 2xl:text-base w-full h-full outline-none border-none text-black"
-              {...register('date_of_birth', { required: true })}
+              {...register("dateOfBirth", { required: true })}
             />
           </div>
 
-          {errors.date_of_birth && (
-            <span className="text-red-600">{errors.date_of_birth.message}</span>
-          )}
+          {errors.dateOfBirth && <span className="text-red-600">{errors.dateOfBirth.message}</span>}
         </div>
 
         <div className="w-full h-auto flex flex-col items-end justify-center col-span-2 gap-1">
@@ -189,28 +167,30 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
               className="cursor-pointer font-bold text-blue-600 hover:text-blue-800"
               onClick={() => navigate.push(`access?${handleTogglePages("login")}`)}
             >
-              {' '}
+              {" "}
               Clique aqui
             </span>
           </p>
         </div>
       </form>
+
+      <Toaster />
     </>
   );
 
   async function submit(e: SchemaTypeRegister) {
-    const { date_of_birth, ...rest } = e;
-    const newDateOfBirth = new Date(date_of_birth);
+    const { dateOfBirth, ...rest } = e;
+    const newDateOfBirth = new Date(dateOfBirth);
     const register: UserRegister = {
       ...rest,
-      date_of_birth: format(newDateOfBirth, 'yyyy-MM-dd HH:mm:ss'),
+      date_of_birth: format(newDateOfBirth, "yyyy-MM-dd HH:mm:ss"),
       total_value: parseFloat(0),
     };
 
     const aux = await createUser(register);
 
     if (aux.status) {
-      const { created, ...restUser } = aux.message.user;
+      const { ...restUser } = aux.message.user;
       const user: UserProps = {
         ...restUser,
         token: aux.message.token.original.access_token,
@@ -222,25 +202,23 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
     toastMessageLogin(aux);
 
     setTimeout(() => {
-      navigate('/adm');
+      navigate("/adm");
     }, 5000);
   }
 
-  function toastMessageLogin( responseHttp: { status: boolean; message: [] } | AxiosError) {
+  function toastMessageLogin(responseHttp: { status: boolean; message: [] } | AxiosError) {
     let responseMessage: ResponseMessage = {} as ResponseMessage;
-    if(responseHttp instanceof AxiosError)
-      responseMessage =  responseHttp.response?.data;
+    if (responseHttp instanceof AxiosError) responseMessage = responseHttp.response.data as string;
+
     const toastMessage: { status: "success" | "error"; message: string } = {
-      message: !(responseHttp instanceof AxiosError)
-        ? 'Cadastro realizado com sucesso!'
-        : responseMessage.message,
-      status: !(responseHttp instanceof AxiosError) ? 'success' : 'error',
+      message: !(responseHttp instanceof AxiosError) ? "Cadastro realizado com sucesso!" : responseMessage.message,
+      status: !(responseHttp instanceof AxiosError) ? "success" : "error",
     };
 
     toast[toastMessage.status](toastMessage.message, {
-      position: 'bottom-left',
-      icon: toastMessage.status == "success" ? <CheckCheck size={16} /> : <X  size={16} />,
-      onAutoClose: () => {}
+      position: "bottom-left",
+      icon: toastMessage.status === "success" ? <CheckCheck size={16} /> : <X size={16} />,
+      onAutoClose: () => {},
     });
   }
 }

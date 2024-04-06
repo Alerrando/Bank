@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google"
-import "./globals.css";
-import { StateProvider } from "../context";
+import React from "react";
 import { cn } from "@/lib/utils";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { StateProvider } from "../context";
+import "./globals.css";
 
 const fontSans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
-})
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,13 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}>
-        <StateProvider>
-          {children}
-        </StateProvider>
+      <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
+        <StateProvider>{children}</StateProvider>
       </body>
     </html>
   );

@@ -1,12 +1,11 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Button } from '../ui/button';
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "../ui/button";
 
 export function Header() {
   const navigate = useRouter();
   const searchParams = useSearchParams();
-
 
   return (
     <header className="w-full h-auto bg-white fixed top-0 border-b border-b-princ z-10">
@@ -24,7 +23,7 @@ export function Header() {
             Login
           </Button>
 
-          <Button 
+          <Button
             className="bg-princ border-princ text-white hover:bg-transparent hover:text-princ"
             variant="primary"
             onClick={() => navigate.push(`access?${redirectPage("register")}`)}
@@ -36,8 +35,8 @@ export function Header() {
     </header>
   );
 
-  function redirectPage(redirect: string){
-    const params = new URLSearchParams(searchParams.toString())
+  function redirectPage(redirect: string) {
+    const params = new URLSearchParams(searchParams.toString());
     params.set("page", redirect);
     return params.toString();
   }

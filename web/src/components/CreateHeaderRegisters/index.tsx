@@ -18,7 +18,7 @@ export default function CreateHeaderRegisters(props: CreateHeaderProps) {
           <BiPlus size={26} className="group-hover:text-white" />
           <span className="hidden sm:block text-lg group-hover:text-white">Cadastro</span>
         </div>
-    
+
         <div className=""></div>
 
         <div className="flex flex-row items px-4 py-2 bg-[#222831] text-white rounded-lg">

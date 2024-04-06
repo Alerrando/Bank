@@ -1,25 +1,22 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { login } from '../../../api';
-import { StateContext } from '../../../context';
-import { AxiosError } from 'axios';
-import { Key, useContext } from 'react';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { CheckCheck, X } from 'lucide-react';
-import { ResponseMessage } from '@/context/types';
-import { styleToast } from '@/util';
+import { ResponseMessage } from "@/context/types";
+import { styleToast } from "@/util";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
+import { CheckCheck, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Key, useContext } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { login } from "../../../api";
+import { StateContext } from "../../../context";
 
 const schema = z.object({
-  email: z
-    .string()
-    .email('Email inválido')
-    .max(255, 'O email deve ter no máximo 255 caracteres'),
+  email: z.string().email("Email inválido").max(255, "O email deve ter no máximo 255 caracteres"),
   password: z
     .string()
-    .min(3, 'A cidade deve ter pelo menos 3 caracteres')
-    .max(255, 'A cidade deve ter no máximo 255 caracteres'),
+    .min(3, "A cidade deve ter pelo menos 3 caracteres")
+    .max(255, "A cidade deve ter no máximo 255 caracteres"),
 });
 
 type SchemaType = z.infer<typeof schema>;
@@ -50,18 +47,18 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
 
   const inputs: InputsProps[] = [
     {
-      nameSpan: 'Email',
-      classNameGrid: 'items-start',
-      name: 'email',
-      placeholder: 'Digite seu email',
-      type: 'email',
+      nameSpan: "Email",
+      classNameGrid: "items-start",
+      name: "email",
+      placeholder: "Digite seu email",
+      type: "email",
     },
     {
-      nameSpan: 'Senha',
-      classNameGrid: 'items-start',
-      name: 'password',
-      placeholder: 'Digite sua senha',
-      type: 'password',
+      nameSpan: "Senha",
+      classNameGrid: "items-start",
+      name: "password",
+      placeholder: "Digite sua senha",
+      type: "password",
     },
   ];
 
@@ -74,15 +71,9 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
 
         <span className="font-semibold opacity-60">Faça Login</span>
       </div>
-      <form
-        className="h-full w-full flex flex-col gap-8 pt-4"
-        onSubmit={handleSubmit(submit)}
-      >
+      <form className="h-full w-full flex flex-col gap-8 pt-4" onSubmit={handleSubmit(submit)}>
         {inputs.map((input: InputsProps, index: Key) => (
-          <div
-            className={`flex flex-col gap-1 ${input.classNameGrid} justify-start text-black`}
-            key={index}
-          >
+          <div className={`flex flex-col gap-1 ${input.classNameGrid} justify-start text-black`} key={index}>
             <div className="w-4/5 text-start">
               <span className="font-bold">{input.nameSpan}</span>
             </div>
@@ -97,11 +88,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
             </div>
 
             <div className={`w-full flex ${input.classNameGrid} justify-start`}>
-              {errors[input.name] && (
-                <span className="text-red-600">
-                  {errors[input.name]?.message}
-                </span>
-              )}
+              {errors[input.name] && <span className="text-red-600">{errors[input.name]?.message}</span>}
             </div>
           </div>
         ))}
@@ -120,7 +107,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
               className="cursor-pointer font-bold text-blue-600 hover:text-blue-800"
               onClick={() => navigate.push(`access?${handleTogglePages("register")}`)}
             >
-              {' '}
+              {" "}
               Clique aqui
             </span>
           </p>
@@ -133,35 +120,34 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
     const aux = await login(e);
 
     if (aux.status) {
-      const { created, ...restUser } = aux.message.user;
+      const { ...restUser } = aux.message.user;
 
       setUser(restUser);
     }
     toastMessageLogin(aux);
 
     setTimeout(() => {
-      navigate.push('/adm');
+      navigate.push("/adm");
     }, 5000);
   }
 
   function toastMessageLogin(responseHttp: { status: boolean; message: [] } | AxiosError) {
-    let responseMessage: ResponseMessage = {} as ResponseMessage;
-    if(responseHttp instanceof AxiosError){
-      responseMessage.message =  responseHttp.response !== undefined ? responseHttp.response?.data : "Erro ao buscar dados!";
+    const responseMessage: ResponseMessage = {} as ResponseMessage;
+    if (responseHttp instanceof AxiosError) {
+      responseMessage.message =
+        responseHttp.response !== undefined ? (responseHttp.response.data as string) : "Erro ao buscar dados!";
     }
-    
+
     const toastMessage: { status: "success" | "error"; message: string } = {
-      message: !(responseHttp instanceof AxiosError)
-        ? 'Login realizado!'
-        : responseMessage.message,
-      status: !(responseHttp instanceof AxiosError) ? 'success' : 'error',
+      message: !(responseHttp instanceof AxiosError) ? "Login realizado!" : responseMessage.message,
+      status: !(responseHttp instanceof AxiosError) ? "success" : "error",
     };
 
     toast[toastMessage.status](toastMessage.message, {
-      position: 'bottom-left',
-      icon: toastMessage.status == "success" ? <CheckCheck size={16} /> : <X  size={16} />,
+      position: "bottom-left",
+      icon: toastMessage.status === "success" ? <CheckCheck size={16} /> : <X size={16} />,
       className: styleToast[toastMessage.status],
-      onAutoClose: () => {}
+      onAutoClose: () => {},
     });
   }
 }
