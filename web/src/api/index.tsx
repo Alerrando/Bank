@@ -1,6 +1,6 @@
-import { SchemaTypeRegister } from '@/app/access/FormRegister';
-import axios from 'axios';
-const url = 'http://localhost:80/users';
+import { SchemaTypeRegister } from "@/app/access/FormRegister";
+import axios from "axios";
+const url = "http://localhost:80/users";
 
 export async function getAllUsers() {
   const aux = await axios
@@ -38,7 +38,7 @@ export async function infosByCpf(cpf: string) {
       { cpf },
       {
         withCredentials: true,
-      }
+      },
     )
     .then((res) => res.data)
     .catch((err) => err);

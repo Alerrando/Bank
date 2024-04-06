@@ -2,7 +2,7 @@ import { IoMdClose } from "react-icons/io";
 import { ZodType } from "zod";
 import { SchemaDeposit } from "../../pages/Adm/Deposit";
 import { ModalFormDeposit } from "./ModalFormDeposit";
-import { ComponentProps } from "react";
+import { InputsProps } from "@/app/access/FormLogin";
 
 export type SubmitDatasModal = SchemaDeposit;
 
@@ -10,7 +10,7 @@ type ModalProps = {
   setModal: () => void;
   submitInfos?: (data: SubmitDatasModal) => void;
   title: string;
-  inputs?: ComponentProps<"input">[];
+  inputs?: InputsProps[];
   createFormSchema?: ZodType<unknown, unknown, unknown>;
   modalName: string;
 };
