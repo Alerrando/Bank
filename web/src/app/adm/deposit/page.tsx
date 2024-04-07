@@ -6,14 +6,21 @@ import Input from "@/components/Input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TabsContent } from "@radix-ui/react-tabs";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Key } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import AdmAside from "../AdmAside";
 
 const schemaData = z.object({
-  valueCopyPaste: z.number(),
-  valueQrCode: z.number(),
+  valueCopyPaste: z
+    .string()
+    .nullable()
+    .transform((val) => Number(val)),
+  valueQrCode: z
+    .string()
+    .nullable()
+    .transform((val) => Number(val)),
 });
 
 type SchemaDataType = z.infer<typeof schemaData>;
@@ -26,13 +33,15 @@ export default function Deposit() {
   } = useForm<SchemaDataType>({
     resolver: zodResolver(schemaData),
   });
+  const searchParams = useSearchParams();
+  const navigate = useRouter();
   const inputs: InputsProps[] = [
     {
       classNameGrid: "items-start",
       name: "valueCopyPaste",
       nameSpan: "Value",
       placeholder: "20.00",
-      type: "number",
+      type: "string",
     },
 
     {
@@ -40,7 +49,7 @@ export default function Deposit() {
       name: "valueQrCode",
       nameSpan: "Value",
       placeholder: "20.00",
-      type: "number",
+      type: "string",
     },
   ];
 
@@ -90,7 +99,10 @@ export default function Deposit() {
                             </div>
                           </div>
 
-                          <button className="px-4 py-1 border border-black text-base rounded-lg hover:bg-[#00938c] hover:border-[#00938c] hover:text-white transition-colors">
+                          <button
+                            className="px-4 py-1 border border-black text-base rounded-lg hover:bg-[#00938c] hover:border-[#00938c] hover:text-white transition-colors"
+                            onClick={() => navigate.push(`deposit?${handleButtonGenerate(index)}`)}
+                          >
                             Generate
                           </button>
                         </div>
@@ -116,5 +128,11 @@ export default function Deposit() {
 
   function submit(e: SchemaDataType) {
     console.log(e);
+  }
+
+  function handleButtonGenerate(index: number) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("generate", index === 0 ? "copypaste" : "qrcode");
+    return params.toString();
   }
 }
