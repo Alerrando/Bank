@@ -15,11 +15,7 @@ export function Header() {
         </Link>
 
         <div className="w-auto h-full flex flex-row items-center justify-center gap-4 py-2">
-          <Button
-            className="shadow-lg px-4 py-1"
-            onClick={() => navigate.push(`access?${redirectPage("login")}`)}
-            variant="primary"
-          >
+          <Button className="shadow-lg px-4 py-1" onClick={() => navigate.push(`access?${redirectPage("login")}`)} variant="primary">
             Login
           </Button>
 

@@ -1,8 +1,8 @@
+import { InputsProps } from "@/app/access/FormLogin";
 import { IoMdClose } from "react-icons/io";
 import { ZodType } from "zod";
 import { SchemaDeposit } from "../../pages/Adm/Deposit";
 import { ModalFormDeposit } from "./ModalFormDeposit";
-import { InputsProps } from "@/app/access/FormLogin";
 
 export type SubmitDatasModal = SchemaDeposit;
 
@@ -26,11 +26,7 @@ export function Modal({ setModal, modalName, title, createFormSchema, inputs, su
           </div>
         </header>
 
-        {modalName === "deposit" ? (
-          <ModalFormDeposit createFormSchema={createFormSchema} inputs={inputs} submitInfos={submitInfos} />
-        ) : (
-          <></>
-        )}
+        {modalName === "deposit" ? <ModalFormDeposit createFormSchema={createFormSchema} inputs={inputs} submitInfos={submitInfos} /> : <></>}
       </div>
     </div>
   );

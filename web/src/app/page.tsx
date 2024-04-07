@@ -20,8 +20,7 @@ export default function Home() {
 
           <div className="flex flex-col gap-1 md:gap-2 items-center justify-center text-black">
             <h1 className="text-2xl md:text-6xl font-bold">
-              Um site, tudo <span className="text-[#00938c]">relacionado</span> a{" "}
-              <span className="text-[#00938c]">dinheiro</span>
+              Um site, tudo <span className="text-[#00938c]">relacionado</span> a <span className="text-[#00938c]">dinheiro</span>
             </h1>
             <p className="font-semibold opacity-60">
               Desde fácil gerenciamento de dinheiro até vantagens em viagens e investimentos. Abra sua conta rapidamente
@@ -59,10 +58,7 @@ export default function Home() {
             </Button>
 
             <Button
-              className={twMerge(
-                "flex gap-2 items-center bg-princ border-princ text-white hover:bg-transparent hover:text-princ group",
-                "px-6 py-4 text-lg",
-              )}
+              className={twMerge("flex gap-2 items-center bg-princ border-princ text-white hover:bg-transparent hover:text-princ group", "px-6 py-4 text-lg")}
               variant="primary"
               onClick={() => navigate.push(`access?${redirectPage("register")}`)}
             >

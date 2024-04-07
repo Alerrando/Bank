@@ -11,26 +11,13 @@ export type CardsAdmProps = {
   colorInfosMonth: string;
 };
 
-export function CardsAdm({
-  numberMoney,
-  iconCard,
-  textBodyCard,
-  colorPrinc = "#fff",
-  arrowIndication,
-  porcentMonth,
-  colorInfosMonth,
-}: CardsAdmProps) {
+export function CardsAdm({ numberMoney, iconCard, textBodyCard, colorPrinc = "#fff", arrowIndication, porcentMonth, colorInfosMonth }: CardsAdmProps) {
   return (
-    <div
-      className={`w-[26%] h-3/4 max-h-52 flex flex-col items-start gap-5 p-4 rounded-lg shadow-lg`}
-      style={{ background: colorPrinc }}
-    >
+    <div className={`w-[26%] h-3/4 max-h-52 flex flex-col items-start gap-5 p-4 rounded-lg shadow-lg`} style={{ background: colorPrinc }}>
       <header className="flex items-center justify-between">
         {iconCard}
 
-        <div
-          className={`flex items-center flex-row gap-1 ${porcentMonth > 0 ? "positive" : porcentMonth < 0 ? "negative" : "null"}`}
-        >
+        <div className={`flex items-center flex-row gap-1 ${porcentMonth > 0 ? "positive" : porcentMonth < 0 ? "negative" : "null"}`}>
           {arrowIndication && (
             <>
               {arrowIndication}

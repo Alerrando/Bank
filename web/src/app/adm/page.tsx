@@ -59,10 +59,7 @@ export default function Adm() {
           </Carousel>
         </section>
 
-        <Tabs
-          defaultValue="all"
-          className="h-[45%] w-4/12 flex flex-col gap-2 border shadow-lg mx-3 md:mx-6 pt-2 pb-4 rounded-lg overflow-y-auto"
-        >
+        <Tabs defaultValue="all" className="h-[45%] w-4/12 flex flex-col gap-2 border shadow-lg mx-3 md:mx-6 pt-2 pb-4 rounded-lg overflow-y-auto">
           <TabsList className="w-full h-min flex items-center justify-between px-3 pb-2 bg-transparent border-b border-b-zinc-100">
             <TabsTrigger value="all">All</TabsTrigger>
             <TabsTrigger value="deposits">Deposits</TabsTrigger>

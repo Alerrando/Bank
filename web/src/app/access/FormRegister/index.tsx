@@ -15,24 +15,15 @@ import { StateContext, UserProps, UserRegister } from "../../../context";
 import { InputsProps } from "../FormLogin";
 
 const schema = z.object({
-  name: z
-    .string()
-    .min(3, "O nome deve ter pelo menos 3 caracteres")
-    .max(255, "O nome deve ter no máximo 255 caracteres"),
+  name: z.string().min(3, "O nome deve ter pelo menos 3 caracteres").max(255, "O nome deve ter no máximo 255 caracteres"),
   email: z.string().email("Email inválido").max(255, "O email deve ter no máximo 255 caracteres"),
   cpf: z.string().min(3, "O cpf deve ter pelo menos 3 caracteres").max(14, "O CPF deve ter no máximo 14 caracteres"),
-  password: z
-    .string()
-    .min(3, "A cidade deve ter pelo menos 3 caracteres")
-    .max(255, "A cidade deve ter no máximo 255 caracteres"),
+  password: z.string().min(3, "A cidade deve ter pelo menos 3 caracteres").max(255, "A cidade deve ter no máximo 255 caracteres"),
   cep: z.string().min(9, "O cep deve ter pelo menos 3 caracteres").max(9, "O CEP deve ter no máximo 9 caracteres"),
   dateOfBirth: z.string().refine((val) => {
     return isValid(parseISO(val));
   }, "Data de nascimento inválida"),
-  addressNumber: z
-    .string()
-    .min(1, "O nome deve ter pelo menos 3 caracteres")
-    .max(255, "O nome deve ter no máximo 255 caracteres"),
+  addressNumber: z.string().min(1, "O nome deve ter pelo menos 3 caracteres").max(255, "O nome deve ter no máximo 255 caracteres"),
 });
 
 export type SchemaTypeRegister = z.infer<typeof schema>;
@@ -163,10 +154,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
 
           <p>
             Já tem conta?
-            <span
-              className="cursor-pointer font-bold text-blue-600 hover:text-blue-800"
-              onClick={() => navigate.push(`access?${handleTogglePages("login")}`)}
-            >
+            <span className="cursor-pointer font-bold text-blue-600 hover:text-blue-800" onClick={() => navigate.push(`access?${handleTogglePages("login")}`)}>
               {" "}
               Clique aqui
             </span>

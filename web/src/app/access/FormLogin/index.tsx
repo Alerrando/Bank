@@ -13,10 +13,7 @@ import { StateContext } from "../../../context";
 
 const schema = z.object({
   email: z.string().email("Email inválido").max(255, "O email deve ter no máximo 255 caracteres"),
-  password: z
-    .string()
-    .min(3, "A cidade deve ter pelo menos 3 caracteres")
-    .max(255, "A cidade deve ter no máximo 255 caracteres"),
+  password: z.string().min(3, "A cidade deve ter pelo menos 3 caracteres").max(255, "A cidade deve ter no máximo 255 caracteres"),
 });
 
 type SchemaType = z.infer<typeof schema>;
@@ -134,8 +131,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   function toastMessageLogin(responseHttp: { status: boolean; message: [] } | AxiosError) {
     const responseMessage: ResponseMessage = {} as ResponseMessage;
     if (responseHttp instanceof AxiosError) {
-      responseMessage.message =
-        responseHttp.response !== undefined ? (responseHttp.response.data as string) : "Erro ao buscar dados!";
+      responseMessage.message = responseHttp.response !== undefined ? (responseHttp.response.data as string) : "Erro ao buscar dados!";
     }
 
     const toastMessage: { status: "success" | "error"; message: string } = {

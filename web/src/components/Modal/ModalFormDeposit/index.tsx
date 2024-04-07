@@ -1,11 +1,11 @@
+import { InputsProps } from "@/app/access/FormLogin";
 import { ErrorMessage } from "@hookform/error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ZodType } from "zod";
 import { SubmitDatasModal } from "..";
 import { StoreContext } from "../../../context";
-import { InputsProps } from "@/app/access/FormLogin";
 
 type ModalFormDepositProps = {
   submitInfos?: (data: SubmitDatasModal) => void;

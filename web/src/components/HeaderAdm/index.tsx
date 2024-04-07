@@ -7,11 +7,7 @@ export default function HeaderAdm() {
 
   return (
     <header className="flex items-center justify-between py-3 px-2 xl:px-6 border-b border-b-primary">
-      <AlignJustify
-        size={22}
-        onClick={() => navigate.push(`adm?${redirectPage("true")}`)}
-        className={"sm:block hidden hover:fill-black cursor-pointer"}
-      />
+      <AlignJustify size={22} onClick={() => navigate.push(`adm?${redirectPage("true")}`)} className={"sm:block hidden hover:fill-black cursor-pointer"} />
 
       <h1 className="text-2xl font-bold">Welcome Dashboard</h1>
 
