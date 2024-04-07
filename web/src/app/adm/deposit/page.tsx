@@ -17,12 +17,12 @@ export default function Deposit() {
 
         <section className="flex-grow w-full h-full flex flex-col md:flex-row items-start justify-between gap-3 px-3 py-6 md:px-2 md:py-4">
           <div className="w-full h-full flex flex-col items-start gap-3">
-            <div className="w-full h-full flex flex-col gap-4 shadow-lg rounded-lg px-5">
-              <header className="w-full flex items-center justify-start py-3">
+            <div className="w-full h-full flex flex-col gap-4 rounded-lg px-5">
+              <header className="w-full flex items-center justify-start pt-3">
                 <h2 className="text-2xl font-bold">Deposit</h2>
               </header>
 
-              <Tabs defaultValue="pix" className="w-full flex flex-col gap-2 pt-2 pb-4 rounded-lg overflow-y-auto">
+              <Tabs defaultValue="pix" className="w-full flex flex-col gap-4 rounded-lg overflow-y-auto">
                 <TabsList className="w-min flex items-center justify-start bg-transparent border border-[#D9D9D9]">
                   <TabsTrigger className="w-full px-4 py-2 text-xl" value="pix">
                     Pix
