@@ -4,13 +4,7 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: [
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "standard",
-    "plugin:prettier/recommended",
-  ],
+  extends: ["plugin:react/recommended", "plugin:react-hooks/recommended", "plugin:@typescript-eslint/recommended", "standard", "plugin:prettier/recommended"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
@@ -26,7 +20,7 @@ module.exports = {
     "prettier/prettier": [
       "error",
       {
-        printWidth: 120,
+        printWidth: 160,
         tabWidth: 2,
         singleQuote: false,
         trailingComma: "all",
