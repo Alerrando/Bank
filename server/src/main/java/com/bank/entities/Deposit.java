@@ -10,8 +10,8 @@ import lombok.Setter;
 @Setter
 public class Deposit {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_cpf")
@@ -23,7 +23,7 @@ public class Deposit {
     public Deposit (){
     }
 
-    public Deposit(String id, String authorization_code, double value) {
+    public Deposit(Long id, String authorization_code, double value) {
         this.id = id;
         this.authorization_code = authorization_code;
         this.value = value;
