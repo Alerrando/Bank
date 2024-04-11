@@ -1,11 +1,11 @@
 package com.bank.controllers;
 
 import com.bank.entities.Deposit;
+import com.bank.entities.MessageReturn;
 import com.bank.services.DepositService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ public class DepositController {
         return depositService.getAll();
     }
 
-    @GetMapping("/id")
-    public Long getNextId(){
-        return depositService.getNextId();
+    @PostMapping
+    public ResponseEntity<MessageReturn> create(@PathVariable String id){
+        return depositService.create(id);
     }
 }
