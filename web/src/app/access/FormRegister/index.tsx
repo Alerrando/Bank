@@ -126,7 +126,9 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
             </div>
 
             <div className={`w-4/5 flex ${input.classNameGrid} justify-start`}>
-              {errors[input.name as keyof SchemaTypeRegister] && <span className="text-red-600">{errors[input.name as keyof SchemaTypeRegister].message}</span>}
+              {errors[input.name as keyof SchemaTypeRegister] && (
+                <span className="text-red-600">{errors[input.name as keyof SchemaTypeRegister]?.message}</span>
+              )}
             </div>
           </div>
         ))}
