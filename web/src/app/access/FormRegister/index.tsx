@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
-import { ResponseMessage } from "@/context/types";
+import { InputsProps, ResponseMessage, UserProps } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { format, isValid, parseISO } from "date-fns";
@@ -11,22 +11,25 @@ import InputMask from "react-input-mask";
 import { toast } from "sonner";
 import { z } from "zod";
 import { createUser } from "../../../api";
-import { StateContext, UserProps, UserRegister } from "../../../context";
-import { InputsProps } from "../FormLogin";
+import { StateContext } from "../../../context";
 
 const schema = z.object({
-  name: z.string().min(3, "O nome deve ter pelo menos 3 caracteres").max(255, "O nome deve ter no máximo 255 caracteres"),
-  email: z.string().email("Email inválido").max(255, "O email deve ter no máximo 255 caracteres"),
-  cpf: z.string().min(3, "O cpf deve ter pelo menos 3 caracteres").max(14, "O CPF deve ter no máximo 14 caracteres"),
-  password: z.string().min(3, "A cidade deve ter pelo menos 3 caracteres").max(255, "A cidade deve ter no máximo 255 caracteres"),
-  cep: z.string().min(9, "O cep deve ter pelo menos 3 caracteres").max(9, "O CEP deve ter no máximo 9 caracteres"),
+  name: z.string().min(3, "The name must have at least 3 characters").max(255, "O nome deve ter no máximo 255 caracteres"),
+  email: z.string().email("Email invalid!").max(255, "The email must have a maximum of 255 characters"),
+  cpf: z.string().min(3, "The CPF must have at least 3 characters").max(14, "The CPF must have a maximum of 14 characters"),
+  password: z.string().min(3, "Password must be at least 3 characters long"),
+  cep: z.string().min(9, "The zip code must have at least 3 characters").max(9, "The zip code must have a maximum of 9 characters"),
   dateOfBirth: z.string().refine((val) => {
     return isValid(parseISO(val));
-  }, "Data de nascimento inválida"),
-  addressNumber: z.string().min(1, "O nome deve ter pelo menos 3 caracteres").max(255, "O nome deve ter no máximo 255 caracteres"),
+  }, "Invalid date of birth"),
+  addressNumber: z.string().min(1, "The house number must be at least 1 characters long"),
 });
 
 export type SchemaTypeRegister = z.infer<typeof schema>;
+
+type UserRegister = {
+  totalValue: number;
+} & SchemaTypeRegister;
 
 type FormRegisterProps = {
   handleTogglePages: (accessNow: string) => void;
@@ -85,7 +88,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
       classNameGrid: "items-end",
       name: "addressNumber",
       placeholder: "Digite o número da sua casa",
-      type: "type",
+      type: "number",
     },
   ];
 
@@ -108,14 +111,14 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
                 <InputMask
                   mask={input.mask}
                   maskPlaceholder=""
-                  {...register(input.name)}
+                  {...register(input.name as keyof SchemaTypeRegister)}
                   placeholder={input.placeholder}
                   className="text-sm 2xl:text-base w-full h-full outline-none border-none"
                 />
               ) : (
                 <input
                   type={input.type}
-                  {...register(input.name)}
+                  {...register(input.name as keyof SchemaTypeRegister)}
                   placeholder={input.placeholder}
                   className="text-sm 2xl:text-base w-full h-full outline-none border-none"
                 />
@@ -123,7 +126,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
             </div>
 
             <div className={`w-4/5 flex ${input.classNameGrid} justify-start`}>
-              {errors[input.name] && <span className="text-red-600">{errors[input.name].message}</span>}
+              {errors[input.name as keyof SchemaTypeRegister] && <span className="text-red-600">{errors[input.name as keyof SchemaTypeRegister].message}</span>}
             </div>
           </div>
         ))}

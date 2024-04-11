@@ -8,7 +8,7 @@ import { cardsWallet } from "@/util";
 import { ArrowLeftRight, HandCoins } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
-import AdmAside from "./AdmAside";
+import AdmAside from "../../components/AdmAside";
 
 export default function Adm() {
   useEffect(() => {

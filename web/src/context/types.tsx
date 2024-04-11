@@ -6,6 +6,17 @@ export type UserProps = {
   total_value: number;
 };
 
+const typesInput = ["value", "string", "email", "password", "tel"] as const;
+
+export type InputsProps = {
+  nameSpan: string;
+  classNameGrid: string;
+  placeholder: string;
+  name: (typeof typesInput)[number];
+  type: string;
+  mask?: string;
+};
+
 export type CardWalletProps = {
   name: string;
   limit: string;

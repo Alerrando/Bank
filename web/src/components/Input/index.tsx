@@ -1,4 +1,4 @@
-import { InputsProps } from "@/app/access/FormLogin";
+import { InputsProps } from "@/context/types";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 type InputProps = {
@@ -9,7 +9,7 @@ type InputProps = {
 
 export default function Input({ input, errors, register }: InputProps) {
   return (
-    <div className={`flex flex-col gap-1 ${input.classNameGrid} justify-start text-black`} key={Math.random}>
+    <div className={`w-full flex flex-col ${input.classNameGrid} justify-center text-black`} key={Math.random}>
       <div className="w-4/5 text-start">
         <span className="font-bold">{input.nameSpan}</span>
       </div>

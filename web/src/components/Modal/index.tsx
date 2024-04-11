@@ -1,8 +1,8 @@
-import { InputsProps } from "@/app/access/FormLogin";
 import { IoMdClose } from "react-icons/io";
 import { ZodType } from "zod";
 import { SchemaDeposit } from "../../pages/Adm/Deposit";
 import { ModalFormDeposit } from "./ModalFormDeposit";
+import { InputsProps } from "@/context/types";
 
 export type SubmitDatasModal = SchemaDeposit;
 

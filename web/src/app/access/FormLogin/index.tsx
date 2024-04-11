@@ -1,4 +1,4 @@
-import { ResponseMessage } from "@/context/types";
+import { InputsProps, ResponseMessage } from "@/context/types";
 import { styleToast } from "@/util";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
@@ -12,23 +12,14 @@ import { login } from "../../../api";
 import { StateContext } from "../../../context";
 
 const schema = z.object({
-  email: z.string().email("Email inválido").max(255, "O email deve ter no máximo 255 caracteres"),
-  password: z.string().min(3, "A cidade deve ter pelo menos 3 caracteres").max(255, "A cidade deve ter no máximo 255 caracteres"),
+  email: z.string().email("Email invalid!").max(255, "The email must have a maximum of 255 characters"),
+  password: z.string().min(3, "Password must be at least 3 characters long"),
 });
 
 type SchemaType = z.infer<typeof schema>;
 
 type FormLoginProps = {
   handleTogglePages: (accessNow: string) => void;
-};
-
-export type InputsProps = {
-  nameSpan: string;
-  classNameGrid: string;
-  placeholder: string;
-  name: keyof SchemaType;
-  type: string;
-  mask?: string;
 };
 
 export function FormLogin({ handleTogglePages }: FormLoginProps) {
@@ -78,14 +69,14 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
             <div className="w-full border-2 border-[#00938c] rounded-lg py-1 2xl:py-2 px-3">
               <input
                 type={input.type}
-                {...register(input.name)}
+                {...register(input.name as keyof SchemaType)}
                 placeholder={input.placeholder}
                 className="text-sm 2xl:text-base w-full h-full outline-none border-none"
               />
             </div>
 
             <div className={`w-full flex ${input.classNameGrid} justify-start`}>
-              {errors[input.name] && <span className="text-red-600">{errors[input.name]?.message}</span>}
+              {errors[input.name as keyof SchemaType] && <span className="text-red-600">{errors[input.name as keyof SchemaType]?.message}</span>}
             </div>
           </div>
         ))}

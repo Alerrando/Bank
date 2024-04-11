@@ -1,5 +1,5 @@
-import { InputsProps } from "@/app/access/FormLogin";
 import Input from "@/components/Input";
+import { InputsProps } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { QrCodePix } from "qrcode-pix";

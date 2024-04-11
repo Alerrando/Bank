@@ -3,7 +3,7 @@
 import HeaderAdm from "@/components/HeaderAdm";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
-import AdmAside from "../AdmAside";
+import AdmAside from "../../../components/AdmAside";
 import TabCopyPaste from "./TabCopyPaste";
 import TabQrCode from "./TabQrCode";
 
