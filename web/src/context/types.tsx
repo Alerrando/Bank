@@ -12,8 +12,8 @@ export type InputsProps = {
   nameSpan: string;
   classNameGrid: string;
   placeholder: string;
-  name: (typeof typesInput)[number];
-  type: string;
+  name: string;
+  type: (typeof typesInput)[number];
   mask?: string;
 };
 
