@@ -15,7 +15,7 @@ public class Deposit {
 
     @ManyToOne
     @JoinColumn(name = "user_cpf")
-    private String user_cpf;
+    private User user;
 
     private String authorization_code;
 
@@ -24,9 +24,9 @@ public class Deposit {
     public Deposit (){
     }
 
-    public Deposit(Long id, String user_cpf,String authorization_code, double value) {
+    public Deposit(Long id, User user,String authorization_code, double value) {
         this.id = id;
-        this.user_cpf = user_cpf;
+        this.user = user;
         this.authorization_code = authorization_code;
         this.value = value;
     }

@@ -28,7 +28,8 @@ public class DepositService {
     public ResponseEntity<MessageReturn> create(String id){
         Long nextId = depositRepository.getNextId();
         User user = userRepository.findById(id).orElseThrow();
-        Deposit deposit = new Deposit(Long.parseLong("0"), user.getCpf(), "DEP" + nextId, 100);
+        String formattedId = String.format("%04d", nextId);
+        Deposit deposit = new Deposit(Long.parseLong("0"), user, "DEP" + formattedId, 100);
 
         depositRepository.save(deposit);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageReturn(true, deposit.getAuthorization_code()));

@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.Objects;
+import java.util.*;
 
 @Table(name = "user")
 @Entity
@@ -31,12 +29,16 @@ public class User {
     private String address_number;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Addresses addresses;
+
     private Double total_value;
+
+    @OneToMany
+    private List<Deposit> deposits = new ArrayList<>();
 
     public User() {
     }
 
-    public User(String id, String name, String email, Date date_of_birth, String password, String cpf, String cep, String address_number,Double total_value) {
+    public User(String id, String name, String email, Date date_of_birth, String password, String cpf, String cep, String address_number,Double total_value, List<Deposit> deposits) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -46,6 +48,7 @@ public class User {
         this.cep = cep;
         this.address_number = address_number;
         this.total_value = total_value;
+        this.deposits = deposits;
     }
 
     @Override

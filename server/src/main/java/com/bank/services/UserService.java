@@ -22,14 +22,14 @@ public class UserService{
     @Autowired
     private AddressesService addressesService;
 
-    public List<User> getAll(){
-        return userRepository.findAll();
+    public List<UserDTO> getAll(){
+        return userRepository.findAll().stream().map(user -> new UserDTO(user)).toList();
     }
 
     public ResponseEntity create(User user){
         Optional<User> optional = userRepository.findByEmail(user.getEmail());
 
-        if(optional.isPresent()){
+        if(!(optional.isPresent())){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário já cadastrado");
         }
 

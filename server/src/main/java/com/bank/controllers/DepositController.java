@@ -20,7 +20,7 @@ public class DepositController {
         return depositService.getAll();
     }
 
-    @PostMapping
+    @PostMapping("/{id}")
     public ResponseEntity<MessageReturn> create(@PathVariable String id){
         return depositService.create(id);
     }
