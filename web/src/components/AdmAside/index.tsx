@@ -1,6 +1,8 @@
 import { CreditCard, LayoutGrid, Wallet, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { TbPigMoney, TbTransform } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
 
 export default function AdmAside() {
@@ -27,7 +29,7 @@ export default function AdmAside() {
           {access && <X size={32} className="xl:block hidden text-white" onClick={() => navigate.push(`adm?${redirectPage("false")}`)} />}
         </div>
 
-        <div className="flex flex-col gap-4">
+        <nav className="flex flex-col gap-4">
           <div className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer">
             <LayoutGrid size={22} />
             <span className="text-base">Dashboard</span>
@@ -38,11 +40,29 @@ export default function AdmAside() {
             <span className="text-base">Balances</span>
           </div>
 
-          <div className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer">
+          <div className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer relative group">
             <Wallet size={22} />
             <span className="text-base">Transactions</span>
+
+            <ul className="w-max h-auto hidden group-hover:flex flex-col items-center justify-center text-black absolute left-full shadow-lg bg-[#FAFAFA] border border-[#00000025] rounded-lg">
+              <Link
+                href="/adm/deposit"
+                className="flex items-center gap-1 text-sm text-start px-[14px] py-[6px] hover:bg-[#3b6ea1] hover:text-white rounded-lg transition-colors"
+              >
+                <TbPigMoney size={18} />
+                <span className="text-lg font-semibold">Deposit</span>
+              </Link>
+
+              <Link
+                href="/adm/transfer"
+                className="flex items-center gap-1 text-sm text-start px-[14px] py-[6px] hover:bg-[#3b6ea1] hover:text-white rounded-lg transition-colors"
+              >
+                <TbTransform size={18} />
+                <span className="text-lg font-semibold">Transfer</span>
+              </Link>
+            </ul>
           </div>
-        </div>
+        </nav>
       </div>
     </aside>
   );
