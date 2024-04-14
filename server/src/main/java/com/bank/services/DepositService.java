@@ -5,6 +5,7 @@ import com.bank.entities.MessageReturn;
 import com.bank.entities.User;
 import com.bank.repositories.DepositRepository;
 import com.bank.repositories.UserRepository;
+import com.bank.util.CookiesEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -21,15 +22,20 @@ public class DepositService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CookiesEvent cookiesEvent;
+
     public List<Deposit> getAll(){
         return depositRepository.findAll();
     }
 
-    public ResponseEntity<MessageReturn> create(String id){
+    public ResponseEntity<MessageReturn> create(Integer value){
         Long nextId = depositRepository.getNextId();
+        String id = cookiesEvent.getIdUserCookie("idUser");
         User user = userRepository.findById(id).orElseThrow();
+
         String formattedId = String.format("%04d", nextId);
-        Deposit deposit = new Deposit(Long.parseLong("0"), user, "DEP" + formattedId, 100);
+        Deposit deposit = new Deposit(Long.parseLong("0"), user, "DEP" + formattedId, value);
 
         depositRepository.save(deposit);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageReturn(true, deposit.getAuthorization_code()));

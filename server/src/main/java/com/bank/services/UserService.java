@@ -4,6 +4,7 @@ import com.bank.dto.UserDTO;
 import com.bank.entities.Addresses;
 import com.bank.entities.User;
 import com.bank.repositories.UserRepository;
+import com.bank.util.CookiesEvent;
 import com.nimbusds.openid.connect.sdk.claims.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,12 @@ import java.util.UUID;
 public class UserService{
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private AddressesService addressesService;
+
+    @Autowired
+    private CookiesEvent cookiesEvent;
 
     public List<UserDTO> getAll(){
         return userRepository.findAll().stream().map(user -> new UserDTO(user)).toList();
@@ -39,10 +44,12 @@ public class UserService{
         Addresses addresses = addressesService.insert(user.getCep());
         addresses.setUser(user);
         user.setAddresses(addresses);
-        String encryptPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        user.setPassword(encryptPassword);
-        user.setId(UUID.randomUUID().toString());
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
+        String id = UUID.randomUUID().toString();
+        user.setId(id);
+
+        cookiesEvent.addCookie("idUser", id);
         userRepository.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado!");
