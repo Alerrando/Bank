@@ -29,15 +29,19 @@ public class DepositService {
         return depositRepository.findAll();
     }
 
-    public ResponseEntity<MessageReturn> create(Integer value){
+    public ResponseEntity<MessageReturn> create(Double value){
         Long nextId = depositRepository.getNextId();
         String id = cookiesEvent.getIdUserCookie("idUser");
         User user = userRepository.findById(id).orElseThrow();
 
         String formattedId = String.format("%04d", nextId);
         Deposit deposit = new Deposit(Long.parseLong("0"), user, "DEP" + formattedId, value);
+        user.setTotal_value(user.getTotal_value() + value);
+
 
         depositRepository.save(deposit);
+        userRepository.save(user);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageReturn(true, deposit.getAuthorization_code()));
     }
 }

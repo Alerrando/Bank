@@ -3,6 +3,7 @@ package com.bank.services;
 import com.bank.dto.UserDTO;
 import com.bank.entities.Addresses;
 import com.bank.entities.User;
+import com.bank.repositories.AddressesRepository;
 import com.bank.repositories.UserRepository;
 import com.bank.util.CookiesEvent;
 import com.nimbusds.openid.connect.sdk.claims.Address;
@@ -25,6 +26,9 @@ public class UserService{
     private AddressesService addressesService;
 
     @Autowired
+    private AddressesRepository addressesRepository;
+
+    @Autowired
     private CookiesEvent cookiesEvent;
 
     public List<UserDTO> getAll(){
@@ -41,6 +45,7 @@ public class UserService{
         if(!(user.validateCPF())){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF inválido!");
         }
+
         Addresses addresses = addressesService.insert(user.getCep());
         addresses.setUser(user);
         user.setAddresses(addresses);
@@ -50,6 +55,7 @@ public class UserService{
         user.setId(id);
 
         cookiesEvent.addCookie("idUser", id);
+        addressesRepository.save(addresses);
         userRepository.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado!");
@@ -63,6 +69,7 @@ public class UserService{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Credenciais invalidadas!");
         }
 
+        cookiesEvent.addCookie("idUser", userSearch.get().getId());
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Usuário logado!");
     }
 }

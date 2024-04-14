@@ -21,7 +21,7 @@ public class DepositController {
     }
 
     @PostMapping
-    public ResponseEntity<MessageReturn> create(@RequestBody Integer value){
+    public ResponseEntity<MessageReturn> create(@RequestBody Double value){
         return depositService.create(value);
     }
 }
