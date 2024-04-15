@@ -24,7 +24,10 @@ export default function Adm() {
         <section className="w-full grid gap-3 px-3 py-6 xl:p-6">
           <h2 className="w-fit text-lg font-semibold">My Cards</h2>
 
-          <Carousel opts={{ align: "start" }} className="w-full md:max-w-[62%] flex items-center gap-3 md:ml-12">
+          <Carousel
+            opts={{ align: "start", visibleSlides: { mobile: 1, tablet: 2, desktop: 4 } }}
+            className="w-full md:max-w-[62%] flex items-center gap-3 md:ml-12"
+          >
             <CarouselContent>
               {Array.from({ length: 2 }).map(() => (
                 <CarouselItem className={`w-full flex items-center gap-4`} key={Math.random()}>

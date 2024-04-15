@@ -177,7 +177,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
     const register: UserRegister = {
       ...rest,
       dateOfBirth: format(newDateOfBirth, "yyyy-MM-dd HH:mm:ss"),
-      totalValue: parseFloat(0),
+      totalValue: 0,
     };
 
     const aux = await createUser(register);
