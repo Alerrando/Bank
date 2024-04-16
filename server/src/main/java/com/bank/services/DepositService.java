@@ -32,7 +32,7 @@ public class DepositService {
     public ResponseEntity<MessageReturn> create(Double value){
         Long nextId = depositRepository.getNextId();
         String id = cookiesEvent.getIdUserCookie("idUser");
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById("13167492-8896-4da7-a34d-abbbb9da50e1").orElseThrow();
 
         String formattedId = String.format("%04d", nextId);
         Deposit deposit = new Deposit(Long.parseLong("0"), user, "DEP" + formattedId, value);
