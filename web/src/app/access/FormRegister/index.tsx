@@ -195,13 +195,13 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
     toastMessageLogin(aux);
 
     setTimeout(() => {
-      navigate("/adm");
+      navigate.push("/adm");
     }, 5000);
   }
 
   function toastMessageLogin(responseHttp: { status: boolean; message: [] } | AxiosError) {
     let responseMessage: ResponseMessage = {} as ResponseMessage;
-    if (responseHttp instanceof AxiosError) responseMessage = responseHttp.response.data as string;
+    if (responseHttp instanceof AxiosError) responseMessage.message = responseHttp.response?.data as string;
 
     const toastMessage: { status: "success" | "error"; message: string } = {
       message: !(responseHttp instanceof AxiosError) ? "Cadastro realizado com sucesso!" : responseMessage.message,
