@@ -30,17 +30,20 @@ export default function AdmAside() {
         </div>
 
         <nav className="flex flex-col gap-4">
-          <div className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer">
+          <Link 
+            href="/adm" 
+            className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer"
+          >
             <LayoutGrid size={22} />
             <span className="text-base">Dashboard</span>
-          </div>
+          </Link>
 
           <div className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer">
             <CreditCard size={22} />
             <span className="text-base">Balances</span>
           </div>
 
-          <div className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer relative group">
+          <div className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer relative group z-20">
             <Wallet size={22} />
             <span className="text-base">Transactions</span>
 
