@@ -26,14 +26,11 @@ export default function AdmAside() {
             fill={true}
           />
 
-          {access && <X size={32} className="xl:block hidden text-white" onClick={() => navigate.push(`adm?${redirectPage("false")}`)} />}
+          {access && <X size={32} className="xl:block hidden text-white" onClick={() => navigate.push(`adm?${redirectPage("true")}`)} data-testid="x-close" />}
         </div>
 
         <nav className="flex flex-col gap-4">
-          <Link 
-            href="/adm" 
-            className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer"
-          >
+          <Link href="/adm" className="w-full flex items-center gap-2 text-white hover:bg-primary px-3 py-2 cursor-pointer">
             <LayoutGrid size={22} />
             <span className="text-base">Dashboard</span>
           </Link>
