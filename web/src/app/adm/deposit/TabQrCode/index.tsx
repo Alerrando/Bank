@@ -27,7 +27,7 @@ export default function TabQrCode() {
       name: "value",
       nameSpan: "Value",
       placeholder: "20.00",
-      type: "string",
+      type: "text",
     },
   ];
   return (

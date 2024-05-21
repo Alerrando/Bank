@@ -43,7 +43,7 @@ export default function TabCopyPaste() {
       name: "copyPaste",
       nameSpan: "Value",
       placeholder: "20.00",
-      type: "string",
+      type: "text",
     },
 
     {
@@ -51,7 +51,7 @@ export default function TabCopyPaste() {
       name: "qrCode",
       nameSpan: "Value",
       placeholder: "20.00",
-      type: "string",
+      type: "text",
     },
   ];
 
@@ -124,12 +124,14 @@ export default function TabCopyPaste() {
   );
 
   async function submit(e: SchemaDataType) {
-    if (e[generate] === 0) {
-      toastMessageLogin({ message: "Value of field must be greater than 0", status: false });
-      return;
-    }
+    setTimeout(() => {
+      if (e[generate] === 0) {
+        toastMessageLogin({ message: "Value of field must be greater than 0", status: false });
+        return;
+      }
 
-    toastMessageLogin({ message: "Copied to clipboard", status: true });
+      toastMessageLogin({ message: "Copied to clipboard", status: true });
+    }, 2000);
 
     if (generate === "copyPaste") {
       const aux = generatePixCode(e.copyPaste);
