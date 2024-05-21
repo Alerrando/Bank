@@ -197,7 +197,8 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
     }, 5000);
   }
 
-  function verifyError(e: ResponseMessage | AxiosError): ResponseMessage {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function verifyError(e: any | AxiosError): ResponseMessage {
     if (!(e instanceof AxiosError)) {
       return {
         message: "Não foi possivel fazer o login",

@@ -1,7 +1,6 @@
 package com.bank.entities;
 
 public class AuthenticationDTO {
-<<<<<<< HEAD
     String email;
 
     String password;

@@ -102,7 +102,8 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   );
 
   async function submit(e: SchemaType) {
-    const aux: ResponseMessage | AxiosError = await login(e);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const aux: any | AxiosError = await login(e);
 
     if (aux.status) {
       const { ...restUser } = aux.message.user;
@@ -117,7 +118,8 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
     }, 5000);
   }
 
-  function verifyError(e: ResponseMessage | AxiosError): ResponseMessage {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function verifyError(e: any | AxiosError): ResponseMessage {
     if (!(e instanceof AxiosError)) {
       return {
         message: "Não foi possivel fazer o login",
