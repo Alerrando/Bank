@@ -57,7 +57,7 @@ export default function TabCopyPaste() {
 
   return (
     <form action="" className="w-full h-full flex flex-col gap-4" onSubmit={handleSubmit(submit)}>
-      {inputs.map((input: InputsProps, index: Key) => (
+      {inputs.map((input: InputsProps, index: number) => (
         <div className="flex flex-col gap-4" key={index}>
           <Input input={input} errors={errors} register={register} />
 
