@@ -49,6 +49,7 @@ export type CardWalletProps = {
 
 export type ResponseMessage = {
   message: string;
+  status: boolean;
 };
 
 export const responseMessageValues = {

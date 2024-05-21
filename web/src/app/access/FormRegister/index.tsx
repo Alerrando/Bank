@@ -3,15 +3,13 @@ import { InputsProps, ResponseMessage, UserProps } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { format, isValid, parseISO } from "date-fns";
-import { CheckCheck, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Key, useContext } from "react";
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
-import { toast } from "sonner";
 import { z } from "zod";
 import { createUser } from "../../../api";
-import { StateContext } from "../../../context";
+import { StateContext, toastMessageLogin } from "../../../context";
 
 const schema = z.object({
   name: z.string().min(3, "The name must have at least 3 characters").max(255, "O nome deve ter no máximo 255 caracteres"),
@@ -192,26 +190,24 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
       setUser(user);
     }
 
-    toastMessageLogin(aux);
+    toastMessageLogin(verifyError(e));
 
     setTimeout(() => {
       navigate.push("/adm");
     }, 5000);
   }
 
-  function toastMessageLogin(responseHttp: { status: boolean; message: [] } | AxiosError) {
-    let responseMessage: ResponseMessage = {} as ResponseMessage;
-    if (responseHttp instanceof AxiosError) responseMessage.message = responseHttp.response?.data as string;
+  function verifyError(e: ResponseMessage | AxiosError): ResponseMessage {
+    if (!(e instanceof AxiosError)) {
+      return {
+        message: "Não foi possivel fazer o login",
+        status: false,
+      };
+    }
 
-    const toastMessage: { status: "success" | "error"; message: string } = {
-      message: !(responseHttp instanceof AxiosError) ? "Cadastro realizado com sucesso!" : responseMessage.message,
-      status: !(responseHttp instanceof AxiosError) ? "success" : "error",
+    return {
+      message: e.response?.data.message,
+      status: e.response?.data.status,
     };
-
-    toast[toastMessage.status](toastMessage.message, {
-      position: "bottom-left",
-      icon: toastMessage.status === "success" ? <CheckCheck size={16} /> : <X size={16} />,
-      onAutoClose: () => {},
-    });
   }
 }

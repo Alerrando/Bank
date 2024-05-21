@@ -1,15 +1,12 @@
 import { InputsProps, ResponseMessage } from "@/context/types";
-import { styleToast } from "@/util";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
-import { CheckCheck, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Key, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 import { login } from "../../../api";
-import { StateContext } from "../../../context";
+import { StateContext, toastMessageLogin } from "../../../context";
 
 const schema = z.object({
   email: z.string().email("Email invalid!").max(255, "The email must have a maximum of 255 characters"),
@@ -105,36 +102,32 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   );
 
   async function submit(e: SchemaType) {
-    const aux = await login(e);
+    const aux: ResponseMessage | AxiosError = await login(e);
 
     if (aux.status) {
       const { ...restUser } = aux.message.user;
 
       setUser(restUser);
     }
-    toastMessageLogin(aux);
+
+    toastMessageLogin(verifyError(e));
 
     setTimeout(() => {
       navigate.push("/adm");
     }, 5000);
   }
 
-  function toastMessageLogin(responseHttp: { status: boolean; message: [] } | AxiosError) {
-    const responseMessage: ResponseMessage = {} as ResponseMessage;
-    if (responseHttp instanceof AxiosError) {
-      responseMessage.message = responseHttp.response !== undefined ? (responseHttp.response.data as string) : "Erro ao buscar dados!";
+  function verifyError(e: ResponseMessage | AxiosError): ResponseMessage {
+    if (!(e instanceof AxiosError)) {
+      return {
+        message: "Não foi possivel fazer o login",
+        status: false,
+      };
     }
 
-    const toastMessage: { status: "success" | "error"; message: string } = {
-      message: !(responseHttp instanceof AxiosError) ? "Login realizado!" : responseMessage.message,
-      status: !(responseHttp instanceof AxiosError) ? "success" : "error",
+    return {
+      message: e.response?.data.message,
+      status: e.response?.data.status,
     };
-
-    toast[toastMessage.status](toastMessage.message, {
-      position: "bottom-left",
-      icon: toastMessage.status === "success" ? <CheckCheck size={16} /> : <X size={16} />,
-      className: styleToast[toastMessage.status],
-      onAutoClose: () => {},
-    });
   }
 }

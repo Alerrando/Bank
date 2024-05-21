@@ -6,6 +6,7 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import AdmAside from "../../../components/AdmAside";
 import TabCopyPaste from "./TabCopyPaste";
 import TabQrCode from "./TabQrCode";
+import { Toaster } from "sonner";
 
 export default function Deposit() {
   return (
@@ -44,6 +45,8 @@ export default function Deposit() {
           </div>
         </section>
       </main>
+
+      <Toaster />
     </>
   );
 }

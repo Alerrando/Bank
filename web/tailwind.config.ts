@@ -1,14 +1,9 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
- 
+
 const config = {
   darkMode: ["class"],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {
@@ -53,7 +48,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        modal: "rgba(0, 0, 0, 0.5)"
+        modal: "rgba(0, 0, 0, 0.5)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -78,24 +73,24 @@ const config = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       gridTemplateColumns: {
-        "inputs-register": "repeat(auto-fit, minmax(50%, 1fr))"
+        "inputs-register": "repeat(auto-fit, minmax(50%, 1fr))",
       },
       gridTemplateRows: {
-        "login": "45% 55%",
-      }
+        login: "45% 55%",
+      },
     },
     screens: {
-      "sm": { "max": "639px" },
-      'md': '768px',
+      sm: { max: "639px" },
+      md: "768px",
 
-      'lg': '1024px',
+      lg: "1024px",
 
-      'xl': '1280px',
+      xl: "1280px",
 
-      '2xl': '1536px',
-    }
+      "2xl": "1536px",
+    },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
