@@ -13,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserService{
@@ -36,14 +34,19 @@ public class UserService{
     }
 
     public ResponseEntity create(User user){
+        Map<String, Object> response = new HashMap<>();
         Optional<User> optional = userRepository.findByEmail(user.getEmail());
 
         if(!(optional.isPresent())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(optional.get());
+            response.put("status", false);
+            response.put("message", optional.get());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         if(!(user.validateCPF())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF inválido!");
+            response.put("status", false);
+            response.put("message", "Invalid CPF!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         Addresses addresses = addressesService.insert(user.getCep());
@@ -58,18 +61,26 @@ public class UserService{
         addressesRepository.save(addresses);
         userRepository.save(user);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado!");
+        response.put("status", false);
+        response.put("message", "Registered User");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    public ResponseEntity<String> login(UserDTO user){
+    public ResponseEntity login(UserDTO user){
         Optional<User> userSearch = userRepository.findByEmail(user.getEmail());
         String encryptPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        Map<String, Object> response = new HashMap<>();
 
         if(userSearch.isEmpty() || encryptPassword.equals(userSearch.get().getPassword())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Credenciais invalidadas!");
+            response.put("status", false);
+            response.put("message", "Invalid Credentials");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         cookiesEvent.addCookie("idUser", userSearch.get().getId());
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Usuário logado!");
+
+        response.put("status", true);
+        response.put("message", "Logged in User");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 }

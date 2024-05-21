@@ -17,8 +17,6 @@ import java.time.ZoneOffset;
 
 @Service
 public class TokenService {
-    @Autowired
-    AuthenticationManager authenticationManager;
 
     @Autowired
     private HttpServletResponse response;

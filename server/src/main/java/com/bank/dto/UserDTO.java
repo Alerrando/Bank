@@ -20,6 +20,11 @@ public class UserDTO {
         this.total_value = user.getTotal_value();
     }
 
+    public UserDTO(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }

@@ -21,13 +21,10 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    private Algorithm algorithm; // Definir o algoritmo de assinatura
+    private UserRepository userRepository;
 
     @Value("${api.security.token.secret}")
     private String secret;

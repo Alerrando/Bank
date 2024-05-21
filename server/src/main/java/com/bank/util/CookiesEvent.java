@@ -24,7 +24,7 @@ public class CookiesEvent {
         return cookie;
     }
 
-    public String getIdUserCookie(String name){
+    public String getValueCookie(String name){
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals(name)) {
