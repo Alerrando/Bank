@@ -39,7 +39,7 @@ public class UserService{
         Optional<User> optional = userRepository.findByEmail(user.getEmail());
 
         if(!(optional.isPresent())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário já cadastrado");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(optional.get());
         }
 
         if(!(user.validateCPF())){
