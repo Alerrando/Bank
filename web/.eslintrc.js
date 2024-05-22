@@ -1,4 +1,4 @@
-/**module.exports = {
+module.exports = {
   env: {
     browser: true,
     es2021: true,
@@ -38,6 +38,7 @@
         img: ["Image"],
       },
     ],
+    "@typescript-eslint/no-explicit-any": "off",
     "jsx-a11y/aria-props": "warn",
     "jsx-a11y/aria-proptypes": "warn",
     "jsx-a11y/aria-unsupported-elements": "warn",
@@ -50,4 +51,3 @@
     },
   },
 };
-**/
