@@ -6,7 +6,7 @@ import { Key } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { login } from "../../../api";
-import { toastMessageLogin, useStore } from "../../../context";
+import { useStore } from "../../../context";
 
 const schema = z.object({
   email: z.string().email("Email invalid!").max(255, "The email must have a maximum of 255 characters"),
@@ -27,7 +27,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   } = useForm<SchemaType>({
     resolver: zodResolver(schema),
   });
-  const { setAuthenticated, setUser } = useStore();
+  const { setAuthenticated, setUser, toastMessageLogin } = useStore();
   const navigate = useRouter();
 
   const inputs: InputsProps[] = [

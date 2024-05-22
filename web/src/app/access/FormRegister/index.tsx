@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { z } from "zod";
 import { createUser } from "../../../api";
-import { toastMessageLogin, useStore } from "../../../context";
+import { useStore } from "../../../context";
 
 const schema = z.object({
   name: z.string().min(3, "The name must have at least 3 characters").max(255, "O nome deve ter no máximo 255 caracteres"),
@@ -41,7 +41,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
   } = useForm<SchemaTypeRegister>({
     resolver: zodResolver(schema),
   });
-  const { setUser } = useStore();
+  const { setUser, toastMessageLogin } = useStore();
   const navigate = useRouter();
 
   const inputs: InputsProps[] = [

@@ -1,5 +1,5 @@
 import Input from "@/components/Input";
-import { toastMessageLogin } from "@/context";
+import { useStore } from "@/context";
 import { InputsProps } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -29,6 +29,7 @@ export default function TabCopyPaste() {
   } = useForm<SchemaDataType>({
     resolver: zodResolver(schemaData),
   });
+  const { toastMessageLogin } = useStore();
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const generate = searchParams.get("generate");
