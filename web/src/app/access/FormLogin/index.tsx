@@ -2,11 +2,11 @@ import { InputsProps, ResponseMessage } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { Key, useContext } from "react";
+import { Key } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { login } from "../../../api";
-import { StateContext, toastMessageLogin } from "../../../context";
+import { toastMessageLogin, useStore } from "../../../context";
 
 const schema = z.object({
   email: z.string().email("Email invalid!").max(255, "The email must have a maximum of 255 characters"),
@@ -27,7 +27,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   } = useForm<SchemaType>({
     resolver: zodResolver(schema),
   });
-  const { setUser } = useContext(StateContext);
+  const { setAuthenticated, setUser } = useStore();
   const navigate = useRouter();
 
   const inputs: InputsProps[] = [
@@ -112,6 +112,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
     }
 
     toastMessageLogin(verifyError(e));
+    setAuthenticated(true);
 
     setTimeout(() => {
       navigate.push("/adm");

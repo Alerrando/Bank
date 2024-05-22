@@ -1,11 +1,11 @@
+import { InputsProps } from "@/context/types";
 import { ErrorMessage } from "@hookform/error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ZodType } from "zod";
 import { SubmitDatasModal } from "..";
-import { StoreContext } from "../../../context";
-import { InputsProps } from "@/context/types";
+import { useStore } from "../../../context";
 
 type ModalFormDepositProps = {
   submitInfos?: (data: SubmitDatasModal) => void;
@@ -22,8 +22,7 @@ export function ModalFormDeposit({ createFormSchema, inputs, submitInfos }: Moda
   } = useForm<SubmitDatasModal>({
     resolver: zodResolver(createFormSchema),
   });
-  const useStore = useContext(StoreContext);
-  const { user } = useStore;
+  const { user } = useStore();
 
   useEffect(() => {
     setValue("user_cpf", user.cpf);

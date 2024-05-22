@@ -4,12 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { format, isValid, parseISO } from "date-fns";
 import { useRouter } from "next/navigation";
-import { Key, useContext } from "react";
+import { Key } from "react";
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { z } from "zod";
 import { createUser } from "../../../api";
-import { StateContext, toastMessageLogin } from "../../../context";
+import { toastMessageLogin, useStore } from "../../../context";
 
 const schema = z.object({
   name: z.string().min(3, "The name must have at least 3 characters").max(255, "O nome deve ter no máximo 255 caracteres"),
@@ -41,7 +41,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
   } = useForm<SchemaTypeRegister>({
     resolver: zodResolver(schema),
   });
-  const { setUser } = useContext(StateContext);
+  const { setUser } = useStore();
   const navigate = useRouter();
 
   const inputs: InputsProps[] = [

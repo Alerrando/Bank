@@ -3,17 +3,20 @@
 import HeaderAdm from "@/components/HeaderAdm";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { isAuth, useStore } from "@/context";
 import { CardWalletProps } from "@/context/types";
 import { cardsWallet } from "@/util";
 import { ArrowLeftRight, HandCoins } from "lucide-react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 import AdmAside from "../../components/AdmAside";
 
 export default function Adm() {
-  useEffect(() => {
-    setTimeout(() => {}, 3000);
-  }, []);
+  const { authenticated } = useStore();
+
+  if (!isAuth(Adm, authenticated)) {
+    redirect("/");
+  }
 
   return (
     <>

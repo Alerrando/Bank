@@ -3,8 +3,10 @@ import AdmAside from "@/components/AdmAside";
 import HeaderAdm from "@/components/HeaderAdm";
 import Input from "@/components/Input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { isAuth, useStore } from "@/context";
 import { InputsProps } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,6 +23,7 @@ const schemaData = z.object({
 type SchemaDataType = z.infer<typeof schemaData>;
 
 export default function Transfer() {
+  const { authenticated } = useStore();
   const {
     register,
     formState: { errors },
@@ -65,6 +68,10 @@ export default function Transfer() {
       type: "text",
     },
   ];
+
+  if (!isAuth(Transfer, authenticated)) {
+    redirect("/");
+  }
 
   return (
     <>

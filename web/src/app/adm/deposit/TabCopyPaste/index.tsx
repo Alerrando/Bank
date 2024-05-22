@@ -4,7 +4,7 @@ import { InputsProps } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { QrCodePix } from "qrcode-pix";
-import { Key, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
