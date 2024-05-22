@@ -48,7 +48,7 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
     });
   }
 
-  return <StateContext.Provider value={{ user, setUser, authenticated, setAuthenticated, toastMessageLogin, isAuth }}>{children}</StateContext.Provider>;
+  return <StateContext.Provider value={{ user, setUser, authenticated, setAuthenticated, toastMessageLogin }}>{children}</StateContext.Provider>;
 }
 
 export const useStore = () => {
