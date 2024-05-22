@@ -19,20 +19,21 @@ const schemaData = z.object({
     .transform((val) => Number(val)),
 });
 
-type SchemaDataType = z.infer<typeof schemaData>;
+export type SchemaDepositDataType = z.infer<typeof schemaData>;
+type GenerateType = "copyPaste" | "qrCode";
 
 export default function TabCopyPaste() {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<SchemaDataType>({
+  } = useForm<SchemaDepositDataType>({
     resolver: zodResolver(schemaData),
   });
   const { toastMessageLogin } = useStore();
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
-  const generate = searchParams.get("generate");
+  const generate = searchParams.get("generate") || "copyPaste";
   const navigate = useRouter();
   const [generates, setGenerates] = useState({
     copypaste: "",
@@ -124,9 +125,9 @@ export default function TabCopyPaste() {
     </form>
   );
 
-  async function submit(e: SchemaDataType) {
+  async function submit(e: SchemaDepositDataType) {
     setTimeout(() => {
-      if (e[generate] === 0) {
+      if (generate !== null && e[generate as GenerateType] === 0) {
         toastMessageLogin({ message: "Value of field must be greater than 0", status: false });
         return;
       }
@@ -149,7 +150,7 @@ export default function TabCopyPaste() {
     return params.toString();
   }
 
-  function generatePixCode(value) {
+  function generatePixCode(value: number) {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const length = 20;
     let result = "";
@@ -161,13 +162,13 @@ export default function TabCopyPaste() {
     return (result += value);
   }
 
-  async function generateQrCode(value) {
+  async function generateQrCode(value: number) {
     const pix = QrCodePix({
       city: "Rancharia",
       key: "51858773830",
       name: "Alerrando Breno",
       version: "01",
-      value: parseFloat(value),
+      value: value,
     });
 
     const qrCodeBase64 = await pix.base64();

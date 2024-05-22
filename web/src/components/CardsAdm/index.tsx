@@ -17,7 +17,7 @@ export function CardsAdm({ numberMoney, iconCard, textBodyCard, colorPrinc = "#f
       <header className="flex items-center justify-between">
         {iconCard}
 
-        <div className={`flex items-center flex-row gap-1 ${porcentMonth > 0 ? "positive" : porcentMonth < 0 ? "negative" : "null"}`}>
+        <div className={`flex items-center flex-row gap-1 ${Number(porcentMonth) > 0 ? "positive" : Number(porcentMonth) < 0 ? "negative" : "null"}`}>
           {arrowIndication && (
             <>
               {arrowIndication}
@@ -32,7 +32,7 @@ export function CardsAdm({ numberMoney, iconCard, textBodyCard, colorPrinc = "#f
       </header>
 
       <section className={`flex flex-col gap-1 text-white`}>
-        <h3 className="text-3xl">R$ {parseFloat(numberMoney).toFixed(2)}</h3>
+        <h3 className="text-3xl">R$ {numberMoney.toFixed(2)}</h3>
 
         <span className="opacity-60">{textBodyCard}</span>
       </section>
@@ -41,6 +41,6 @@ export function CardsAdm({ numberMoney, iconCard, textBodyCard, colorPrinc = "#f
 
   function differencyPorcent() {
     if (porcentMonth !== null) return `${parseFloat(porcentMonth).toFixed(2)}% `;
-    else return `${parseFloat(0).toFixed(2)}% `;
+    else return "0.00%";
   }
 }

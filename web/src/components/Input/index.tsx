@@ -3,8 +3,8 @@ import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 type InputProps = {
   input: InputsProps;
-  errors: FieldErrors<>;
-  register: UseFormRegister<>;
+  errors: FieldErrors<any>;
+  register: UseFormRegister<any>;
 };
 
 export default function Input({ input, errors, register }: InputProps) {

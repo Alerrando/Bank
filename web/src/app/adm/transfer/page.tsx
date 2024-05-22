@@ -20,7 +20,7 @@ const schemaData = z.object({
   phone: z.string().regex(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/, "Invalid Number!"),
 });
 
-type SchemaDataType = z.infer<typeof schemaData>;
+export type SchemaTransferDataType = z.infer<typeof schemaData>;
 
 export default function Transfer() {
   const { authenticated } = useStore();
@@ -28,7 +28,7 @@ export default function Transfer() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<SchemaDataType>({
+  } = useForm<SchemaTransferDataType>({
     resolver: zodResolver(schemaData),
   });
   const inputs: InputsProps[] = [
@@ -37,7 +37,7 @@ export default function Transfer() {
       name: "value",
       nameSpan: "Value",
       placeholder: "20.00",
-      type: "string",
+      type: "text",
     },
     {
       classNameGrid: "items-start",
@@ -51,7 +51,7 @@ export default function Transfer() {
       name: "cpf/cnpj",
       nameSpan: "CPF/CNPJ",
       placeholder: "CPF/CNPJ",
-      type: "string",
+      type: "text",
     },
     {
       classNameGrid: "items-start",
@@ -125,7 +125,7 @@ export default function Transfer() {
     </>
   );
 
-  function submit(e: SchemaDataType) {
+  function submit(e: SchemaTransferDataType) {
     console.log(e);
   }
 }

@@ -8,9 +8,9 @@ import { SubmitDatasModal } from "..";
 import { useStore } from "../../../context";
 
 type ModalFormDepositProps = {
-  submitInfos?: (data: SubmitDatasModal) => void;
-  inputs?: InputsProps[];
-  createFormSchema?: ZodType<unknown, unknown, unknown>;
+  submitInfos: (data: SubmitDatasModal) => void;
+  inputs: InputsProps[];
+  createFormSchema: ZodType<any, any, any>;
 };
 
 export function ModalFormDeposit({ createFormSchema, inputs, submitInfos }: ModalFormDepositProps) {
@@ -18,15 +18,10 @@ export function ModalFormDeposit({ createFormSchema, inputs, submitInfos }: Moda
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm<SubmitDatasModal>({
     resolver: zodResolver(createFormSchema),
   });
   const { user } = useStore();
-
-  useEffect(() => {
-    setValue("user_cpf", user.cpf);
-  }, []);
 
   return (
     <form className="w-full flex flex-col gap-8 py-2 px-4" onSubmit={handleSubmit(submitInfos)}>
@@ -35,9 +30,9 @@ export function ModalFormDeposit({ createFormSchema, inputs, submitInfos }: Moda
           <div key={input.name} className="w-full flex flex-col gap-2">
             <div className="w-full flex flex-col gap-2">
               <label htmlFor={input.name} className="font-bold">
-                {input.label}
+                {input.nameSpan}
               </label>
-              {input.name === "user_cpf" ? (
+              {input.name === "cpf" ? (
                 <input
                   type={input.type}
                   placeholder={input.placeholder}
@@ -51,7 +46,7 @@ export function ModalFormDeposit({ createFormSchema, inputs, submitInfos }: Moda
                   type={input.type}
                   placeholder={input.placeholder}
                   className="border border-[#999] rounded-lg p-2 outline-none"
-                  {...register(input.name)}
+                  {...register(input.name as keyof SubmitDatasModal)}
                   autoComplete="on"
                 />
               )}
