@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -23,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
-        <StateProvider>{children}</StateProvider>
+        <StateProvider>
+          <Suspense>{children}</Suspense>
+        </StateProvider>
       </body>
     </html>
   );
