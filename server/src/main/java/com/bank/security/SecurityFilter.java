@@ -1,6 +1,5 @@
 package com.bank.security;
 
-import com.auth0.jwt.algorithms.Algorithm;
 import com.bank.repositories.UserRepository;
 import com.bank.services.TokenService;
 import jakarta.servlet.FilterChain;
@@ -10,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,18 +31,26 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        boolean authenticated = false;
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("accessToken")) {
                     String token = cookie.getValue();
                     var subject = tokenService.validateToken(token);
                     UserDetails user = userRepository.findUser(subject);
-                    if(user != null){
+                    if (user != null) {
                         var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                         SecurityContextHolder.getContext().setAuthentication(authentication);
+                        authenticated = true;
+                    } else {
+                        response.sendError(response.SC_UNAUTHORIZED);
                     }
                 }
             }
+        }
+
+        if (!authenticated) {
+            throw  new AccessDeniedException("Usuário não Autorizado");
         }
 
         filterChain.doFilter(request, response);

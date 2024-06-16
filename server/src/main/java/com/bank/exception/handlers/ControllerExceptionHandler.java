@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.nio.file.AccessDeniedException;
 import java.time.Instant;
 
 @ControllerAdvice
@@ -21,6 +22,13 @@ public class ControllerExceptionHandler {
         for (FieldError f : e.getBindingResult().getFieldErrors()){
             err.addError(f.getField(), f.getDefaultMessage());
         }
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<CustomError> accessDeniedException(AccessDeniedException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ValidationError err = new ValidationError(Instant.now(), status.value(), "Usuário não autorizado", request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 }
