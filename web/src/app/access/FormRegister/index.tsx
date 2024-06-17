@@ -1,4 +1,3 @@
-import { Toaster } from "@/components/ui/sonner";
 import { InputsProps, ResponseMessage, UserProps } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
@@ -8,8 +7,8 @@ import { Key } from "react";
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
 import { z } from "zod";
-import { createUser } from "../../../api";
 import { useStore } from "../../../context";
+import { createUser } from "@/api/create-user";
 
 const schema = z.object({
   name: z.string().min(3, "The name must have at least 3 characters").max(255, "O nome deve ter no máximo 255 caracteres"),
@@ -20,7 +19,7 @@ const schema = z.object({
   dateOfBirth: z.string().refine((val) => {
     return isValid(parseISO(val));
   }, "Invalid date of birth"),
-  addressNumber: z.string().min(1, "The house number must be at least 1 characters long"),
+  addressNumber: z.string().min(1, "The house number must be at least 1 characters long").transform((value) => parseInt(value)),
 });
 
 export type SchemaTypeRegister = z.infer<typeof schema>;
@@ -164,8 +163,6 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
           </p>
         </div>
       </form>
-
-      <Toaster />
     </>
   );
 
@@ -179,16 +176,6 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
     };
 
     const aux = await createUser(register);
-
-    if (aux.status) {
-      const { ...restUser } = aux.message.user;
-      const user: UserProps = {
-        ...restUser,
-        token: aux.message.token.original.access_token,
-      };
-
-      setUser(user);
-    }
 
     toastMessageLogin(verifyError(e));
 

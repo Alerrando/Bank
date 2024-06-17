@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { StateProvider } from "../context";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
         <StateProvider>
           <Suspense>{children}</Suspense>
         </StateProvider>
+        <Toaster richColors />
       </body>
     </html>
   );

@@ -1,12 +1,12 @@
 import { InputsProps, ResponseMessage } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { Key } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { login } from "../../../api";
 import { useStore } from "../../../context";
+import { login } from "@/api/login";
+import { toast } from "sonner";
 
 const schema = z.object({
   email: z.string().email("Email invalid!").max(255, "The email must have a maximum of 255 characters"),
@@ -27,7 +27,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   } = useForm<SchemaType>({
     resolver: zodResolver(schema),
   });
-  const { setAuthenticated, setUser, toastMessageLogin } = useStore();
+  const { setAuthenticated, toastMessageLogin } = useStore();
   const navigate = useRouter();
 
   const inputs: InputsProps[] = [
@@ -102,35 +102,17 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   );
 
   async function submit(e: SchemaType) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const aux: any | AxiosError = await login(e);
-
-    if (aux.status) {
-      const { ...restUser } = aux.message.user;
-
-      setUser(restUser);
+    try {
+        await login(e);
+        toast.success("Login Feito com sucesso!");
+        
+        setAuthenticated(true);
+    
+        setTimeout(() => {
+          navigate.push("/adm");
+        }, 5000);
+    } catch (error) {
+      toast.error("Erro ao fazer login!");
     }
-
-    toastMessageLogin(verifyError(e));
-    setAuthenticated(true);
-
-    setTimeout(() => {
-      navigate.push("/adm");
-    }, 5000);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function verifyError(e: any | AxiosError): ResponseMessage {
-    if (!(e instanceof AxiosError)) {
-      return {
-        message: "Não foi possivel fazer o login",
-        status: false,
-      };
-    }
-
-    return {
-      message: e.response?.data.message,
-      status: e.response?.data.status,
-    };
   }
 }

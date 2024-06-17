@@ -5,7 +5,6 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { isAuth, useStore } from "@/context";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { redirect } from "next/navigation";
-import { Toaster } from "sonner";
 import AdmAside from "../../../components/AdmAside";
 import TabCopyPaste from "./TabCopyPaste";
 import TabQrCode from "./TabQrCode";
@@ -53,8 +52,6 @@ export default function Deposit() {
           </div>
         </section>
       </main>
-
-      <Toaster />
     </>
   );
 }

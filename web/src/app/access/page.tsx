@@ -1,6 +1,5 @@
 "use client";
 import { Header } from "@/components/Header";
-import { Toaster } from "@/components/ui/sonner";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { FormLogin } from "./FormLogin";
@@ -27,8 +26,6 @@ export default function Access() {
           {access ? <FormLogin handleTogglePages={handleTogglePages} /> : <FormRegister handleTogglePages={handleTogglePages} />}
         </div>
       </main>
-
-      <Toaster />
     </>
   );
 

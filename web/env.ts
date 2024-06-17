@@ -9,5 +9,5 @@ const envSchema = z.object({
 export const env = envSchema.parse({
   MODE: "development" || "test",
   API_URL: "http://localhost:8080",
-  API_DELAY: 2000
+  ENABLE_API_DELAY: "true"
 });
