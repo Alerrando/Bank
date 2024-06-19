@@ -1,11 +1,13 @@
 import { env } from "../../../env";
-import { setupServer } from "msw/node";
+import { login } from "./login-mock";
 
-export  async function enableMSW(){
-    if (env.MODE !== "test" && !window.location.href.includes("http://localhost:50789/")) {
-        return;
-    }
+let mswWorker;
 
-    const worker = setupServer();
-    return worker.start();
+export async function enableMSW() {
+  console.log(env.MODE);
+  if (typeof window !== "undefined" && !mswWorker) {
+    const { setupWorker } = await import("msw/browser");
+    mswWorker = setupWorker(login);
+    return mswWorker;
+  }
 }
