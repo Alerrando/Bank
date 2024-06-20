@@ -2,6 +2,7 @@ package com.bank.services;
 
 import com.bank.dto.UserDTO;
 import com.bank.entities.Addresses;
+import com.bank.entities.MessageReturn;
 import com.bank.entities.User;
 import com.bank.repositories.AddressesRepository;
 import com.bank.repositories.UserRepository;
@@ -66,21 +67,15 @@ public class UserService{
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    public ResponseEntity login(UserDTO user){
-        Optional<User> userSearch = userRepository.findByEmail(user.getEmail());
-        String encryptPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        Map<String, Object> response = new HashMap<>();
+    public ResponseEntity<MessageReturn> login(String email, String password){
+        Optional<User> userSearch = userRepository.findByEmail(email);
+        String encryptPassword = new BCryptPasswordEncoder().encode(password);
 
         if(userSearch.isEmpty() || encryptPassword.equals(userSearch.get().getPassword())){
-            response.put("status", false);
-            response.put("message", "Invalid Credentials");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageReturn(false, "Invalid Credentials"));
         }
 
         cookiesEvent.addCookie("idUser", userSearch.get().getId());
-
-        response.put("status", true);
-        response.put("message", "Logged in User");
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new MessageReturn(true, "Logged in User!"));
     }
 }

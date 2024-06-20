@@ -1,6 +1,8 @@
 package com.bank.controllers;
 
+import com.bank.dto.LoginRequest;
 import com.bank.dto.UserDTO;
+import com.bank.entities.MessageReturn;
 import com.bank.entities.User;
 import com.bank.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody UserDTO user){
-        return userService.login(user);
+    public ResponseEntity<MessageReturn> login(@RequestBody LoginRequest loginRequest){
+        return userService.login(loginRequest.getEmail(), loginRequest.getPassword());
     }
 }

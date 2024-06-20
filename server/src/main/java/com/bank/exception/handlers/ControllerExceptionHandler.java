@@ -1,7 +1,7 @@
 package com.bank.exception.handlers;
 
-import com.bank.entities.CustomError;
-import com.bank.entities.ValidationError;
+import com.bank.dto.CustomError;
+import com.bank.dto.ValidationError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

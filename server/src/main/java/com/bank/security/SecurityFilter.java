@@ -31,7 +31,6 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        boolean authenticated = false;
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("accessToken")) {
@@ -41,16 +40,11 @@ public class SecurityFilter extends OncePerRequestFilter {
                     if (user != null) {
                         var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                         SecurityContextHolder.getContext().setAuthentication(authentication);
-                        authenticated = true;
                     } else {
                         response.sendError(response.SC_UNAUTHORIZED);
                     }
                 }
             }
-        }
-
-        if (!authenticated) {
-            throw  new AccessDeniedException("Usuário não Autorizado");
         }
 
         filterChain.doFilter(request, response);
