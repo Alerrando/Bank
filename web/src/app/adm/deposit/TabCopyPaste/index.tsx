@@ -168,7 +168,7 @@ export default function TabCopyPaste() {
       key: "51858773830",
       name: "Alerrando Breno",
       version: "01",
-      value: value,
+      value,
     });
 
     const qrCodeBase64 = await pix.base64();

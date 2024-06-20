@@ -21,14 +21,13 @@ export default function Adm() {
   return (
     <>
       <AdmAside />
-      <main className="w-full xl:w-[89%] h-screen ml-auto">
-        <HeaderAdm />
-
-        <section className="w-full h-[75%] md:h-1/2 flex flex-col md:flex-row px-3 py-6 xl:p-6">
-          <section className="w-full md:w-1/2 grid gap-3 ">
+      <HeaderAdm />
+      <main className="w-full xl:w-[89%] h-[calc(91vh_-_64px)] ml-auto mt-16">
+        <section className="w-full h-full flex flex-col px-3 py-6 xl:p-6 space-y-8">
+          <section className="w-full md:w-[60%] flex flex-col gap-3 ">
             <h2 className="w-fit text-lg font-semibold">My Cards</h2>
 
-            <Carousel opts={{ align: "start", loop: true, direction: "ltr" }} className="w-1/2 gap-3 m-12 md:my-0">
+            <Carousel opts={{ align: "start", loop: true, direction: "ltr" }} className="w-[85%] md:w-3/4 gap-3 mx-12">
               <CarouselContent>
                 {cardsWallet.map((item: CardWalletProps, indexCards: number) => (
                   <CarouselItem className={`w-full flex items-center gap-4`} key={Math.random()}>
@@ -59,11 +58,8 @@ export default function Adm() {
             </Carousel>
           </section>
 
-          <Tabs
-            defaultValue="all"
-            className="h-full w-full md:w-1/2 md:h-full flex flex-col gap-2 border shadow-lg mx-3 md:mx-6 pt-2 pb-4 rounded-lg overflow-y-auto"
-          >
-            <TabsList className="w-full h-min flex items-center justify-between px-3 pb-2 bg-transparent border-b border-b-zinc-100">
+          <Tabs defaultValue="all" className="h-full w-full md:w-[40%] md:h-full flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto">
+            <TabsList className="w-full h-min flex items-center justify-between px-3 py-2 bg-transparent border-b border-b-zinc-100">
               <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="deposits">Deposits</TabsTrigger>
               <TabsTrigger value="transfers">Transfers</TabsTrigger>

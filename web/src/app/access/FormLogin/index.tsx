@@ -1,12 +1,12 @@
-import { InputsProps, ResponseMessage } from "@/context/types";
+import { login } from "@/api/login";
+import { InputsProps } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Key } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { useStore } from "../../../context";
-import { login } from "@/api/login";
-import { toast } from "sonner";
 
 const schema = z.object({
   email: z.string().email("Email invalid!").max(255, "The email must have a maximum of 255 characters"),
@@ -27,7 +27,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   } = useForm<SchemaType>({
     resolver: zodResolver(schema),
   });
-  const { setAuthenticated, toastMessageLogin } = useStore();
+  const { setAuthenticated } = useStore();
   const navigate = useRouter();
 
   const inputs: InputsProps[] = [
@@ -103,14 +103,14 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
 
   async function submit(e: SchemaType) {
     try {
-        await login(e);
-        toast.success("Login Feito com sucesso!");
-        
-        setAuthenticated(true);
-    
-        setTimeout(() => {
-          navigate.push("/adm");
-        }, 5000);
+      await login(e);
+      toast.success("Login feito com sucesso!");
+
+      setAuthenticated(true);
+
+      setTimeout(() => {
+        navigate.push("/adm");
+      }, 5000);
     } catch (error) {
       toast.error("Erro ao fazer login!");
     }

@@ -1,14 +1,13 @@
-import { InputsProps, ResponseMessage, UserProps } from "@/context/types";
+import { createUser } from "@/api/create-user";
+import { InputsProps } from "@/context/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AxiosError } from "axios";
 import { format, isValid, parseISO } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Key } from "react";
 import { useForm } from "react-hook-form";
 import InputMask from "react-input-mask";
+import { toast } from "sonner";
 import { z } from "zod";
-import { useStore } from "../../../context";
-import { createUser } from "@/api/create-user";
 
 const schema = z.object({
   name: z.string().min(3, "The name must have at least 3 characters").max(255, "O nome deve ter no máximo 255 caracteres"),
@@ -19,7 +18,10 @@ const schema = z.object({
   dateOfBirth: z.string().refine((val) => {
     return isValid(parseISO(val));
   }, "Invalid date of birth"),
-  addressNumber: z.string().min(1, "The house number must be at least 1 characters long").transform((value) => parseInt(value)),
+  addressNumber: z
+    .string()
+    .min(1, "The house number must be at least 1 characters long")
+    .transform((value) => parseInt(value)),
 });
 
 export type SchemaTypeRegister = z.infer<typeof schema>;
@@ -40,7 +42,6 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
   } = useForm<SchemaTypeRegister>({
     resolver: zodResolver(schema),
   });
-  const { setUser, toastMessageLogin } = useStore();
   const navigate = useRouter();
 
   const inputs: InputsProps[] = [
@@ -167,35 +168,22 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
   );
 
   async function submit(e: SchemaTypeRegister) {
-    const { dateOfBirth, ...rest } = e;
-    const newDateOfBirth = new Date(dateOfBirth);
-    const register: UserRegister = {
-      ...rest,
-      dateOfBirth: format(newDateOfBirth, "yyyy-MM-dd HH:mm:ss"),
-      totalValue: 0,
-    };
-
-    const aux = await createUser(register);
-
-    toastMessageLogin(verifyError(e));
-
-    setTimeout(() => {
-      navigate.push("/adm");
-    }, 5000);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function verifyError(e: any | AxiosError): ResponseMessage {
-    if (!(e instanceof AxiosError)) {
-      return {
-        message: "Não foi possivel fazer o login",
-        status: false,
+    try {
+      const { dateOfBirth, ...rest } = e;
+      const newDateOfBirth = new Date(dateOfBirth);
+      const register: UserRegister = {
+        ...rest,
+        dateOfBirth: format(newDateOfBirth, "yyyy-MM-dd HH:mm:ss"),
+        totalValue: 0,
       };
-    }
 
-    return {
-      message: e.response?.data.message,
-      status: e.response?.data.status,
-    };
+      await createUser(register);
+      toast.success("Cadastro feito com sucesso!");
+      setTimeout(() => {
+        navigate.push("/adm");
+      }, 5000);
+    } catch (error) {
+      toast.error("Erro ao fazer cadastro!");
+    }
   }
 }

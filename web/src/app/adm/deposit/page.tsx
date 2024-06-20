@@ -7,7 +7,7 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import { redirect } from "next/navigation";
 import AdmAside from "../../../components/AdmAside";
 import TabCopyPaste from "./TabCopyPaste";
-import TabQrCode from "./TabQrCode";
+import TabTicket from "./TabTicket";
 
 export default function Deposit() {
   const { authenticated } = useStore();
@@ -45,7 +45,7 @@ export default function Deposit() {
                 </TabsContent>
 
                 <TabsContent value="ticket">
-                  <TabQrCode />
+                  <TabTicket />
                 </TabsContent>
               </Tabs>
             </div>

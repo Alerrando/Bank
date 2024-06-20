@@ -13,7 +13,7 @@ const schemaData = z.object({
 
 type SchemaDataType = z.infer<typeof schemaData>;
 
-export default function TabQrCode() {
+export default function TabTicket() {
   const {
     register,
     formState: { errors },
