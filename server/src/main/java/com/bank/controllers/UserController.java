@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/user")
     public List<UserDTO> getAll(){
         return userService.getAll();
     }
 
-    @PostMapping
-    public ResponseEntity create(@RequestBody User user){
+    @PostMapping("/user")
+    public ResponseEntity<MessageReturn> create(@RequestBody User user){
         return userService.create(user);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<MessageReturn> login(@RequestBody LoginRequest loginRequest){
-        return userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+    @PostMapping("/get-info-user")
+    public ResponseEntity<UserDTO> getInfosUser(){
+        return userService.getInfosUser();
     }
 }

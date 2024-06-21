@@ -31,23 +31,18 @@ public class UserService{
     private CookiesEvent cookiesEvent;
 
     public List<UserDTO> getAll(){
-        return userRepository.findAll().stream().map(user -> new UserDTO(user)).toList();
+        return userRepository.findAll().stream().map(UserDTO::new).toList();
     }
 
-    public ResponseEntity create(User user){
-        Map<String, Object> response = new HashMap<>();
+    public ResponseEntity<MessageReturn> create(User user){
         Optional<User> optional = userRepository.findByEmail(user.getEmail());
 
-        if(!(optional.isPresent())){
-            response.put("status", false);
-            response.put("message", optional.get());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        if(optional.isPresent()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageReturn(false, "User already exists!"));
         }
 
         if(!(user.validateCPF())){
-            response.put("status", false);
-            response.put("message", "Invalid CPF!");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageReturn(false, "Invalid CPF!"));
         }
 
         Addresses addresses = addressesService.insert(user.getCep());
@@ -61,21 +56,13 @@ public class UserService{
         cookiesEvent.addCookie("idUser", id);
         addressesRepository.save(addresses);
         userRepository.save(user);
-
-        response.put("status", false);
-        response.put("message", "Registered User");
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageReturn(true, "Registered User"));
     }
 
-    public ResponseEntity<MessageReturn> login(String email, String password){
-        Optional<User> userSearch = userRepository.findByEmail(email);
-        String encryptPassword = new BCryptPasswordEncoder().encode(password);
+    public ResponseEntity<UserDTO> getInfosUser(){
+        String idUser = cookiesEvent.getValueCookie("idUser");
+        Optional<User> optional = userRepository.findById(idUser);
 
-        if(userSearch.isEmpty() || encryptPassword.equals(userSearch.get().getPassword())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageReturn(false, "Invalid Credentials"));
-        }
-
-        cookiesEvent.addCookie("idUser", userSearch.get().getId());
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new MessageReturn(true, "Logged in User!"));
+        return optional.map(user -> ResponseEntity.status(HttpStatus.ACCEPTED).body(new UserDTO(user))).orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserDTO()));
     }
 }

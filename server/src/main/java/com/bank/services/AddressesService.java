@@ -14,7 +14,6 @@ public class AddressesService {
 
     public Addresses insert(String cep){
         RestTemplate restTemplate = new RestTemplate();
-        Addresses addresses = restTemplate.getForObject("https://viacep.com.br/ws/" + cep + "/json", Addresses.class);
-        return addresses;
+        return restTemplate.getForObject("https://viacep.com.br/ws/" + cep + "/json", Addresses.class);
     }
 }
