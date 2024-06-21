@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(value = "/")
+@RequestMapping(value = "/deposit")
 @RestController
 public class DepositController {
     @Autowired
     private DepositService depositService;
 
-    @GetMapping("/deposit")
+    @GetMapping
     public List<Deposit> getAll(){
         return depositService.getAll();
     }
 
-    @PostMapping("/deposit")
+    @PostMapping
     public ResponseEntity<MessageReturn> create(@RequestBody Double value){
         return depositService.create(value);
     }

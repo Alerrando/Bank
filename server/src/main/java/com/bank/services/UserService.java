@@ -61,7 +61,7 @@ public class UserService{
 
     public ResponseEntity<UserDTO> getInfosUser(){
         String idUser = cookiesEvent.getValueCookie("idUser");
-        Optional<User> optional = userRepository.findById(idUser);
+        Optional<User> optional = userRepository.findById("0");
 
         return optional.map(user -> ResponseEntity.status(HttpStatus.ACCEPTED).body(new UserDTO(user))).orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserDTO()));
     }

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequestMapping(value = "/login")
 @RestController
-@RequestMapping(value = "/")
 public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/login")
+    @PostMapping
     public ResponseEntity<MessageReturn> create(@RequestBody LoginRequest loginRequest){
         return loginService.login(loginRequest.getEmail(), loginRequest.getPassword());
     }

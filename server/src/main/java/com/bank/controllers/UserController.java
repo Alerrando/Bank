@@ -1,6 +1,5 @@
 package com.bank.controllers;
 
-import com.bank.dto.LoginRequest;
 import com.bank.dto.UserDTO;
 import com.bank.entities.MessageReturn;
 import com.bank.entities.User;
@@ -11,18 +10,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping(value = "/user")
 @RestController
-@RequestMapping(value = "/")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user")
+    @GetMapping
     public List<UserDTO> getAll(){
         return userService.getAll();
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public ResponseEntity<MessageReturn> create(@RequestBody User user){
         return userService.create(user);
     }
