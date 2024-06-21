@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ZodType } from "zod";
 import { SubmitDatasModal } from "..";
-import { useStore } from "../../../context";
 
 type ModalFormDepositProps = {
   submitInfos: (data: SubmitDatasModal) => void;
@@ -20,7 +19,6 @@ export function ModalFormDeposit({ createFormSchema, inputs, submitInfos }: Moda
   } = useForm<SubmitDatasModal>({
     resolver: zodResolver(createFormSchema),
   });
-  const { user } = useStore();
 
   return (
     <form className="w-full flex flex-col gap-8 py-2 px-4" onSubmit={handleSubmit(submitInfos)}>
@@ -38,7 +36,7 @@ export function ModalFormDeposit({ createFormSchema, inputs, submitInfos }: Moda
                   className="border border-[#999] rounded-lg p-2 outline-none"
                   {...register(input.name)}
                   autoComplete="on"
-                  value={user.cpf}
+                  value={""}
                 />
               ) : (
                 <input

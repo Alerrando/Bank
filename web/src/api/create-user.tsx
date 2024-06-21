@@ -1,18 +1,9 @@
 import { ResponseMessage } from "@/context/types";
+import { UserAttributes } from "@/data/user";
 import { AxiosError } from "axios";
 import { api } from "../lib/axios";
 
-type CreateUserProps = {
-  name: string;
-  email: string;
-  cpf: string;
-  password: string;
-  cep: string;
-  dateOfBirth: string;
-  addressNumber: number;
-};
-
-export async function createUser({ name, email, cpf, password, cep, dateOfBirth, addressNumber }: CreateUserProps) {
+export async function createUser({ name, email, cpf, password, cep, dateOfBirth, addressNumber }: UserAttributes) {
   const response = await api.post<ResponseMessage | AxiosError>("/users", {
     name,
     email,

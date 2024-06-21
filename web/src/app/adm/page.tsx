@@ -10,6 +10,7 @@ import { ArrowLeftRight, HandCoins } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import AdmAside from "../../components/AdmAside";
+import { user } from "@/data/user";
 
 export default function Adm() {
   const { authenticated } = useStore();
@@ -82,7 +83,7 @@ export default function Adm() {
                       <HandCoins size={34} />
                     </td>
                     <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
-                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                    <td className="font-semibold text-zinc-400 text-xs py-1">{user.cpf}</td>
                     <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
                       <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
                       <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
@@ -94,7 +95,7 @@ export default function Adm() {
                       <ArrowLeftRight size={34} />
                     </td>
                     <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
-                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                    <td className="font-semibold text-zinc-400 text-xs py-1">{user.cpf}</td>
                     <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
                       <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
                       <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
@@ -105,7 +106,7 @@ export default function Adm() {
                       <HandCoins size={34} />
                     </td>
                     <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
-                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                    <td className="font-semibold text-zinc-400 text-xs py-1">{user.cpf}</td>
                     <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
                       <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
                       <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
@@ -117,7 +118,7 @@ export default function Adm() {
                       <ArrowLeftRight size={34} />
                     </td>
                     <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
-                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                    <td className="font-semibold text-zinc-400 text-xs py-1">{user.cpf}</td>
                     <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
                       <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
                       <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
@@ -128,7 +129,7 @@ export default function Adm() {
                       <HandCoins size={34} />
                     </td>
                     <td className="font-semibold text-princ text-xs py-1">DEP0001</td>
-                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                    <td className="font-semibold text-zinc-400 text-xs py-1">{user.cpf}</td>
                     <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
                       <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
                       <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>
@@ -140,7 +141,7 @@ export default function Adm() {
                       <ArrowLeftRight size={34} />
                     </td>
                     <td className="font-semibold text-princ text-xs py-1">TRANS001</td>
-                    <td className="font-semibold text-zinc-400 text-xs py-1">51858773830</td>
+                    <td className="font-semibold text-zinc-400 text-xs py-1">{user.cpf}</td>
                     <td className="w-full font-semibold h-full flex flex-col justify-between text-end py-1 pr-3">
                       <span className="font-semibold text-princ text-xs py-2">R$ 55,00</span>
                       <span className="font-semibold text-zinc-400 text-xs pb-1">21/02/2024 13:05</span>

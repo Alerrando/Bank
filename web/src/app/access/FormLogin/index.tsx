@@ -110,7 +110,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
 
       setTimeout(() => {
         navigate.push("/adm");
-      }, 5000);
+      }, 2000);
     } catch (error) {
       toast.error("Erro ao fazer login!");
     }

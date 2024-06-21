@@ -38,6 +38,7 @@
     "zustand": "^4.5.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@swc/core": "^1.4.17",
     "@swc/jest": "^0.2.36",
     "@testing-library/jest-dom": "^6.4.2",
