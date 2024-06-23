@@ -1,11 +1,116 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { user } from "@/data/user";
 import { ArrowLeftRight, HandCoins } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 export default function OverviewTabs() {
+  const data = [
+    {
+      name: "01",
+      uv: 4000,
+      pv: 2400,
+      amt: 2400,
+    },
+    {
+      name: "02",
+      uv: 3000,
+      pv: 1398,
+      amt: 2210,
+    },
+    {
+      name: "03",
+      uv: 2000,
+      pv: 9800,
+      amt: 2290,
+    },
+    {
+      name: "04",
+      uv: 2780,
+      pv: 3908,
+      amt: 2000,
+    },
+    {
+      name: "05",
+      uv: 1890,
+      pv: 4800,
+      amt: 2181,
+    },
+    {
+      name: "06",
+      uv: 2390,
+      pv: 3800,
+      amt: 2500,
+    },
+    {
+      name: "07",
+      uv: 3490,
+      pv: 4300,
+      amt: 2100,
+    },
+    {
+      name: "08",
+      uv: 3490,
+      pv: 4300,
+      amt: 2100,
+    },
+    {
+      name: "09",
+      uv: 3490,
+      pv: 4300,
+      amt: 2100,
+    },
+    {
+      name: "10",
+      uv: 3490,
+      pv: 4300,
+      amt: 2100,
+    },
+    {
+      name: "11",
+      uv: 3490,
+      pv: 4300,
+      amt: 2100,
+    },
+    {
+      name: "12",
+      uv: 3490,
+      pv: 4300,
+      amt: 2100,
+    },
+  ];
+
   return (
-    <section className="w-full h-full flex flex-col px-3 py-6 xl:p-6 space-y-8">
-      <Tabs defaultValue="all" className="h-full w-full md:h-full flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto">
+    <section className="w-full h-adm flex flex-col px-3 py-6 xl:p-6 space-y-8">
+      <div className="w-full h-full flex flex-col gap-9">
+        <div className="w-full flex items-center justify-between">
+          <div className="flex flex-col gap-2">
+            <h2 className="text-xl">Overview Balance</h2>
+
+            <span className="text-[#969696]">Lorem ipsum dolor sit amet, consectetur</span>
+          </div>
+        </div>
+
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Bar dataKey="pv" barSize={20} fill="#8884d8" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <Tabs defaultValue="all" className="h-full w-full md:h-[70%] flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto">
         <TabsList className="w-full h-min flex items-center justify-between px-3 py-2 bg-transparent border-b border-b-zinc-100">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="deposits">Deposits</TabsTrigger>
@@ -23,7 +128,7 @@ export default function OverviewTabs() {
               </tr>
             </thead>
 
-            <tbody className="py-2">
+            <tbody className="py-2 overflow-y-auto">
               <tr className="after:block after:absolute after:w-full after:h-[2px] after:bg-princ after:opacity-10 after:-bottom-1 after:inset-x-0 relative">
                 <th className="pl-3 py-1">
                   <HandCoins size={34} />

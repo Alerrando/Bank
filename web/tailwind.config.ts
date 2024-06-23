@@ -78,6 +78,9 @@ const config = {
       gridTemplateRows: {
         login: "45% 55%",
       },
+      height: {
+        adm: "calc(98vh - 64px)",
+      },
     },
     screens: {
       sm: { max: "639px" },
