@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { user } from "@/data/user";
-import { ArrowLeftRight, HandCoins } from "lucide-react";
+import { ArrowLeftRight, ChevronUp, HandCoins } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 export default function OverviewTabs() {
@@ -88,6 +88,27 @@ export default function OverviewTabs() {
 
             <span className="text-[#969696]">Lorem ipsum dolor sit amet, consectetur</span>
           </div>
+
+          <select disabled id="countries_disabled" className="w-44 text-sm rounded-full p-5 bg-transparent cursor-pointer outline-none border">
+            <option value="year-2020" selected>
+              Year (2020)
+            </option>
+          </select>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <span className="text-base">
+            Last Year <span className="text-[#37D159]">$563,443</span>
+          </span>
+
+          <div className="flex items-center gap-4">
+            <h2 className="font-semibold text-3xl">$557,235.31</h2>
+
+            <div className="flex">
+              <span className="text-[#37D159]">7%</span>
+              <ChevronUp className="text-[#37D159]" />
+            </div>
+          </div>
         </div>
 
         <ResponsiveContainer width="100%" height="100%">
@@ -110,7 +131,7 @@ export default function OverviewTabs() {
         </ResponsiveContainer>
       </div>
 
-      <Tabs defaultValue="all" className="h-full w-full md:h-[70%] flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto">
+      <Tabs defaultValue="all" className="h-full w-full md:h-[50%] flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto">
         <TabsList className="w-full h-min flex items-center justify-between px-3 py-2 bg-transparent border-b border-b-zinc-100">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="deposits">Deposits</TabsTrigger>
