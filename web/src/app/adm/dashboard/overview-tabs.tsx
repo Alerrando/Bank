@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { user } from "@/data/user";
 import { ArrowLeftRight, ChevronUp, HandCoins } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 export default function OverviewTabs() {
   const data = [
@@ -80,33 +80,33 @@ export default function OverviewTabs() {
   ];
 
   return (
-    <section className="w-full h-adm flex flex-col px-3 py-6 xl:p-6 space-y-8">
+    <section className="w-full h-adm flex flex-col px-3 md:px-6 space-y-8">
       <div className="w-full h-full flex flex-col gap-9">
         <div className="w-full flex items-center justify-between">
           <div className="flex flex-col gap-2">
-            <h2 className="text-xl">Overview Balance</h2>
+            <h2 className="text-lg md:text-xl">Overview Balance</h2>
 
-            <span className="text-[#969696]">Lorem ipsum dolor sit amet, consectetur</span>
+            <span className="text-xs md:text-base text-[#969696]">Lorem ipsum dolor sit amet, consectetur</span>
           </div>
 
-          <select disabled id="countries_disabled" className="w-44 text-sm rounded-full p-5 bg-transparent cursor-pointer outline-none border">
+          <select disabled id="countries_disabled" className="w-36 md:w-44 text-sm rounded-full p-3 md:p-5 bg-transparent cursor-pointer outline-none border">
             <option value="year-2020" selected>
-              Year (2020)
+              Year (2024)
             </option>
           </select>
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-base">
+          <span className="text-sm md:text-base">
             Last Year <span className="text-[#37D159]">$563,443</span>
           </span>
 
           <div className="flex items-center gap-4">
-            <h2 className="font-semibold text-3xl">$557,235.31</h2>
+            <h2 className="font-semibold text-xl md:text-3xl">$557,235.31</h2>
 
-            <div className="flex">
-              <span className="text-[#37D159]">7%</span>
-              <ChevronUp className="text-[#37D159]" />
+            <div className="flex items-center">
+              <span className="text-sm md:text-base text-[#37D159]">7%</span>
+              <ChevronUp className="w-3 h-3 md:w-4 md:h-4 text-[#37D159]" />
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ export default function OverviewTabs() {
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             width={500}
-            height={300}
+            className="h-[320px!important] md:h-[300px!important]"
             data={data}
             margin={{
               top: 5,
@@ -126,12 +126,13 @@ export default function OverviewTabs() {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
+            <Tooltip />
             <Bar dataKey="pv" barSize={20} fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      <Tabs defaultValue="all" className="h-full w-full md:h-[50%] flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto">
+      <Tabs defaultValue="all" className="h-[70%] w-full flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto">
         <TabsList className="w-full h-min flex items-center justify-between px-3 py-2 bg-transparent border-b border-b-zinc-100">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="deposits">Deposits</TabsTrigger>

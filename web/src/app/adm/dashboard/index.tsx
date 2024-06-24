@@ -10,7 +10,7 @@ export default function Dashboard() {
     <>
       <AdmAside />
       <HeaderAdm />
-      <main className="w-full xl:w-[89%] h-adm grid grid-cols-2 ml-auto mt-16">
+      <main className="w-full xl:w-[89%] h-auto md:h-adm grid grid-rows-2 md:grid-cols-2 md:grid-rows-none gap-6 md:gap-0 ml-auto mt-14 py-4">
         <OverviewTabs />
 
         <CardsHistory />

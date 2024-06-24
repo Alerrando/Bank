@@ -10,23 +10,25 @@ export default function AdmAside() {
   const access = searchParams.get("modal") === "true";
   const navigate = useRouter();
 
+  console.log(access);
+
   return (
     <aside
       className={twMerge(
         "w-[11%] h-full bg-[#222831] py-3 absolute inset-0",
-        `${access ? "xl:w-full xl:bg-modal xl:h-screen xl:fixed xl:inset-0 xl:z-10 xl:py-0" : "hidden xl:block"}`,
+        `${access ? "w-full bg-modal h-screen fixed inset-0 z-10 py-0" : "hidden md:block"}`,
       )}
     >
-      <div className={twMerge("w-full h-auto flex flex-col gap-7", `${access && "xl:w-[65%] xl:h-full xl:bg-zinc-700 xl:py-2 xl:gap-12"}`)}>
-        <div className={twMerge("w-full h-12 flex items-center justify-start relative px-2", `${access && "xl:justify-end"}`)}>
+      <div className={twMerge("w-full h-auto flex flex-col gap-7", `${access && "w-[65%] h-full bg-zinc-700 py-2 gap-12"}`)}>
+        <div className={twMerge("w-full h-12 flex items-center justify-start relative px-2", `${access && "justify-end"}`)}>
           <Image
-            className={twMerge("object-cover left-[-6px!important]", `${access && "xl:w-[80%!important]  xl:left-[-9%!important]"}`)}
+            className={twMerge("object-cover left-[-6px!important]", `${access && "w-[80%!important]  left-[-9%!important]"}`)}
             src="/logo.png"
             alt="logo"
             fill={true}
           />
 
-          {access && <X size={32} className="xl:block hidden text-white" onClick={() => navigate.push(`adm?${redirectPage("true")}`)} data-testid="x-close" />}
+          {access && <X size={32} className="block md:hidden text-white" onClick={() => navigate.push(`adm?${redirectPage("false")}`)} data-testid="x-close" />}
         </div>
 
         <nav className="flex flex-col gap-4">
@@ -68,6 +70,7 @@ export default function AdmAside() {
   );
 
   function redirectPage(redirect: string) {
+    console.log(redirect);
     const params = new URLSearchParams(searchParams.toString());
     params.set("modal", redirect);
     return params.toString();
