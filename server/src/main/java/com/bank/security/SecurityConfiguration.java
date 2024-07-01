@@ -20,11 +20,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity //Habilitar a configuração do web security
 public class SecurityConfiguration {
-    @Autowired
-    private SecurityFilter securityFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+        SecurityFilter securityFilter = new SecurityFilter();
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .cors(httpSecurityCorsConfigurer -> {})
@@ -33,7 +32,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/user").authenticated()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user").authenticated()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
