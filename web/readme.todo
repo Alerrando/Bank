@@ -1,10 +1,39 @@
 
 Projects:
-    ☐ Anything with a colon at the end of the line is a project
-    ☐ Projects will show some statistics next to them @1h
-      ✔ By default those statistics are the number of pending todos and the sum of their time estimates @30m
-    Nested:
-      ☐ You can nest projects inside each other and fold them
+    ☐ Autenticação e Autorização:
+      ✔ Registro de usuários @done(24-07-02 18:23)
+      ✔ Login de usuários @done(24-07-02 18:23)
+      ☐ Recuperação de senha
+      ✔ Controle de acesso baseado em função @done(24-07-02 18:23)
+
+    ☐ Gestão de Contas:
+      ☐ Visualização de saldo e extrato
+      ☐ Encerramento de contas
+
+    ☐ Gestão de Transações:
+      ☐ Transferências entre contas
+      ☐ Depósitos
+      ☐ Saques
+      ☐ Pagamentos de contas
+      ☐ Histórico de transações
+    ☐ Gestão de Cartões:
+      ☐ Emissão de cartões
+      ☐ Bloqueio e desbloqueio de cartões
+      ☐ Visualização de faturas
+
+    ☐ Suporte ao Cliente:
+      ☐ Chat com suporte
+      ☐ Sistema de tickets para suporte
+
+    ☐ Segurança:
+      ☐ Criptografia de dados sensíveis
+      ☐ Monitoramento de atividades suspeitas
+      ☐ Alertas de segurança
+
+    ☐ Relatórios e Análise:
+      ☐ Relatórios financeiros
+      ☐ Análise de transações
+      ☐ Exportação de dados
   
   Todos:
     You can write plain text notes/descriptions wherever you want
@@ -19,25 +48,4 @@ Projects:
     Tagging:
       ☐ You can add tags using the @ symbol, like this @tag
       ☐ There are some special, customizable tags: @critical @high @low @today
-    Timekeeping:
-      ✔ Completed todos can show a timestamp @done(17-11-03 10:42)
-      ☐ Press Alt+S to mark a todo as started @started(17-11-03 10:42)
-        ✔ Now it will show the elapsed time @started(17-11-03 10:42) @done(17-11-03 20:11) @lasted(9h29m)
-      ☐ You can provide time estimates for your todos @1h30m
-        ☐ We are even doing some natural language processing @est(1 day and 20 minutes)
-  
-  Formatting:
-    You can format text in a markdown-like fashion
-    Bold:
-      ☐ Use asterisks for *bold*
-    Italic:
-      ☐ Use underscores for _italic_
-    Strikethrough:
-      ☐ Use tildes for ~strikethrough~
-    Code:
-      ☐ Use backticks for `code`
-  
-  Archive:
-    ✔ You can archive finished todos here
-    ✔ Congratulations, you are now a Todo+ master!
   

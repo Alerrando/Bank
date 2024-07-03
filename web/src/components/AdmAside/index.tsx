@@ -10,8 +10,6 @@ export default function AdmAside() {
   const access = searchParams.get("modal") === "true";
   const navigate = useRouter();
 
-  console.log(access);
-
   return (
     <aside
       className={twMerge(
@@ -49,7 +47,7 @@ export default function AdmAside() {
             <ul className="w-max h-auto hidden group-hover:flex flex-col items-center justify-center text-black absolute left-full shadow-lg bg-[#FAFAFA] border border-[#00000025] rounded-lg">
               <Link
                 href="/adm/deposit?generate=copyPaste"
-                className="flex items-center gap-1 text-sm text-start px-[14px] py-[6px] hover:bg-[#3b6ea1] hover:text-white rounded-lg transition-colors"
+                className="w-full flex items-center gap-1 text-sm text-start px-[14px] py-[6px] hover:bg-[#3b6ea1] hover:text-white rounded-lg transition-colors"
               >
                 <TbPigMoney size={18} />
                 <span className="text-lg font-semibold">Deposit</span>
@@ -57,7 +55,7 @@ export default function AdmAside() {
 
               <Link
                 href="/adm/transfer"
-                className="flex items-center gap-1 text-sm text-start px-[14px] py-[6px] hover:bg-[#3b6ea1] hover:text-white rounded-lg transition-colors"
+                className="w-full flex items-center gap-1 text-sm text-start px-[14px] py-[6px] hover:bg-[#3b6ea1] hover:text-white rounded-lg transition-colors"
               >
                 <TbTransform size={18} />
                 <span className="text-lg font-semibold">Transfer</span>

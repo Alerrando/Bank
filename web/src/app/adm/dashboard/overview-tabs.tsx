@@ -3,85 +3,92 @@ import { user } from "@/data/user";
 import { ArrowLeftRight, ChevronUp, HandCoins } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
+type Data = {
+  name: string;
+  dep: number;
+  withd: number;
+  total: number;
+};
+
 export default function OverviewTabs() {
-  const data = [
+  const data: Data[] = [
     {
-      name: "01",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
+      name: "Jan",
+      dep: 150,
+      withd: 2400,
+      total: 2400,
     },
     {
-      name: "02",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
+      name: "Feb",
+      dep: 360,
+      withd: 1398,
+      total: 2210,
     },
     {
-      name: "03",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
+      name: "Mar",
+      dep: 2000,
+      withd: 9800,
+      total: 2290,
     },
     {
-      name: "04",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
+      name: "Apr",
+      dep: 2780,
+      withd: 3908,
+      total: 2000,
     },
     {
-      name: "05",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
+      name: "May",
+      dep: 1890,
+      withd: 4800,
+      total: 2181,
     },
     {
-      name: "06",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
+      name: "Jun",
+      dep: 2390,
+      withd: 3800,
+      total: 2500,
     },
     {
-      name: "07",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      name: "Jul",
+      dep: 3490,
+      withd: 4300,
+      total: 2100,
     },
     {
-      name: "08",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      name: "Aug",
+      dep: 3490,
+      withd: 4300,
+      total: 2100,
     },
     {
-      name: "09",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      name: "Sep",
+      dep: 3490,
+      withd: 4300,
+      total: 2100,
     },
     {
-      name: "10",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      name: "Oct",
+      dep: 3490,
+      withd: 4300,
+      total: 2100,
     },
     {
-      name: "11",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      name: "Nov",
+      dep: 3490,
+      withd: 4300,
+      total: 2100,
     },
     {
-      name: "12",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
+      name: "Dec",
+      dep: 3490,
+      withd: 4300,
+      total: 2100,
     },
   ];
 
   return (
-    <section className="w-full h-adm flex flex-col px-3 md:px-6 space-y-8">
-      <div className="w-full h-full flex flex-col gap-9">
+    <section className="w-full h-adm flex flex-col px-1 md:px-2 space-y-8">
+      <div className="w-full h-full flex flex-col gap-9 bg-[#F2F2F2] px-2 md:px-4 py-4 rounded-2xl">
         <div className="w-full flex items-center justify-between">
           <div className="flex flex-col gap-2">
             <h2 className="text-lg md:text-xl">Overview Balance</h2>
@@ -127,15 +134,17 @@ export default function OverviewTabs() {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="pv" barSize={20} fill="#8884d8" />
+            <Bar dataKey="dep" barSize={15} fill="#22c55e" />
+            <Bar dataKey="withd" barSize={15} fill="#ef4444" />
+            <Bar dataKey="total" barSize={15} fill="#3b82f6" />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      <Tabs defaultValue="all" className="h-[70%] w-full flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto">
+      <Tabs defaultValue="all" className="h-[70%] w-full flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto bg-[#F2F2F2]">
         <TabsList className="w-full h-min flex items-center justify-between px-3 py-2 bg-transparent border-b border-b-zinc-100">
           <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="deposits">Deposits</TabsTrigger>
+          <TabsTrigger value="dep">Deposits</TabsTrigger>
           <TabsTrigger value="transfers">Transfers</TabsTrigger>
         </TabsList>
 
@@ -224,7 +233,7 @@ export default function OverviewTabs() {
           </table>
         </TabsContent>
 
-        <TabsContent value="deposits"></TabsContent>
+        <TabsContent value="dep"></TabsContent>
         <TabsContent value="transfers"></TabsContent>
       </Tabs>
     </section>
