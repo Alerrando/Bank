@@ -4,6 +4,7 @@ import com.bank.dto.UserDTO;
 import com.bank.entities.Addresses;
 import com.bank.entities.MessageReturn;
 import com.bank.entities.User;
+import com.bank.projections.TransactionsDetailsProjections;
 import com.bank.repositories.AddressesRepository;
 import com.bank.repositories.UserRepository;
 import com.bank.util.CookiesEvent;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -29,6 +31,9 @@ public class UserService{
 
     @Autowired
     private CookiesEvent cookiesEvent;
+
+    @Autowired
+    private TokenService tokenService;
 
     public List<UserDTO> getAll(){
         return userRepository.findAll().stream().map(UserDTO::new).toList();
@@ -54,15 +59,16 @@ public class UserService{
         user.setId(id);
 
         cookiesEvent.addCookie("idUser", id);
+        tokenService.generateToken(user);
         addressesRepository.save(addresses);
         userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageReturn(true, "Registered User"));
     }
 
-    public ResponseEntity<UserDTO> getInfosUser(){
-        String idUser = cookiesEvent.getValueCookie("idUser");
-        Optional<User> optional = userRepository.findById("0");
+    public ResponseEntity<List<TransactionsDetailsProjections>> getInfosUser(LocalDate dateStart, LocalDate dateEnd){
+        //Long idUser = Long.valueOf(cookiesEvent.getValueCookie("idUser"));
+        List<TransactionsDetailsProjections> transactionsDetailsProjections = userRepository.getDepWithdDetailsProjections(0L, dateStart, dateEnd);
 
-        return optional.map(user -> ResponseEntity.status(HttpStatus.ACCEPTED).body(new UserDTO(user))).orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserDTO()));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(transactionsDetailsProjections);
     }
 }

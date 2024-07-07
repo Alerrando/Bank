@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -35,7 +37,7 @@ public class DepositService {
         User user = userRepository.findById("13167492-8896-4da7-a34d-abbbb9da50e1").orElseThrow();
 
         String formattedId = String.format("%04d", nextId);
-        Deposit deposit = new Deposit(0L, user, "DEP" + formattedId, value);
+        Deposit deposit = new Deposit(0L, user, "DEP" + formattedId, value, LocalDate.now());
         user.setTotal_value(user.getTotal_value() + value);
 
 

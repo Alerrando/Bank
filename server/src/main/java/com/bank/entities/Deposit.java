@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
+import java.time.LocalDate;
+
 @Table(name = "deposit")
 @Entity
 @Getter
@@ -21,15 +24,16 @@ public class Deposit {
 
     private double value;
 
+    private LocalDate date;
+
     public Deposit (){
     }
 
-    public Deposit(Long id, User user,String authorization_code, double value) {
+    public Deposit(Long id, User user,String authorization_code, double value, LocalDate date) {
         this.id = id;
         this.user = user;
         this.authorization_code = authorization_code;
         this.value = value;
+        this.date = date;
     }
-
-
 }

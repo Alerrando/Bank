@@ -3,12 +3,11 @@ package com.bank.services;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.bank.entities.AuthenticationDTO;
+import com.bank.entities.User;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -21,13 +20,12 @@ public class TokenService {
     @Autowired
     private HttpServletResponse response;
 
-
     @Value("${jwt.cookieExpiry}")
     private int cookieExpiry;
 
     @Value("${api.security.token.secret}")
     private String secret;
-    public void generateToken(AuthenticationDTO user) {
+    public void generateToken(User user) {
         try {
             if (user != null) {
                 Algorithm algorithm = Algorithm.HMAC256(secret);

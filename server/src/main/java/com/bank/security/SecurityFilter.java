@@ -19,8 +19,6 @@ import java.io.IOException;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
-    @Autowired
-    private TokenService tokenService;
 
     @Autowired
     private UserRepository userRepository;
@@ -33,8 +31,9 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("accessToken")) {
+                    TokenService tokenService = new TokenService();
                     String token = cookie.getValue();
-                    var subject = tokenService.validateToken(token);
+                    String subject = tokenService.validateToken(token);
                     UserDetails user = userRepository.findUser(subject);
                     if (user != null) {
                         var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());

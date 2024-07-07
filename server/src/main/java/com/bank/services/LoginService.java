@@ -20,6 +20,9 @@ public class LoginService {
     @Autowired
     private CookiesEvent cookiesEvent;
 
+    @Autowired
+    private TokenService tokenService;
+
     public ResponseEntity<MessageReturn> login(String email, String password){
         Optional<User> userSearch = userRepository.findByEmail(email);
         String encryptPassword = new BCryptPasswordEncoder().encode(password);
@@ -29,6 +32,7 @@ public class LoginService {
         }
 
         cookiesEvent.addCookie("idUser", userSearch.get().getId());
+        tokenService.generateToken(userSearch.get());
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new MessageReturn(true, "Logged in User!"));
     }
 }
