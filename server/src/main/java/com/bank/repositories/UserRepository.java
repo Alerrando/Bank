@@ -1,7 +1,8 @@
 package com.bank.repositories;
 
 import com.bank.entities.User;
-import com.bank.projections.TransactionsDetailsProjections;
+import com.bank.projections.DepositsDetails;
+import com.bank.projections.TransferDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +20,9 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("Select u FROM User u Where u.email = :email")
     UserDetails findUser(@Param("email") String email);
 
-    @Query("SELECT MONTH(d.date) as month, SUM(d.value) as deposits, SUM(t.value) as withdrawals FROM Deposit d LEFT JOIN Transfer t ON t.user_cpf.id = d.user.id AND t.date BETWEEN :dateStart AND :dateEnd WHERE d.user.id = :id GROUP BY MONTH(d.date), d.value, t.value")
-    List<TransactionsDetailsProjections> getDepWithdDetailsProjections(@Param("id") Long id, @Param("dateStart") LocalDate dateStart, @Param("dateEnd") LocalDate dateEnd);
+    @Query("SELECT MONTH(d.date) as month, SUM(d.value) as deposits FROM Deposit d WHERE d.user.id = :id AND d.date BETWEEN :dateStart AND :dateEnd GROUP BY MONTH(d.date)")
+    List<DepositsDetails> getDepDetailsProjections(@Param("id") Long id, @Param("dateStart") LocalDate dateStart, @Param("dateEnd") LocalDate dateEnd);
+
+    @Query("SELECT MONTH(t.date) as month, SUM(t.value) as withdrawals FROM Transfer t WHERE t.user_cpf.id = :id AND t.date BETWEEN :dateStart AND :dateEnd GROUP BY MONTH(t.date)")
+    List<TransferDetails> getWithDetailsProjections(@Param("id") Long id, @Param("dateStart") LocalDate dateStart, @Param("dateEnd") LocalDate dateEnd);
 }

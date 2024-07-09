@@ -4,11 +4,12 @@ import com.bank.dto.UserDTO;
 import com.bank.entities.Addresses;
 import com.bank.entities.MessageReturn;
 import com.bank.entities.User;
-import com.bank.projections.TransactionsDetailsProjections;
+import com.bank.projections.DepositsDetails;
+import com.bank.projections.TransactionsDetailsProjectionsImpl;
+import com.bank.projections.TransferDetails;
 import com.bank.repositories.AddressesRepository;
 import com.bank.repositories.UserRepository;
 import com.bank.util.CookiesEvent;
-import com.nimbusds.openid.connect.sdk.claims.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserService{
@@ -65,9 +68,19 @@ public class UserService{
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageReturn(true, "Registered User"));
     }
 
-    public ResponseEntity<List<TransactionsDetailsProjections>> getInfosUser(LocalDate dateStart, LocalDate dateEnd){
+    public ResponseEntity<List<TransactionsDetailsProjectionsImpl>> getInfosUser(LocalDate dateStart, LocalDate dateEnd){
         //Long idUser = Long.valueOf(cookiesEvent.getValueCookie("idUser"));
-        List<TransactionsDetailsProjections> transactionsDetailsProjections = userRepository.getDepWithdDetailsProjections(0L, dateStart, dateEnd);
+        List<DepositsDetails> depositsDetails = userRepository.getDepDetailsProjections(0L, dateStart, dateEnd);
+        List<TransferDetails> transferDetails = userRepository.getWithDetailsProjections(0L, dateStart, dateEnd);
+        List<TransactionsDetailsProjectionsImpl> transactionsDetailsProjections = new ArrayList<>();
+
+        for (int i = 0; i < Math.min(depositsDetails.size(), transferDetails.size()); i++) {
+            TransactionsDetailsProjectionsImpl projections = new TransactionsDetailsProjectionsImpl();
+            projections.setMonth(depositsDetails.get(i).getMonth());
+            projections.setDeposits(depositsDetails.get(i).getDeposits());
+            projections.setWithdrawals(transferDetails.get(i).getWithdrawals());
+            transactionsDetailsProjections.add(projections);
+        }
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(transactionsDetailsProjections);
     }
