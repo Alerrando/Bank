@@ -1,91 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { balanceYearlyData } from "@/data/balance-yearly";
 import { user } from "@/data/user";
 import { ArrowLeftRight, ChevronUp, HandCoins } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-type Data = {
-  name: string;
-  dep: number;
-  withd: number;
-  total: number;
-};
-
 export default function OverviewTabs() {
-  const data: Data[] = [
-    {
-      name: "Jan",
-      dep: 150,
-      withd: 2400,
-      total: 2400,
-    },
-    {
-      name: "Feb",
-      dep: 360,
-      withd: 1398,
-      total: 2210,
-    },
-    {
-      name: "Mar",
-      dep: 2000,
-      withd: 9800,
-      total: 2290,
-    },
-    {
-      name: "Apr",
-      dep: 2780,
-      withd: 3908,
-      total: 2000,
-    },
-    {
-      name: "May",
-      dep: 1890,
-      withd: 4800,
-      total: 2181,
-    },
-    {
-      name: "Jun",
-      dep: 2390,
-      withd: 3800,
-      total: 2500,
-    },
-    {
-      name: "Jul",
-      dep: 3490,
-      withd: 4300,
-      total: 2100,
-    },
-    {
-      name: "Aug",
-      dep: 3490,
-      withd: 4300,
-      total: 2100,
-    },
-    {
-      name: "Sep",
-      dep: 3490,
-      withd: 4300,
-      total: 2100,
-    },
-    {
-      name: "Oct",
-      dep: 3490,
-      withd: 4300,
-      total: 2100,
-    },
-    {
-      name: "Nov",
-      dep: 3490,
-      withd: 4300,
-      total: 2100,
-    },
-    {
-      name: "Dec",
-      dep: 3490,
-      withd: 4300,
-      total: 2100,
-    },
-  ];
-
   return (
     <section className="w-full h-adm flex flex-col px-1 md:px-2 space-y-8">
       <div className="w-full h-full flex flex-col gap-9 bg-[#F2F2F2] px-2 md:px-4 py-4 rounded-2xl">
@@ -122,7 +41,7 @@ export default function OverviewTabs() {
           <BarChart
             width={500}
             className="h-[320px!important] md:h-[300px!important]"
-            data={data}
+            data={balanceYearlyData}
             margin={{
               top: 5,
               right: 30,
@@ -134,8 +53,8 @@ export default function OverviewTabs() {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="dep" barSize={15} fill="#22c55e" />
-            <Bar dataKey="withd" barSize={15} fill="#ef4444" />
+            <Bar dataKey="deposits" barSize={15} fill="#22c55e" />
+            <Bar dataKey="withdrawals" barSize={15} fill="#ef4444" />
             <Bar dataKey="total" barSize={15} fill="#3b82f6" />
           </BarChart>
         </ResponsiveContainer>
