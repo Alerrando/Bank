@@ -1,5 +1,6 @@
 package com.bank.controllers;
 
+import com.bank.dto.DepositRequest;
 import com.bank.entities.Deposit;
 import com.bank.entities.MessageReturn;
 import com.bank.services.DepositService;
@@ -21,7 +22,7 @@ public class DepositController {
     }
 
     @PostMapping
-    public ResponseEntity<MessageReturn> create(@RequestBody Double value){
-        return depositService.create(value);
+    public ResponseEntity<MessageReturn> create(@RequestBody DepositRequest depositRequest){
+        return depositService.create(depositRequest);
     }
 }

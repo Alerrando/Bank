@@ -31,4 +31,11 @@ public class ControllerExceptionHandler {
         ValidationError err = new ValidationError(Instant.now(), status.value(), "Usuário não autorizado", request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<CustomError> noSuchElementException(NoSuchElementException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ValidationError err = new ValidationError(Instant.now(), status.value(), "Recurso não encontrado", request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
 }
