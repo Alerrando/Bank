@@ -1,5 +1,6 @@
 import { login } from "@/api/login";
-import { InputsProps } from "@/context/types";
+import { useMutationHook } from "@/hooks/useMutationHook";
+import { InputsModel } from "@/models/InputsModel";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Key } from "react";
@@ -29,8 +30,25 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   });
   const { setAuthenticated } = useStore();
   const navigate = useRouter();
+  const { mutateAsync: mutationLoginFn } = useMutationHook({
+    mutationKey: ["mutation-login"],
+    mutationFn: async (data: SchemaType) => {
+      try {
+        await login(data);
+        toast.success("Login feito com sucesso!");
 
-  const inputs: InputsProps[] = [
+        setAuthenticated(true);
+
+        setTimeout(() => {
+          navigate.push("/adm");
+        }, 2000);
+      } catch (error) {
+        toast.error("Erro ao fazer login!");
+      }
+    },
+  });
+
+  const inputs: InputsModel[] = [
     {
       nameSpan: "Email",
       classNameGrid: "items-start",
@@ -57,7 +75,7 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
         <span className="font-semibold opacity-60">Faça Login</span>
       </div>
       <form className="h-full w-full flex flex-col gap-8 pt-4" onSubmit={handleSubmit(submit)}>
-        {inputs.map((input: InputsProps, index: Key) => (
+        {inputs.map((input: InputsModel, index: Key) => (
           <div className={`flex flex-col gap-1 ${input.classNameGrid} justify-start text-black`} key={index}>
             <div className="w-4/5 text-start">
               <span className="font-bold">{input.nameSpan}</span>
@@ -102,17 +120,6 @@ export function FormLogin({ handleTogglePages }: FormLoginProps) {
   );
 
   async function submit(e: SchemaType) {
-    try {
-      await login(e);
-      toast.success("Login feito com sucesso!");
-
-      setAuthenticated(true);
-
-      setTimeout(() => {
-        navigate.push("/adm");
-      }, 2000);
-    } catch (error) {
-      toast.error("Erro ao fazer login!");
-    }
+    await mutationLoginFn(e);
   }
 }

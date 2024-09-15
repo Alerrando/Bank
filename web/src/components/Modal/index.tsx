@@ -1,9 +1,9 @@
 import { IoMdClose } from "react-icons/io";
 import { ZodType } from "zod";
 import { ModalFormDeposit } from "./ModalFormDeposit";
-import { InputsProps } from "@/context/types";
 import { SchemaDepositDataType } from "@/app/adm/deposit/TabCopyPaste";
 import { SchemaTransferDataType } from "@/app/adm/transfer/page";
+import { InputsModel } from "@/models/InputsModel";
 
 export type SubmitDatasModal = SchemaDepositDataType | SchemaTransferDataType;
 
@@ -11,7 +11,7 @@ type ModalProps = {
   setModal: () => void;
   submitInfos: (data: SubmitDatasModal) => void;
   title: string;
-  inputs: InputsProps[];
+  inputs: InputsModel[];
   createFormSchema: ZodType<any, any, any>;
   modalName: string;
 };

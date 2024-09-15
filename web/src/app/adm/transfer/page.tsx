@@ -4,7 +4,7 @@ import HeaderAdm from "@/components/HeaderAdm";
 import Input from "@/components/Input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { isAuth, useStore } from "@/context";
-import { InputsProps } from "@/context/types";
+import { InputsModel } from "@/models/InputsModel";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -31,7 +31,7 @@ export default function Transfer() {
   } = useForm<SchemaTransferDataType>({
     resolver: zodResolver(schemaData),
   });
-  const inputs: InputsProps[] = [
+  const inputs: InputsModel[] = [
     {
       classNameGrid: "items-start",
       name: "value",
@@ -92,7 +92,7 @@ export default function Transfer() {
 
               <Tabs defaultValue="email" className="w-full flex flex-col gap-4 rounded-lg overflow-y-auto">
                 <TabsList className="w-min flex items-center justify-start bg-transparent border border-[#D9D9D9]">
-                  {inputs.map((input: InputsProps, index: number) => (
+                  {inputs.map((input: InputsModel, index: number) => (
                     <>
                       {index > 0 && (
                         <TabsTrigger className="w-full px-4 py-2 text-xl" value={input.name}>
@@ -103,7 +103,7 @@ export default function Transfer() {
                   ))}
                 </TabsList>
 
-                {inputs.map((input: InputsProps, index: number) => (
+                {inputs.map((input: InputsModel, index: number) => (
                   <>
                     {index > 0 ? (
                       <TabsContent value={input.name} className="w-full flex flex-col md:flex-row items-start md:items-end gap-2">

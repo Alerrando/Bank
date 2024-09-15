@@ -1,5 +1,5 @@
 import { createUser } from "@/api/create-user";
-import { InputsProps } from "@/context/types";
+import { InputsModel } from "@/models/InputsModel";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format, isValid, parseISO } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -44,7 +44,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
   });
   const navigate = useRouter();
 
-  const inputs: InputsProps[] = [
+  const inputs: InputsModel[] = [
     {
       nameSpan: "Nome",
       classNameGrid: "items-start",
@@ -98,7 +98,7 @@ export function FormRegister({ handleTogglePages }: FormRegisterProps) {
         <span className="font-semibold opacity-60">Faça seu cadastro aqui!</span>
       </div>
       <form className="h-full w-full grid grid-cols-inputs-register pt-4" onSubmit={handleSubmit(submit)}>
-        {inputs.map((input: InputsProps, index: Key) => (
+        {inputs.map((input: InputsModel, index: Key) => (
           <div className={`flex flex-col gap-1 ${input.classNameGrid} justify-start text-black`} key={index}>
             <div className="w-4/5 text-start">
               <span className="font-bold">{input.nameSpan}</span>

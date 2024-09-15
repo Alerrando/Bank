@@ -7,7 +7,7 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 export default function OverviewTabs() {
   return (
     <section className="w-full h-adm flex flex-col px-1 md:px-2 space-y-8">
-      <div className="w-full h-full flex flex-col gap-9 bg-[#F2F2F2] px-2 md:px-4 py-4 rounded-2xl">
+      <div className="w-full h-full flex flex-col gap-9 bg-white px-2 md:px-4 py-4 rounded-2xl">
         <div className="w-full flex items-center justify-between">
           <div className="flex flex-col gap-2">
             <h2 className="text-lg md:text-xl">Overview Balance</h2>
@@ -60,7 +60,7 @@ export default function OverviewTabs() {
         </ResponsiveContainer>
       </div>
 
-      <Tabs defaultValue="all" className="h-[70%] w-full flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto bg-[#F2F2F2]">
+      <Tabs defaultValue="all" className="h-[70%] w-full flex flex-col gap-2 border shadow-lg rounded-lg overflow-y-auto bg-white">
         <TabsList className="w-full h-min flex items-center justify-between px-3 py-2 bg-transparent border-b border-b-zinc-100">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="dep">Deposits</TabsTrigger>

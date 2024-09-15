@@ -1,5 +1,5 @@
 import Input from "@/components/Input";
-import { InputsProps } from "@/context/types";
+import { InputsModel } from "@/models/InputsModel";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,7 +21,7 @@ export default function TabTicket() {
   } = useForm<SchemaDataType>({
     resolver: zodResolver(schemaData),
   });
-  const inputs: InputsProps[] = [
+  const inputs: InputsModel[] = [
     {
       classNameGrid: "items-start",
       name: "value",
@@ -33,7 +33,7 @@ export default function TabTicket() {
   return (
     <>
       <form action="" className="w-full flex flex-col gap-4" onSubmit={handleSubmit(submit)}>
-        {inputs.map((input: InputsProps) => (
+        {inputs.map((input: InputsModel) => (
           <Input input={input} errors={errors} register={register} key={input.name} />
         ))}
 

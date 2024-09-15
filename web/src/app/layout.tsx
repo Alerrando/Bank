@@ -6,12 +6,15 @@ import { Inter } from "next/font/google";
 import React, { Suspense, useEffect } from "react";
 import { Toaster } from "sonner";
 import { StateProvider } from "../context";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./globals.css";
 
 const fontSans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
+
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -35,9 +38,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("bg-background font-sans antialiased", fontSans.variable)}>
-        <StateProvider>
-          <Suspense>{children}</Suspense>
-        </StateProvider>
+        <QueryClientProvider client={queryClient}>
+          <StateProvider>
+            <Suspense>{children}</Suspense>
+          </StateProvider>
+        </QueryClientProvider>
         <Toaster richColors />
       </body>
     </html>

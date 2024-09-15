@@ -1,13 +1,13 @@
-import { InputsProps } from "@/context/types";
 import { ErrorMessage } from "@hookform/error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ZodType } from "zod";
 import { SubmitDatasModal } from "..";
+import { InputsModel } from "@/models/InputsModel";
 
 type ModalFormDepositProps = {
   submitInfos: (data: SubmitDatasModal) => void;
-  inputs: InputsProps[];
+  inputs: InputsModel[];
   createFormSchema: ZodType<any, any, any>;
 };
 
@@ -23,7 +23,7 @@ export function ModalFormDeposit({ createFormSchema, inputs, submitInfos }: Moda
   return (
     <form className="w-full flex flex-col gap-8 py-2 px-4" onSubmit={handleSubmit(submitInfos)}>
       <div className="w-full flex flex-col gap-3">
-        {inputs?.map((input: InputsProps, indexInputs: number) => (
+        {inputs?.map((input: InputsModel, indexInputs: number) => (
           <div key={input.name} className="w-full flex flex-col gap-2">
             <div className="w-full flex flex-col gap-2">
               <label htmlFor={input.name} className="font-bold">

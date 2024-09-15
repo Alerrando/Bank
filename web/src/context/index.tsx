@@ -12,7 +12,6 @@ export type ContextProps = {
 };
 
 const valuesContextDefault: ContextProps = {
-  setUser: () => {},
   authenticated: false,
   setAuthenticated: () => {},
   toastMessageLogin: () => {},
@@ -47,9 +46,7 @@ export const useStore = () => {
   return context;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isAuth(Component: any, authenticated: boolean) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const auth = authenticated;
 
   if (!auth) {

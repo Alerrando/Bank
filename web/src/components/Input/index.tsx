@@ -1,8 +1,8 @@
-import { InputsProps } from "@/context/types";
+import { InputsModel } from "@/models/InputsModel";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 type InputProps = {
-  input: InputsProps;
+  input: InputsModel;
   errors: FieldErrors<any>;
   register: UseFormRegister<any>;
 };

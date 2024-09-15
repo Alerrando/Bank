@@ -1,11 +1,11 @@
-import { CardWalletProps } from "@/context/types";
+import { CardWalletModel } from "@/models/CardWalletPropsModel";
 
 export const styleToast = {
   success: "bg-[#16a34a!important] border border-[#16a34a!important] text-[#fff!important]",
   error: "bg-[#dc2626!important] border border-[#dc2626!important] text-[#fff!important]",
 };
 
-export const cardsWallet: CardWalletProps[] = [
+export const cardsWallet: CardWalletModel[] = [
   {
     name: "Main Wallet",
     limit: "$45.500,12",

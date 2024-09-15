@@ -1,6 +1,6 @@
 import Input from "@/components/Input";
 import { useStore } from "@/context";
-import { InputsProps } from "@/context/types";
+import { InputsModel } from "@/models/InputsModel";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { QrCodePix } from "qrcode-pix";
@@ -39,7 +39,7 @@ export default function TabCopyPaste() {
     copypaste: "",
     qrcode: "",
   });
-  const inputs: InputsProps[] = [
+  const inputs: InputsModel[] = [
     {
       classNameGrid: "items-start",
       name: "copyPaste",
@@ -59,7 +59,7 @@ export default function TabCopyPaste() {
 
   return (
     <form action="" className="w-full h-full flex flex-col gap-4" onSubmit={handleSubmit(submit)}>
-      {inputs.map((input: InputsProps, index: number) => (
+      {inputs.map((input: InputsModel, index: number) => (
         <div className="flex flex-col gap-4" key={index}>
           <Input input={input} errors={errors} register={register} />
 
